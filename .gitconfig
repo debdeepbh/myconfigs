@@ -1,0 +1,10 @@
+[user]
+	name = Debdeep
+	email = 6978309+debdeepbh@users.noreply.github.com
+[diff]
+	tool = vimdiff
+[alias]
+	p = pull --rebase
+	;c = "!f() { git add . && git commit -m \"$@\" && git push -u origin HEAD; }; f"
+	c = "!git add . && git commit && git push -u origin HEAD"
+
