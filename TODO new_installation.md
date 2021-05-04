@@ -376,7 +376,7 @@ done
 * `:/` to search for the last searched string
 * Use buffer instead of tabs for the same project
 
-## Ex commands
+## vim Ex commands
 
 We can apply a command on a range of lines using ex commands.
 
