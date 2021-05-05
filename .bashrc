@@ -143,6 +143,8 @@ if [ -n "${SSH_CONNECTION}" ]; then
     CNX=${Green}        # Connected on remote machine, via ssh (good).
 elif [[ "${DISPLAY%%:0*}" != "" ]]; then
     CNX=${ALERT}        # Connected on remote machine, not via ssh (bad).
+elif [ -n "$TMUX" ]; then
+    CNX=${BBlack}        # tmux session
 else
     CNX=${BBlue}        # Connected on local machine.
 fi
@@ -156,42 +158,39 @@ else
     SU=${BCyan}         # User is normal (well ... most of us are).
 fi
 
-
-
-NCPU=$(grep -c 'processor' /proc/cpuinfo)    # Number of CPUs
-SLOAD=$(( 100*${NCPU} ))        # Small load
-MLOAD=$(( 200*${NCPU} ))        # Medium load
-XLOAD=$(( 400*${NCPU} ))        # Xlarge load
+#NCPU=$(grep -c 'processor' /proc/cpuinfo)    # Number of CPUs
+#SLOAD=$(( 100*${NCPU} ))        # Small load
+#MLOAD=$(( 200*${NCPU} ))        # Medium load
+#XLOAD=$(( 400*${NCPU} ))        # Xlarge load
 
 # Returns system load as percentage, i.e., '40' rather than '0.40)'.
-function load()
-{
-    local SYSLOAD=$(cut -d " " -f1 /proc/loadavg | tr -d '.')
-    # System load of the current host.
-    echo $((10#$SYSLOAD))       # Convert to decimal.
-}
+#function load()
+#{
+    #local SYSLOAD=$(cut -d " " -f1 /proc/loadavg | tr -d '.')
+    ## System load of the current host.
+    #echo $((10#$SYSLOAD))       # Convert to decimal.
+#}
 
-# Returns a color indicating system load.
-function load_color()
-{
-    local SYSLOAD=$(load)
-    if [ ${SYSLOAD} -gt ${XLOAD} ]; then
-        echo -en ${ALERT}
-    elif [ ${SYSLOAD} -gt ${MLOAD} ]; then
-        echo -en ${Red}
-    elif [ ${SYSLOAD} -gt ${SLOAD} ]; then
-        echo -en ${BRed}
-    else
-        echo -en ${Green}
-    fi
-}
+## Returns a color indicating system load.
+#function load_color()
+#{
+    #local SYSLOAD=$(load)
+    #if [ ${SYSLOAD} -gt ${XLOAD} ]; then
+        #echo -en ${ALERT}
+    #elif [ ${SYSLOAD} -gt ${MLOAD} ]; then
+        #echo -en ${Red}
+    #elif [ ${SYSLOAD} -gt ${SLOAD} ]; then
+        #echo -en ${BRed}
+    #else
+        #echo -en ${Green}
+    #fi
+#}
 
 # Returns a color according to free disk space in $PWD.
 function disk_color()
 {
     if [ ! -w "${PWD}" ] ; then
-        echo -en ${Red}
-        # No 'write' privilege in the current directory.
+        echo -en ${Red} # No 'write' privilege in the current directory.
     elif [ -s "${PWD}" ] ; then
         local used=$(command df -P "$PWD" |
                    awk 'END {print $5} {sub(/%/,"")}')
@@ -209,48 +208,54 @@ function disk_color()
 }
 
 # Returns a color according to running/suspended jobs.
-function job_color()
-{
-    if [ $(jobs -s | wc -l) -gt "0" ]; then
-        echo -en ${BRed}
-    elif [ $(jobs -r | wc -l) -gt "0" ] ; then
-        echo -en ${BBlue}
-    fi
-}
+#function job_color()
+#{
+    #if [ $(jobs -s | wc -l) -gt "0" ]; then
+        #echo -en ${BRed}
+    #elif [ $(jobs -r | wc -l) -gt "0" ] ; then
+        #echo -en ${BBlue}
+    #fi
+#}
 
 # Adds some text in the terminal frame (if applicable).
 
+#PROMPT_COMMAND="history -a"
+
+#case ${TERM} in
+#  *term* | rxvt | linux)	# Originally: *term | rxvt | linux)
+#        # Time of day (with load info):
+##        PS1="\[\$(load_color)\][\A\[${NC}\] "
+#        # User@Host (with connection type info):
+#        PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
+#
+#        # PWD (with 'disk space' info):
+#        PS1=${PS1}"\[\$(disk_color)\]\W>\[${NC}\] "
+#        # Prompt (with 'job' info):
+##        PS1=${PS1}"\[\$(job_color)\]>\[${NC}\] "
+#        # Set title of current xterm:
+##        PS1=${PS1}"\[\e]0;[\u@\h] \w\a\]"
+#
+#        ;;
+#    *)
+##        PS1="(\A \u@\h \W) > " # --> PS1="(\A \u@\h \w) > "
+#                               # --> Shows full pathname of current dir.
+#        ;;
+#esac
 
 
-
-PROMPT_COMMAND="history -a"
-case ${TERM} in
-  *term* | rxvt | linux)	# Originally: *term | rxvt | linux)
-        # Time of day (with load info):
-#        PS1="\[\$(load_color)\][\A\[${NC}\] "
-        # User@Host (with connection type info):
-        PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
-
-        # PWD (with 'disk space' info):
-        PS1=${PS1}"\[\$(disk_color)\]\W>\[${NC}\] "
-        # Prompt (with 'job' info):
-#        PS1=${PS1}"\[\$(job_color)\]>\[${NC}\] "
-        # Set title of current xterm:
-#        PS1=${PS1}"\[\e]0;[\u@\h] \w\a\]"
-
-        ;;
-    *)
-#        PS1="(\A \u@\h \W) > " # --> PS1="(\A \u@\h \w) > "
-                               # --> Shows full pathname of current dir.
-        ;;
-esac
-
-
-# Following the trend od the original bashrc
+# Following the trend of the original bashrc
 #PS2='> '
 #PS3='> '
 #PS4='+ '
 
+## simpler universal prompt
+# Time of day (with load info):
+#PS1="\[\$(load_color)\][\A\[${NC}\] "
+# User@Host (with connection type info):
+PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
+#PS1="\e[4m\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
+# PWD (with 'disk space' info):
+PS1=${PS1}"\[\$(disk_color)\]\W\[${NC}\]> "
 
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
@@ -258,8 +263,6 @@ export HISTIGNORE="&:bg:fg:ll:h"
 export HISTTIMEFORMAT="$(echo -e ${BCyan})[%d/%m %H:%M:%S]$(echo -e ${NC}) "
 export HISTCONTROL=ignoredups
 export HOSTFILE=$HOME/.hosts    # Put a list of remote hosts in ~/.hosts
-
-
 
 #============================================================
 #
@@ -336,20 +339,13 @@ function stopwatch(){
 }
 
 ## Making sxiv capable of opening .gifs
-## Decided not to use it
 #alias sxiv='sxiv -a'
 
 ## For colour output in cat
-#
 #alias ccat='vimcat'
-#
+
 ## Added by me for a custom lock screen comand
-#
 #alias lscr='cmatrix -a -b -u 5; vlock -a'
-#
-## A quick shortcut to my favourite working directory
-#
-#alias Lenovo='cd /storage/Lenovo/'
 
 # An alias needed by .myscr called dwz to change to the tempo directory after extracting the latest zip file
 
@@ -357,8 +353,9 @@ alias dwz='gtstf && cd ~/tempo'
 
 alias dwn='. ctstf'
 
-alias comp='g++ `pkg-config opencv --cflags --libs`'
-# An experimental directory changing attempt from the last opened path
+#alias comp='g++ `pkg-config opencv --cflags --libs`'
+
+# directory changing from the last opened path
 # ldp to load the path from the file .last_dir which was created by the modified "cd" alias. See the function cd_ for details.
 alias ldp='cd $(cat ~/.last_dir)'
 
@@ -382,13 +379,9 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 #alias moew='more'
 #alias kk='ll'
 
-
-
-
 #-------------------------------------------------------------
 # File & strings related functions:
 #-------------------------------------------------------------
-
 
 # Find a file with a pattern in name:
 #function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
@@ -399,7 +392,6 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 
 # Nice examples of functions
-
 function swap()
 { # Swap 2 filenames around, if they exist (from Uzi's bashrc).
     local TMPFILE=tmp.$$
@@ -413,9 +405,7 @@ function swap()
     mv $TMPFILE "$2"
 }
 
-
 # Makes your life easy
-
 function extract()      # Handy Extract Program
 {
     if [ -f $1 ] ; then
@@ -438,7 +428,6 @@ function extract()      # Handy Extract Program
     fi
 }
 
-
 # Creates an archive (*.tar.gz) from given directory.
 function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 
@@ -448,7 +437,7 @@ function makezip() { zip -r "${1%%/}.zip" "$1" ; }
 # Make your directories and files access rights sane.
 function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
 
-# Redefinig sdcv as define to utilise dictionary
+# Redefining sdcv as define to utilise dictionary
 function define() { sdcv "$1"; }
 #-------------------------------------------------------------
 # Process/system related functions:
@@ -512,7 +501,7 @@ function my_ip() # Get IP adress on ethernet.
 function ii()   # Get current host related info.
 {
     echo -e "\nYou are logged on ${BRed}$HOST"
-    echo -e "\n${BRed}Additionnal information:$NC " ; uname -a
+    echo -e "\n${BRed}Additionnal information:$NC " ; uname -a; lsb_release -a
     echo -e "\n${BRed}Users logged on:$NC " ; w -hs |
              cut -d " " -f1 | sort | uniq
     echo -e "\n${BRed}Current date :$NC " ; date
@@ -530,6 +519,7 @@ function ii()   # Get current host related info.
 #-------------------------------------------------------------
 
 function repeat()       # Repeat n times command.
+# e.g.: `repeat 3 date`
 {
     local i max
     max=$1; shift;
@@ -539,7 +529,7 @@ function repeat()       # Repeat n times command.
 }
 
 
-function ask()          # See 'killps' for example of use.
+function ask()          # Used by 'killps' for example
 {
     echo -n "$@" '[y/n] ' ; read ans
     case "$ans" in
@@ -548,7 +538,7 @@ function ask()          # See 'killps' for example of use.
     esac
 }
 
-function corename()   # Get name of app that created a corefile.
+function corename()   # Get name of app that created a corefile. (core dump)
 {
     for file ; do
         echo -n $file : ; gdb --core=$file --batch | head -1
