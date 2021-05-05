@@ -290,8 +290,9 @@ Plug 'tpope/vim-eunuch'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'etdev/vim-hexcolor'
+"Plug 'etdev/vim-hexcolor'
 "Plug 'gko/vim-coloresque'
+Plug 'chrisbra/Colorizer'
 Plug 'tpope/vim-repeat'
 Plug 'machakann/vim-sandwich'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -1008,6 +1009,15 @@ map <leader>vi :VimuxInspectRunner<cr>
 " Zoom the tmux runner pane
 map <leader>vz :VimuxZoomRunner<cr>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   Colorizer                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Toggle highlighting of Colors. In visual mode it only highlights the colors in the selected region (normal and visual mode).
+map <Leader>cC <Plug>Colorizer 
+"Cycle through contrast setting |:ColorContrast| (normal and visual mode)
+map <Leader>cT <Plug>ColorContrast 
+"Toggle foreground and background color |:ColorSwapFgBg|
+map <Leader>cF <Plug>ColorFgBg     
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

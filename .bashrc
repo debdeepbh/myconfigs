@@ -149,6 +149,18 @@ else
     CNX=${BBlue}        # Connected on local machine.
 fi
 
+# Test connection type: by background color
+if [ -n "${SSH_CONNECTION}" ]; then
+    CNX=${On_Green}        # Connected on remote machine, via ssh (good).
+elif [[ "${DISPLAY%%:0*}" != "" ]]; then
+    CNX=${ALERT}        # Connected on remote machine, not via ssh (bad).
+elif [ -n "$TMUX" ]; then
+    CNX=${On_Black}        # tmux session
+else
+    CNX=${On_Blue}        # Connected on local machine.
+fi
+
+
 # Test user type:
 if [[ ${USER} == "root" ]]; then
     SU=${Red}           # User is root.
@@ -156,6 +168,15 @@ if [[ ${USER} == "root" ]]; then
 #    SU=${BRed}          # User is not login user.
 else
     SU=${BCyan}         # User is normal (well ... most of us are).
+fi
+
+# Test user type: by background color
+if [[ ${USER} == "root" ]]; then
+    SU=${On_Red}           # User is root.
+#elif [[ ${USER} != $(logname) ]]; then
+#    SU=${BRed}          # User is not login user.
+else
+    SU=${On_Cyan}         # User is normal (well ... most of us are).
 fi
 
 #NCPU=$(grep -c 'processor' /proc/cpuinfo)    # Number of CPUs
@@ -207,6 +228,28 @@ function disk_color()
     fi
 }
 
+
+# Returns a color according to free disk space in $PWD: by background color
+function disk_color()
+{
+    if [ ! -w "${PWD}" ] ; then
+        echo -en ${On_Red} # No 'write' privilege in the current directory.
+    elif [ -s "${PWD}" ] ; then
+        local used=$(command df -P "$PWD" |
+                   awk 'END {print $5} {sub(/%/,"")}')
+        if [ ${used} -gt 98 ]; then
+            echo -en ${On_red}           # Disk almost full (>95%).
+        elif [ ${used} -gt 90 ]; then
+            echo -en ${On_Yellow}            # Free disk space almost gone.
+        else
+            echo -en ${On_Green}           # Free disk space is ok.
+        fi
+    else
+        echo -en ${On_Cyan}
+        # Current directory is size '0' (like /proc, /sys etc).
+    fi
+}
+
 # Returns a color according to running/suspended jobs.
 #function job_color()
 #{
@@ -216,6 +259,39 @@ function disk_color()
         #echo -en ${BBlue}
     #fi
 #}
+
+# background color
+function bgc()
+{
+    #BGC=$(cat $HOME/.vim/vimtheme)
+    #pref_txt="set background="
+    #echo "file=$BGC"
+    #if [ "$BGC" = "${pref_txt}light" ]; then
+	#echo "light"
+	#echo -en ${On_Yellow}
+    #else
+	#echo "dark"
+	#echo -en ${On_White}
+    #fi
+
+    echo -en ${On_Yellow}
+
+    # underline
+    #echo -en '\e[4m'
+
+    #echo -en ''
+
+    # Background
+    #On_Black='\e[40m'       # Black
+    #On_Red='\e[41m'         # Red
+    #On_Green='\e[42m'       # Green
+    #On_Yellow='\e[43m'      # Yellow
+    #On_Blue='\e[44m'        # Blue
+    #On_Purple='\e[45m'      # Purple
+    #On_Cyan='\e[46m'        # Cyan
+    #On_White='\e[47m'       # White
+
+}
 
 # Adds some text in the terminal frame (if applicable).
 
@@ -252,11 +328,19 @@ function disk_color()
 # Time of day (with load info):
 #PS1="\[\$(load_color)\][\A\[${NC}\] "
 # User@Host (with connection type info):
-PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
-#PS1="\e[4m\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
-# PWD (with 'disk space' info):
-PS1=${PS1}"\[\$(disk_color)\]\W\[${NC}\]> "
+#PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
+#PS1="${Black}${On_White}\u\[${NC}\]@\[$(bgc)\]\[${CNX}\]\h\[${NC}\]:"
+##PS1="\[$(bgc)\]\[${SU}\]\u\[${NC}\]@\[$(bgc)\]\[${CNX}\]\h\[${NC}\]:"
+##PS1="${On_Yellow}\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
+##PS1="\e[4m\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
+## PWD (with 'disk space' info):
+##PS1=${PS1}"\[\$(disk_color)\]\W\[${NC}\]> "
+#PS1=${PS1}"${Blue}${On_Purple}\W\[${NC}\]> "
 
+#PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
+#PS1=${PS1}"\[\$(disk_color)\]\W\[${NC}\]> "
+PS1="${Black}\[${SU}\]\u\[${NC}\]${Black}\[${CNX}\]\h\[${NC}\]"
+PS1=${PS1}"${Black}\[\$(disk_color)\]\W\[${NC}\] "
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
