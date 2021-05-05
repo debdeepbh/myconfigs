@@ -556,10 +556,19 @@ let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 " 	Color scheme gruvbox, needs to be _after_ calling the plugin
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Abandoing solarized and welcoming gruvbox
+"
 
 " this is essential for correct reproduction of colors based on already set terminal colors. In my case, it is via a colorscheme for xfce4-terminal
 " Tuning this off since it causes tmux to produce black and white text only
-"set termguicolors
+set termguicolors
+" Enable true colors (24 bit)
+" This is only necessary if you use "set termguicolors".
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
 """"""""""""""""
 
 
@@ -573,6 +582,7 @@ let g:gruvbox_italic=1
 
 "Color scheme  needs to be set _after_ setting the options
 colorscheme gruvbox8
+"colorscheme gruvbox
 "colorscheme blayu
 
 """"""""""""""""""""""""""
@@ -1006,4 +1016,5 @@ map <leader>vz :VimuxZoomRunner<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Who killed my ctrl-i? (:verbose nmap <c-i> does not show anything)
 :nnoremap <C-i> <C-i>
+
 
