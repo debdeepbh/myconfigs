@@ -1326,7 +1326,7 @@ Alternatively, `BA` or `LO` for base or local.
 
 * After merging is done, save the final version (Bottom window) of the file and quit.
 * Git `.orig` files using `git clean -fd` 
-- Might need to add the file again using `git add filename`
+- Might need to add the file again using `git add filename` (check if this is needed with `git status`)
 * Commit the current branch with `git commit -m 'merged remote_branch with local_branch'`
 * Delete the branch that is merged with the current (local) branch using
 ```
@@ -6295,6 +6295,69 @@ rsync -rv  <user>@<server>:~/graph-cpp/output/img/ img_graph/
 
 * Install `CUDA Toolkit`: 
 Follow instruction on [sit](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal) to download the `.deb` and install for ubuntu version.
+Or, using `apt-get`
+```
+sudo apt-get install nvidia-cuda-toolkit
+```
+This is about 1GB of installation.
+
+* Check your gpu info with 
+```
+nvidia-smi
+```
+You can find your CUDA version here.
+
+* Install `cupy` (for CUDA version `11.1`, check website for other versions)
+```
+pip3 install cupy-cuda111
+```
+
+* Sample `cupy` code
+```
+import numpy as np
+import cupy as cp
+import time 
+
+# define a name for memory  pool to extract information later
+mempool = cp.get_default_memory_pool()
+
+x_gpu = cp.random.randint(0, 256, (10980, 10980)).astype(cp.uint8)
+
+# get memory info, cross check with `nvidia-smi` in bash
+print('size of x_gpu', x_gpu.nbytes)                          
+print('used', mempool.used_bytes())             
+print('total mempool', mempool.total_bytes())           
+
+## numpy counterpart
+x_cpu = cp.random.randint(0, 256, (10980, 10980)).astype(cp.uint8)
+
+## perform an operation
+s = time.time()
+x_cpu *= 5
+e = time.time()
+print('numpy', e - s)
+
+### CuPy and GPU
+s = time.time()
+x_gpu *= 5
+# wait for gpu to finish before going to the next line
+cp.cuda.Stream.null.synchronize()
+e = time.time()
+print('cupy', e - s)
+```
+
+* **Note:** `cupy` arrays cannot exceed the memory of the GPU. However, GPUs have more than one `devices` with equal memories (see with `nvidia-smi`). Make sure to use them both to take advantage of all the memory.
+
+The default device is `0`.  Change the device to `1` with
+```
+cp.cuda.Device(1).
+```
+and all the arrays defined henceforth will be stored in the device `1`. The arrays in other device stays.
+
+* Clear an array from memory with `del x` or `x = None`. After this, we can reassign the array `x`.
+However, this does not get reflected in `nvidia-smi` since the allocated memory is not freed immediately. To manually clear _unused_ memory, do `mempool.free_all_blocks()`, which id observed in `nvidia-smi`.
+
+
 
 * Install `nvidia-profiler` to use `nvprof` with code
 
@@ -6596,4 +6659,24 @@ you can play around with the codecs and other options.
 #!/bin/bash
 /etc/init.d/httpd restart
 vlc -vvv v4l:/dev/video0:norm=secam:frequency=543250:size=640x480:channel=0 --sout '#transcode{vcodec=mp4v,vb=3000,vt=800000,keyint=80,deinterlace}:std{access=http,mux=ts,dst=192.168.91.77:8080}' --ttl 12
+```
+
+# investigation on Xorg's memory leak
+
+The following process fills up the memory and eventually shuts down the computer overnight, especially when the computer is idle:
+```
+ 3 SIGQUIT         989 root       39  19 4244M 3164M 3128M S  0.0 20.0  0:00.00 /usr/lib/xorg/Xorg -core :0 -seat seat0 -auth /var/run/lightdm/root/:0 -nolisten tcp vt7 -novtswitch
+```
+
+### Attempts:
+- Since the memory leak happens when the system is idle, it might be related to the screensaver, which may be attempting to launch and is failing. Lock screen requires the power manager to launch.
+So, I am adding this to `.config/i3/config`:
+```
+exec --no-startup-id xfce4-power-manager #experimental, to see if the xorg-lightdm memory leak is resolved
+```
+
+- Found another occurrence on the internet, but what does that mean?
+[reddit](https://www.reddit.com/r/archlinux/comments/89ytwa/x11_eats_up_my_memory/)
+```
+Update: After disabling all xscreensaver screensaver (using just blank black colour) and starting it via xscreensaver -nosplash & there has been no more memory leaks.
 ```
