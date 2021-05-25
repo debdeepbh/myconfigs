@@ -118,15 +118,21 @@ ffmpeg -i pacman_%3d.png -pix_fmt yuv420p vid4.mp4
 ffmpeg -start_number 50 -i pacman_%3d.png -pix_fmt yuv420p vid4.mp4
 ```
 
+- If you encounter the error that the height or width is not divisible by 2, instead of resizing manually, do
+```
+ffmpeg -start_number 1 -i img_tc_%5d.png -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -r 25 -crf 30 vid.mp4
+```
+
+- Use `-crf` along with framerate `-r` to produce smaller video
+    * Larger the framerate, bigger the video (good range 20-28)
+    * Larger the `crf` smaller the video (good range 20-30)
+
 
 Next, convert the output mp4 to gif to get correct color reproduction using
 ```
 ffmpeg -i vid4.mp4 vid4.gif
 ```
 
-## Use `-crf` along with framerate `-r` to produce smaller video
-* Larger the framerate, bigger the video (good range 20-28)
-* Larger the `crf` smaller the video (good range 20-30)
  
 # Printing:
  
@@ -6680,3 +6686,26 @@ exec --no-startup-id xfce4-power-manager #experimental, to see if the xorg-light
 ```
 Update: After disabling all xscreensaver screensaver (using just blank black colour) and starting it via xscreensaver -nosplash & there has been no more memory leaks.
 ```
+
+# Graph connectivity in python using `networkx`
+Example:
+```
+import networkx as nx
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+G = nx.Graph()
+bonds = np.array([ [0,1],[0,2],[0,5], [1,2], [2,5],[3,4]])
+
+G.add_edges_from(bonds)
+
+print(nx.is_connected(G))
+print(nx.number_connected_components(G))
+print(list(nx.connected_components(G)))
+
+# nx.draw(G, with_labels=True)
+# plt.draw()
+# plt.show()
+```
+

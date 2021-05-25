@@ -1,4 +1,3 @@
-#This ia another fiel
 # =============================================================== #
 #
 # PERSONAL $HOME/.bashrc FILE for bash-3.0 (or later)
@@ -150,15 +149,15 @@ else
 fi
 
 # Test connection type: by background color
-if [ -n "${SSH_CONNECTION}" ]; then
-    CNX=${On_Green}        # Connected on remote machine, via ssh (good).
-elif [[ "${DISPLAY%%:0*}" != "" ]]; then
-    CNX=${ALERT}        # Connected on remote machine, not via ssh (bad).
-elif [ -n "$TMUX" ]; then
-    CNX=${On_Black}        # tmux session
-else
-    CNX=${On_Blue}        # Connected on local machine.
-fi
+#if [ -n "${SSH_CONNECTION}" ]; then
+    #CNX=${On_Green}        # Connected on remote machine, via ssh (good).
+#elif [[ "${DISPLAY%%:0*}" != "" ]]; then
+    #CNX=${ALERT}        # Connected on remote machine, not via ssh (bad).
+#elif [ -n "$TMUX" ]; then
+    #CNX=${On_Black}        # tmux session
+#else
+    #CNX=${On_Blue}        # Connected on local machine.
+#fi
 
 
 # Test user type:
@@ -171,13 +170,13 @@ else
 fi
 
 # Test user type: by background color
-if [[ ${USER} == "root" ]]; then
-    SU=${On_Red}           # User is root.
-#elif [[ ${USER} != $(logname) ]]; then
-#    SU=${BRed}          # User is not login user.
-else
-    SU=${On_Cyan}         # User is normal (well ... most of us are).
-fi
+#if [[ ${USER} == "root" ]]; then
+    #SU=${On_Red}           # User is root.
+##elif [[ ${USER} != $(logname) ]]; then
+##    SU=${BRed}          # User is not login user.
+#else
+    #SU=${On_Cyan}         # User is normal (well ... most of us are).
+#fi
 
 #NCPU=$(grep -c 'processor' /proc/cpuinfo)    # Number of CPUs
 #SLOAD=$(( 100*${NCPU} ))        # Small load
@@ -208,57 +207,62 @@ fi
 #}
 
 # Returns a color according to free disk space in $PWD.
-function disk_color()
-{
-    if [ ! -w "${PWD}" ] ; then
-        echo -en ${Red} # No 'write' privilege in the current directory.
-    elif [ -s "${PWD}" ] ; then
-        local used=$(command df -P "$PWD" |
-                   awk 'END {print $5} {sub(/%/,"")}')
-        if [ ${used} -gt 98 ]; then
-            echo -en ${ALERT}           # Disk almost full (>95%).
-        elif [ ${used} -gt 90 ]; then
-            echo -en ${BRed}            # Free disk space almost gone.
-        else
-            echo -en ${Green}           # Free disk space is ok.
-        fi
-    else
-        echo -en ${Cyan}
-        # Current directory is size '0' (like /proc, /sys etc).
-    fi
-}
+#function disk_color()
+#{
+    #if [ ! -w "${PWD}" ] ; then
+        #echo -en ${Red} # No 'write' privilege in the current directory.
+    #elif [ -s "${PWD}" ] ; then
+        #local used=$(command df -P "$PWD" |
+                   #awk 'END {print $5} {sub(/%/,"")}')
+        #if [ ${used} -gt 98 ]; then
+            #echo -en ${ALERT}           # Disk almost full (>95%).
+        #elif [ ${used} -gt 90 ]; then
+            #echo -en ${BRed}            # Free disk space almost gone.
+        #else
+            #echo -en ${Green}           # Free disk space is ok.
+        #fi
+    #else
+        #echo -en ${Cyan}
+        ## Current directory is size '0' (like /proc, /sys etc).
+    #fi
+#}
 
 
 # Returns a color according to free disk space in $PWD: by background color
 function disk_color()
 {
     if [ ! -w "${PWD}" ] ; then
-        echo -en ${On_Red} # No 'write' privilege in the current directory.
+        #echo -en ${On_Red} # No 'write' privilege in the current directory.
+        echo -en ${Red} # No 'write' privilege in the current directory.
     elif [ -s "${PWD}" ] ; then
         local used=$(command df -P "$PWD" |
                    awk 'END {print $5} {sub(/%/,"")}')
         if [ ${used} -gt 98 ]; then
-            echo -en ${On_red}           # Disk almost full (>95%).
+            #echo -en ${On_red}           # Disk almost full (>95%).
+            echo -en ${red}           # Disk almost full (>95%).
         elif [ ${used} -gt 90 ]; then
-            echo -en ${On_Yellow}            # Free disk space almost gone.
+            #echo -en ${On_Yellow}            # Free disk space almost gone.
+            echo -en ${Yellow}            # Free disk space almost gone.
         else
-            echo -en ${On_Green}           # Free disk space is ok.
+            #echo -en ${On_Green}           # Free disk space is ok.
+            echo -en ${Green}           # Free disk space is ok.
         fi
     else
-        echo -en ${On_Cyan}
+        #echo -en ${On_Cyan}
+        echo -en ${Cyan}
         # Current directory is size '0' (like /proc, /sys etc).
     fi
 }
 
 # Returns a color according to running/suspended jobs.
-#function job_color()
-#{
-    #if [ $(jobs -s | wc -l) -gt "0" ]; then
-        #echo -en ${BRed}
-    #elif [ $(jobs -r | wc -l) -gt "0" ] ; then
-        #echo -en ${BBlue}
-    #fi
-#}
+function job_color()
+{
+    if [ $(jobs -s | wc -l) -gt "0" ]; then
+	echo -en ${BRed}
+    elif [ $(jobs -r | wc -l) -gt "0" ] ; then
+	echo -en ${BBlue}
+    fi
+}
 
 # background color
 function bgc()
@@ -295,29 +299,34 @@ function bgc()
 
 # Adds some text in the terminal frame (if applicable).
 
-#PROMPT_COMMAND="history -a"
+PROMPT_COMMAND="history -a"
 
 #case ${TERM} in
-#  *term* | rxvt | linux)	# Originally: *term | rxvt | linux)
-#        # Time of day (with load info):
+  #*term* | rxvt | linux)	# Originally: *term | rxvt | linux)
+	## Time of day (with load info):
 ##        PS1="\[\$(load_color)\][\A\[${NC}\] "
-#        # User@Host (with connection type info):
-#        PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
-#
-#        # PWD (with 'disk space' info):
-#        PS1=${PS1}"\[\$(disk_color)\]\W>\[${NC}\] "
-#        # Prompt (with 'job' info):
-##        PS1=${PS1}"\[\$(job_color)\]>\[${NC}\] "
-#        # Set title of current xterm:
-##        PS1=${PS1}"\[\e]0;[\u@\h] \w\a\]"
-#
-#        ;;
-#    *)
+	## User@Host (with connection type info):
+	#PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
+
+	## PWD (with 'disk space' info):
+	##PS1=${PS1}"\[\$(disk_color)\]\W>\[${NC}\] "
+	#PS1=${PS1}"\[\$(disk_color)\]\Wᐅ\[${NC}\] "
+	## Prompt (with 'job' info):
+	##PS1=${PS1}"\[\$(job_color)\]>\[${NC}\] "
+	## Set title of current xterm:
+	#PS1=${PS1}"\[\e]0;[\u@\h] \w\a\]"
+	#;;
+    #*)
 ##        PS1="(\A \u@\h \W) > " # --> PS1="(\A \u@\h \w) > "
-#                               # --> Shows full pathname of current dir.
-#        ;;
+			       ## --> Shows full pathname of current dir.
+	#;;
 #esac
 
+## unconditional, try to use color support everywhere
+PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
+#PS1=${PS1}"\[\$(disk_color)\]\W\[${NC}\]ᐅ "
+PS1=${PS1}"\[\$(disk_color)\]\W\[${NC}\]> "
+PS1=${PS1}"\[\e]0;[\u@\h] \w\a\]"
 
 # Following the trend of the original bashrc
 #PS2='> '
@@ -339,8 +348,8 @@ function bgc()
 
 #PS1="\[${SU}\]\u\[${NC}\]@\[${CNX}\]\h\[${NC}\]:"
 #PS1=${PS1}"\[\$(disk_color)\]\W\[${NC}\]> "
-PS1="${Black}\[${SU}\]\u\[${NC}\]${Black}\[${CNX}\]\h\[${NC}\]"
-PS1=${PS1}"${Black}\[\$(disk_color)\]\W\[${NC}\] "
+#PS1="${Black}\[${SU}\]\u\[${NC}\]${Black}\[${CNX}\]\h\[${NC}\]"
+#PS1=${PS1}"${Black}\[\$(disk_color)\]\W\[${NC}\] "
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
