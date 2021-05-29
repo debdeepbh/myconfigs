@@ -6709,3 +6709,57 @@ print(list(nx.connected_components(G)))
 # plt.show()
 ```
 
+# gmsh with python
+
+* Examply annulus
+```
+import gmsh
+gmsh.initialize()
+msh_file = 'meshdata/msh_test.msh'
+
+scaling = 1
+
+# - the first 3 arguments are the point coordinates (x, y, z)
+# - the next (optional) argument is the target mesh size close to the point
+# - the last (optional) argument is the point tag (a stricly positive integer
+#   that uniquely identifies the point)
+# gmsh.model.occ.addPoint(0, 0, 0, meshsize, 1)
+
+gmsh.model.occ.addCircle(0, 0, 0, scaling, 1)
+gmsh.model.occ.addCircle(0, 0, 0, scaling/2, 2)
+
+gmsh.model.occ.addCurveLoop([1], 1)
+gmsh.model.occ.addCurveLoop([2], 2)
+gmsh.model.occ.addPlaneSurface([1, 2], 1)
+
+# obligatory before generating the mesh
+gmsh.model.occ.synchronize()
+# We can then generate a 2D mesh...
+gmsh.model.mesh.generate(2)
+# write to file
+gmsh.write(msh_file)
+
+# close gmsh instance, as opposed to gmsh.initialize()
+gmsh.finalize()	
+```
+
+* With pygmsh [due to the lack of documentation, hard to figure out options, so I won't use it much]
+
+Originally, the mesh can be generated using `with` statement like
+```
+with pygmsh.geo.Geometry() as geom:
+    circle1 = geom.add_circle([0,0], radius=scaling, mesh_size=meshsize)
+    mesh = geom.generate_mesh()
+```
+However, the non-`with` version should be `geom = pygmsh.geo.Geometry()` but it doesn't when fed into `.generate_mesh()`. Instead use `model` approach:
+```
+geometry = pygmsh.geo.Geometry()
+model = geometry.__enter__()
+
+circle1 = model.add_circle([0,0], radius=scaling, mesh_size=meshsize)
+geom.generate_mesh()
+```
+
+
+To feed the geometry to pygmsh, 
+
