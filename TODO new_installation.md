@@ -3982,6 +3982,25 @@ chown -R motion:motion dir_within_anoter_user
 
 Note that, motion cannot even write to a location that is owned by another user even when we run motion as super user (via `sudo systemctl motion start`).
 
+# MotionEye on raspberry pi
+- Convert the image file `.img.xz` file into `.img` using `unxz`.
+```
+unxz motioneye.....img.xz
+```
+- Copy to sd card
+```
+sudo dd if=motioneye....img of=/dev/sdb bs=4M
+```
+- Set the wifi information in the 23MB particle that contains `boot.ini` files etc
+```
+# wpa_supplicant.conf
+
+```
+* Let it boot and log in using `user:admin` `pass:<blank>` to the web interface
+
+- Set up port forwarding with internal port `80` to the raspberry pi
+
+
 # Update Gemfile.lock of github website repository to the latest version
 Instead of updating the version numbers by hand in `Gemfile.lock`, automatically generate the `Gemfile.lock` with the latest versions available (which is hopefully equal or even higher than the version number suggested by Github security vulnerability message), using
 ```
@@ -6760,6 +6779,16 @@ circle1 = model.add_circle([0,0], radius=scaling, mesh_size=meshsize)
 geom.generate_mesh()
 ```
 
+* extrude this way
+```
+
+gmsh.model.occ.addPoint(x_min, y_min, 0, meshSize=meshsize, tag=1)
+gmsh.model.occ.addPoint(x_min+length_x, y_min, 0, meshSize=meshsize, tag=2)
+gmsh.model.occ.addLine(1,2, tag=1)
+# extruding the line: dimension 1, tag 1 i.e., (1,1)
+# numElements is the number of steps by which we extrude, heights is the scaling factor
+gmsh.model.occ.extrude([(1, 1)], 0, length_y, 0, numElements=[ny], heights=[1])
+```
 
 To feed the geometry to pygmsh, 
 
