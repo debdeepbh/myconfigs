@@ -115,8 +115,15 @@ ffmpeg -i pacman_%3d.png -pix_fmt yuv420p vid4.mp4
 
 * If the starting number in the input sequence is not 1, specify it using `-start_number <num>` before the `-i` option like this:
 ```
+
 ffmpeg -start_number 50 -i pacman_%3d.png -pix_fmt yuv420p vid4.mp4
 ```
+
+- The ending number cannot be specified but total number of files after the `start_number` can be used using `-frames:v` argument
+```
+ffmpeg -start_number 50 -i pacman_%3d.png -frames:v 150 -pix_fmt yuv420p vid4.mp4
+```
+
 
 - If you encounter the error that the height or width is not divisible by 2, instead of resizing manually, do
 ```
@@ -3996,9 +4003,38 @@ sudo dd if=motioneye....img of=/dev/sdb bs=4M
 # wpa_supplicant.conf
 
 ```
-* Let it boot and log in using `user:admin` `pass:<blank>` to the web interface
+* Let it boot and log in using `user:admin` `pass:<blank>` to the web interface and set an new passwd
 
-- Set up port forwarding with internal port `80` to the raspberry pi
+- Port forwarding to raspberry pi with internal port:
+	- Web interface: 80
+	- Camera stream: 8081 
+
+- Improvement settings:
+	- Delete local files everyday
+
+- Set up google photos
+[instruction](https://github.com/ccrisan/motioneye/issues/1607#issuecomment-656123443)
+	- Click `Enable API`
+	- create  project
+	- specify product name
+	- Select Oauth type `Desktop App`
+	- save the keys
+	- Enable `Enable debug` in `Expert settings` in web interface of motioneye (now ssh connection can write into the filesystem)
+	- Retrieve a file from the motioneye server via ssh from 
+	```
+	scp admin@192.168.0.133:/usr/lib/python2.7/site-packages/motioneye/uploadservices.pyc ./
+	```
+	- Make a backup copy 
+	```
+	scp admin@192.168.0.133:/usr/lib/python2.7/site-packages/motioneye/uploadservices.pyc{,.bak}
+	```
+	- Replace the string `"349038943026-m16svdadjrqc0c449u4qv71v1m1niu5o.apps.googleusercontent.com"` with your client ID
+	- Replace the string `"jjqbWmICpA0GvbhsJB3okX7s"` with your client secret
+	- Save the file
+	- copy it back to the server
+	```
+	scp uploadservices.pyc admin@192.168.0.133:/usr/lib/python2.7/site-packages/motioneye/uploadservices.pyc
+	```
 
 
 # Update Gemfile.lock of github website repository to the latest version

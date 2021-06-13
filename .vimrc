@@ -6,6 +6,9 @@ let &t_TE = ""
 " gx to launch urls in browser
 " Doesn't work
 "let g:netrw_browsex_viewer= "xdg-open"
+"nmap gx :silent execute "!xdg-open " . shellescape("<cWORD>")<CR>
+"nmap gx :silent execute "!firefox " . shellescape("<cWORD>") . " &"<CR>
+nmap gx :execute "!firefox " . shellescape("<cWORD>") . " &"<CR><CR>
 
 " moving this option to another file so that I can source it using
 " a .myscript called themeset
