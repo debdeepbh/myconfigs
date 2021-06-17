@@ -6569,7 +6569,7 @@ Finally, restart system
     sudo shutdown -r now 
 ```
 
-* With kernel version 3.5+ setting swappiness to 0 does turn it off entirely and a setting of 1 is recommended if you want the lowest swappiness algorithm. source: https://www.percona.com/blog/2014/04/28/oom-relation-vm-swappiness0-new-kernel/
+* With kernel version 3.5+ setting swappiness to 0 does turn it off entirely and a setting of 1 is recommended if you want the lowest swappiness algorithm. [source](https://www.percona.com/blog/2014/04/28/oom-relation-vm-swappiness0-new-kernel/)
 
 # Another C++ tutorial
 
