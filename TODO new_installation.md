@@ -6742,6 +6742,8 @@ exec --no-startup-id xfce4-power-manager #experimental, to see if the xorg-light
 Update: After disabling all xscreensaver screensaver (using just blank black colour) and starting it via xscreensaver -nosplash & there has been no more memory leaks.
 ```
 
+- Deleting `/usr/share/X11/xorg.conf.d/20-intel-backligh.conf` that I created during installation via `todo_xubuntu`. Thus resolves gui programs crashing like latexdraw, gmsh, fltk backend of python, octave plots etc.
+
 # Graph connectivity in python using `networkx`
 Example:
 ```
