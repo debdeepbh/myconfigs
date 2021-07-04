@@ -36,9 +36,9 @@ sudo cp -r gruvbox-gtk /usr/share/themes/
 
 
 # get configs
-git clone https://github.com/debdeepbh/myconfigs.git
+git clone https://github.com/debdeepbh/myconfigs.git ~/
 # copy dotfiles
-cp myconfigs/dotfiles/* ~/
+cp ~/myconfigs/dotfiles/. ~/
 # install vim plugins
 vim +PlugInstall +qall
 
@@ -74,16 +74,26 @@ sudo jupyter labextension install jupyterlab_vim
 # %plot -f svg
 # in the beginning of the notebook
 
-## Install cocalc
-sudo docker run --name=cocalc -d -v ~/cocalc:/projects -p 443:443 sagemathinc/cocalc
-
-
 ## Update the system
 sudo apt-get update -y
 sudo apt-get -y upgrade
 
 ## fix-broken
 sudo apt-get -f install
+
+## Install cocalc
+#sudo docker run --name=cocalc -d -v ~/cocalc:/projects -p 443:443 sagemathinc/cocalc
+
+
+## SSH
+#ssh-keygen
+#eval `ssh-agent -s`
+#ssh-add
+
+## to copy publickey, print it out
+#cat ~/.ssh/id_rsa.pub
+## check if connection works
+#ssh -T git@github.com
 
 ### For RISE, I have done
 #sudo -H pip3 install RISE
