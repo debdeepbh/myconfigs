@@ -35,8 +35,9 @@ git clone https://github.com/3ximus/gruvbox-gtk
 sudo cp -r gruvbox-gtk /usr/share/themes/
 
 
-# get dotfiles
+# get configs
 git clone https://github.com/debdeepbh/myconfigs.git
+# copy dotfiles
 
 
 #### Turn off this to avoid X11 programs crashing like gmsh, latexdraw, octave, fltk backend, etc 
