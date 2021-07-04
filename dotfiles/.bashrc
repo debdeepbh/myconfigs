@@ -684,7 +684,7 @@ VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 #            Disabling Touchpad Forever for stealing mouse            #
 #######################################################################
 #xinput disable "Wacom HID 50EE Finger"
-xinput disable "Wacom HID 50EE Finger touch"
+#xinput disable "Wacom HID 50EE Finger touch"
 
 ##################################
 ## env variables for UH-anita
