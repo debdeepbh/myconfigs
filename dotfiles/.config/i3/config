@@ -62,8 +62,8 @@ bindsym Shift+Print exec xfce4-screenshooter -r
 bindsym $mod+shift+x exec xournal
 
 # brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # kill focused window
 bindsym $mod+Shift+c kill
