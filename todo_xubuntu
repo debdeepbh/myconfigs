@@ -6,35 +6,34 @@ sudo apt-get update
 ### Install packages
 sudo apt-get --assume-yes install $(cat packages)
 
-sudo snap install pdftk
+## Install git-like drive for google
+sudo snap install drive pdftk
+
+## if doesn't exist already
+#drive init ~/gdrive
+#cd gdrive
+#drive pull paper-org book work
 
 # sudo apt-cache depends octave | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs sudo apt-get --reinstall install -y
-#
 
 ## Bulky, probably avoid: Install i3 workspace plugin for xfce4-panel
-./install-xfce4-i3-workspace-plugin
+#./install-xfce4-i3-workspace-plugin
 
 ## google-chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
+rm google-chrome-stable_current_amd64.deb
 
 ## skype
 wget https://go.skype.com/skypeforlinux-64.deb
 sudo dpkg -i skypeforlinux-64.deb 
+rm skypeforlinux-64.deb
 
 ###### Appearance #############
 ## Install gruvbox-gtk theme from git to use `themeset dark`
 git clone https://github.com/3ximus/gruvbox-gtk
 sudo cp -r gruvbox-gtk /usr/share/themes/
 
-
-## Install git-like drive for google
-sudo snap install drive
-
-## if doesn't exist already
-#drive init ~/gdrive
-#cd gdrive
-#drive pull paper-org book work
 
 #### Turn off this to avoid X11 programs crashing like gmsh, latexdraw, octave, fltk backend, etc 
 #### Does it fix X11 memory leak when connected to hdmi via usb hub?

@@ -301,6 +301,7 @@ Plug 'machakann/vim-sandwich'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'lervag/vimtex'
 Plug 'debdeepbh/vim-matlab',  { 'for': 'matlab' }
+" vim-indentwise usage: ]= to jump to the next line with the same indent, moreover, ]%, ]_, ]+, etc
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 'preservim/tagbar'
 "Plug 'sjl/gundo.vim'

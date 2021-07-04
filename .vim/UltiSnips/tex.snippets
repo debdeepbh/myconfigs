@@ -143,8 +143,12 @@ snippet eqref "(eq)ref" w
 \eqref{$1}$0
 endsnippet
 
+snippet cref "(eq)ref" w
+\cref{$1}$0
+endsnippet
+
 snippet ref "(eq)ref" w
-\ref{$1}$0
+\cref{$1}$0
 endsnippet
 
 #snippet ref "(eq)ref" w
@@ -475,7 +479,8 @@ snippet _pde "Template PDEs" b
 \newcommand{\inn}[1]{\left\langle #1 \right\rangle}
 
 % User defined environments
-\newtheorem{thm}{Theorem} \newtheorem{lemma}{Lemma}
+\newtheorem{thm}{Theorem} 
+\newtheorem{lemma}{Lemma}
 \newtheorem{cor}{Corollary}
 \newtheorem{defn}{Definition}
 \newtheorem{rem}{Remark}
