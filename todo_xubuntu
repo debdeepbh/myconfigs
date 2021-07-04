@@ -35,6 +35,10 @@ git clone https://github.com/3ximus/gruvbox-gtk
 sudo cp -r gruvbox-gtk /usr/share/themes/
 
 
+# get dotfiles
+git clone https://github.com/debdeepbh/myconfigs.git
+
+
 #### Turn off this to avoid X11 programs crashing like gmsh, latexdraw, octave, fltk backend, etc 
 #### Does it fix X11 memory leak when connected to hdmi via usb hub?
 ### xbacklight fix

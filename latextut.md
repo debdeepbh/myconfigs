@@ -1,6 +1,4 @@
-
 # Latex tutorial
-
 
 pdflatex should convert the tex file to pdf.
 I wish to use xdvi (already installed through some package, find out which one) to perform forward and inverse search.
