@@ -2,6 +2,7 @@
 - [x] notification 
 - [x] brightness
 - [x] suspend on lid close
+- [x] lock screen with xflock4
 - [ ] copy power-manager settings to dotfiles
 - [ ] copy xfce4-panel settings to dotfiles
 - [ ] delete .local
