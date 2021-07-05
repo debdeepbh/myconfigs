@@ -57,7 +57,8 @@ floating_modifier $mod
 ## Launching applications
 bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+z exec xfce4-terminal --drop-down
-bindsym $alt+Control+l exec i3lock -c 000000
+#bindsym $alt+Control+l exec i3lock -c 000000
+bindsym $alt+Control+l exec xflock4
 bindsym Shift+Print exec xfce4-screenshooter -r
 bindsym $mod+shift+x exec xournal
 
