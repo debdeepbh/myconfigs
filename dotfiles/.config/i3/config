@@ -11,6 +11,7 @@
 
 # startup 
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 exec --no-startup-id xfsettingsd
 exec --no-startup-id xfce4-panel
 # to use with notify-send

@@ -5,7 +5,7 @@
 - [x] lock screen with xflock4
 - [ ] copy power-manager settings to dotfiles
 - [ ] copy xfce4-panel settings to dotfiles
-- [ ] delete .local
+- [x] delete .local
 - [ ] palm-rejection
 - [ ] heating
 - [ ] reboot delay
