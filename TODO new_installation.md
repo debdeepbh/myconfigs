@@ -6867,4 +6867,34 @@ Drawback: need to run retrieval command each time, an extra step.
 
 Drawback: cannot copy more than a page, picks up vim line numbers
 
+# fingerprint login
+[instruction](https://www.reddit.com/r/LinuxOnThinkpads/comments/8qmqvz/enabled_t420_fingerprint_reader_for_sudo_login/)
 
+- get driver (amd64.deb) from [link](http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-goodix/)
+- install dependency for the package
+```
+sudo apt-get install libfprint-2-tod1
+```
+- install the downloaded `.deb` (amd64) package using `sudo dpkg -i`
+- install pam library
+```
+sudo apt-get install libpam-fprintd
+```
+- [unnecessary, it seems] Now edit the common-auth file
+```
+sudo vim /etc/pam.d/common-auth
+```
+In the file common-auth, add the line above the section "Primary Block", it will be the first non-comment line. Save the file and exit editor.
+```
+auth sufficient pam_fprint.so 
+```
+
+- Start auth-update by
+```
+sudo pam-auth-update
+```
+
+- enroll fingerprint using
+```
+fprintd-enroll -f right-little-finger
+```

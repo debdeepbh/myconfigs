@@ -1,17 +1,19 @@
 - [x] wifi
-- [x] notification 
-- [x] brightness
-- [x] suspend on lid close
+- [x] notification: launch xfce4-power-manager and xfcd4-notifyd via i3 startup
+- [x] brightness: turned off i3 bindkey via xbacklight, launch xfce4-power-manager at startup
+- [x] suspend on lid close: power manager settings
 - [x] lock screen with xflock4
-- [ ] copy power-manager settings to dotfiles
-- [ ] copy xfce4-panel settings to dotfiles
+- [x] copy power-manager settings to dotfiles
+- [x] copy xfce4-panel settings to dotfiles
 - [x] delete .local
+- [x] startup diskcheck
+- [x] fingerprint login sudo
+- [ ] fingerprint login x11 apps
 - [ ] palm-rejection
 - [ ] heating
 - [ ] reboot delay
-- [ ] startup diskcheck
 - [ ] perigrain
-- [ ] firefox login passwd
-- [ ] write down gpg passphrase
+- [x] write down gpg passphrase: usual computer login pass
+- [x] firefox login passwd: usual computer login password `not secured at all`, change immediately
  
 
