@@ -6870,8 +6870,24 @@ Drawback: cannot copy more than a page, picks up vim line numbers
 # fingerprint login
 [instruction](https://www.reddit.com/r/LinuxOnThinkpads/comments/8qmqvz/enabled_t420_fingerprint_reader_for_sudo_login/)
 
+### full script
+```
+sudo apt-get install libfprint-2-tod1 libpam-fprintd
+
+wget -c http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-goodix/libfprint-2-tod1-goodix_0.0.6-0ubuntu1~somerville1_amd64.deb
+
+sudo dpkg -i libfprint-2-tod1-goodix_0.0.6-0ubuntu1~somerville1_amd64.deb
+
+sudo pam-auth-update
+
+fprintd-enroll -f right-little-finger
+
+```
+
+### step by step
+
 - get driver (amd64.deb) from [link](http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-goodix/)
-- install dependency for the package
+- install dependency for the driver package
 ```
 sudo apt-get install libfprint-2-tod1
 ```
@@ -6897,4 +6913,12 @@ sudo pam-auth-update
 - enroll fingerprint using
 ```
 fprintd-enroll -f right-little-finger
+```
+
+- Test it out with `sudo -i` and lightdm login page
+
+### configs
+- Set up the timeout (waiting time for fingerprint before resorting to password) in `/etc/pam.d/common-auth` with `timeout`. Modified line looks like time
+```
+auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 ```

@@ -8,7 +8,7 @@
 - [x] delete .local
 - [x] startup diskcheck
 - [x] fingerprint login sudo
-- [ ] fingerprint login x11 apps
+- [x] fingerprint login x11 apps
 - [ ] palm-rejection
 - [ ] heating
 - [ ] reboot delay
