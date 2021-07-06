@@ -10,6 +10,15 @@
 - [x] fingerprint login sudo
 - [x] fingerprint login x11 apps
 - [ ] palm-rejection
+	- uninstalled  package 
+	    ```
+	    sudo apt-get remove xserver-xorg-input-synaptics
+	    ```
+		and then restart `lightdm`
+	    ```
+	    sudo service restart lightdm.service
+	    ```
+
 - [ ] heating
 - [ ] reboot delay
 - [ ] perigrain
