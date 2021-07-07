@@ -1,14 +1,15 @@
 - [x] notification: launch xfce4-power-manager and xfcd4-notifyd via i3 startup
 - [x] brightness: turned off i3 bindkey via xbacklight, launch xfce4-power-manager at startup
 - [x] suspend on lid close: power manager settings
-- [x] lock screen with xflock4
 - [x] copy power-manager settings to dotfiles
 - [x] copy xfce4-panel settings to dotfiles
 - [x] delete .local
 - [x] startup diskcheck
 - [x] fingerprint login sudo
-- [x] fingerprint login x11 apps
-- [ ] palm-rejection
+- [x] perigrain: added seaborn for installation
+- [x] write down gpg passphrase: usual computer login pass
+- [x] firefox login passwd: usual computer login password `not secured at all`, change immediately
+- [x] palm-rejection
 	- uninstalled  package 
 	    ```
 	    sudo apt-get remove xserver-xorg-input-synaptics
@@ -17,12 +18,13 @@
 	    ```
 	    sudo service restart lightdm.service
 	    ```
-- [?] wifi issue
-- [ ] heating
-- [ ] reboot delay
-- [x] perigrain: added seaborn for installation
+- [?] [how to cancel?] fingerprint login x11 apps
+- [ ] sleep on lid close
+- [?] [inconsitent] wifi issue
+- [?] [inconsitent] lock screen with xflock4
+- [ ] heating: updated firmware to latest
 - [ ] maximum cpu frequency on battery
-- [x] write down gpg passphrase: usual computer login pass
-- [x] firefox login passwd: usual computer login password `not secured at all`, change immediately
+- [ ] [inconsistent] reboot delay
+- [ ] ps mouse
  
 
