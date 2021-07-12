@@ -1177,7 +1177,7 @@ This is most probably a routine check that you have the access. This does not gi
 * Next, update your name and email address in the config using
 ```
 git config --global user.email "email@domain.com"
-git config --global user.nam "Name"
+git config --global user.name "Name"
 ```
 
 - To copy own ssh public key into another server's `.ssh/authorized_keys` so that you can login without password, do
@@ -4495,6 +4495,7 @@ sudo snap install marp-cli-carroarmato0
 * Itemized lists are defined using `-`, whereas `*` produces next slide as we go (i.e. requires you to go to the next slide before showing the next item)
 * Sublists need two preceding spaces
 * Highlight text with ticks `text`, which can also be used to embed code
+- Comment with `<!-- comment -->` which can span over multiple lines.
 
 ## Tex support
 
@@ -4527,8 +4528,7 @@ section {
 
 * Use `--html` option to parse html tags written in the `.md` file. For example, embed a video using the following html tag with size, autoplay and on loop like this:
 ```
- <video width="320" height="240" controls autoplay loop>
-  <source src="data/pacman_fracture.mp4" type="video/mp4">
+ <video width="320" height="240" controls autoplay loop> <source src="data/pacman_fracture.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video> 
 ```
@@ -4536,7 +4536,7 @@ and do
 ```
 ./marp slide.md --html --watch --preview
 ```
-* Finally, to align the videos to the left, enclose them in a `<div> </div>` tag with left orientation like this:
+* (requires `--html` option) Finally, to align the videos to the left, enclose them in a `<div> </div>` tag with left orientation like this:
 ```
 <div style="float:left;margin-right:20px;">
 
@@ -4556,6 +4556,9 @@ and do
 </div>
 ### Slide title
 ```
+
+This (with all margin set to 0px) also creates a nice box within a bunch of text, and the text moves out of the way.
+
 * To push the video to the right-edge of the screen (with no extra margin on the right), use negative margin value like this:
 ```
 <div style="float:right;margin-right:-70px;margin-top:100px;margin-left:40px;margin-bottom:300px;">

@@ -122,6 +122,8 @@ bindsym $mod+Shift+l move right; exec $update_file
 # special: move into an previously unsplit window by direction
 bindsym $mod+Control+Shift+h focus left; split v; focus right; move left; layout stacking; exec $update_file
 bindsym $mod+Control+Shift+l focus right; split v; focus left; move right; layout stacking; exec $update_file
+bindsym $mod+Control+Shift+j focus down; split v; focus up; move down; layout stacking; exec $update_file
+bindsym $mod+Control+Shift+k focus up; split v; focus down; move up; layout stacking; exec $update_file
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left; exec $update_file
