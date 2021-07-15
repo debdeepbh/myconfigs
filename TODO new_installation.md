@@ -6032,6 +6032,14 @@ b = np.array([ [2],[5])
 c = a @ b # output: [ [17], [33] ]
 ```
 
+- Converting a 2d matrix to a 1d vector
+	- Use `np.concatenate()`:
+	```
+	A = [ [1,2], [2,3], [3,4]]
+	B = np.concatenate(A)
+	# B = [1,2,2,3,3,4]
+	```
+
 * Matrix-vector row-wise multiplication is not automatic. We need to convert the rank-1 array (size `(3,)`) into a rank-2 array (size `(3,1)`) using `[:,None]` like this:
 ```
 A = np.array([
