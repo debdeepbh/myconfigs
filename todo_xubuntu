@@ -36,9 +36,9 @@ sudo cp -r gruvbox-gtk /usr/share/themes/
 
 
 # get configs
-git clone https://github.com/debdeepbh/myconfigs.git ~/
+git clone https://github.com/debdeepbh/myconfigs.git ~/myconfigs
 # copy dotfiles
-cp -r dotfiles/. ~/
+cp -r ~/myconfigs/dotfiles/. ~/
 # install vim plugins
 vim +PlugInstall +qall
 
