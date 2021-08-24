@@ -133,6 +133,11 @@ ffmpeg -start_number 1 -i img_tc_%5d.png -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:
 - Use `-crf` along with framerate `-r` to produce smaller video
     * Larger the framerate, bigger the video (good range 20-28)
     * Larger the `crf` smaller the video (good range 20-30)
+- To increase the duration of each image in the video, use `-vf 'zoompan=d=25'` where 25 is the number of frames for which the image should appear.
+
+```
+ffmpeg -start_number 1 -i img_tc_%5d.png -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2,zoompan=d=2" -r 25 -crf 30 vid.mp4
+```
 
 
 Next, convert the output mp4 to gif to get correct color reproduction using
