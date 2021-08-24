@@ -7001,8 +7001,9 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 
 ## Todo
 [ ] suspend on lid close
+[ ] lock screen on suspend
+[x] ethernet adapter
 [ ] brightness control with redshift
-[ ] ethernet adapter
 [ ] Keyboard LED control
 [ ] Bumblebee for Optimus (hybrid graphics)
 
@@ -7043,22 +7044,9 @@ Mainly followed [this](https://ubuntu.com/server/docs/network-configuration) gui
 
 This means a wired device is created and is renamed to wwx0c3796485dda. However, `ifconfig` shows no such device.
 
-- See that the hardware is present
+- See that the hardware is present using `sudo lshw -class network` or `ip a` but is is `DISABLED`. This means the device is not managed.
 
-```
-sudo lshw -class network
-```
-
-or 
-
-```
-ip a
-```
-
-but is is `DISABLED`.
-
-
-- Turn the device up using 
+- (Not necessary if setting up the netplan later) Turn the device up using 
 
 ```
 sudo ifconfig wwx0c3796485dda up
@@ -7072,7 +7060,7 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-    enp3s0:
+    wwx0c3796485dda:
       dhcp4: true
 ```
 
