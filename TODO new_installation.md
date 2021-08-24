@@ -7033,13 +7033,15 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 
 Mainly followed [this](https://ubuntu.com/server/docs/network-configuration) guide.
 
+- Turn off Thunderbolt security in BIOS
+
 - Check if the device is recognised when attached using `sudo dmesg`. Found a line like
 
 ```
 [ ... ] cdc_ncm 4-2:2.0 wwx0c3796485dda: renamed from wwan0
 ```
 
-that says a wired device is created. However, `ifconfig` shows no such device.
+This means a wired device is created and is renamed to wwx0c3796485dda. However, `ifconfig` shows no such device.
 
 - See that the hardware is present
 
@@ -7047,7 +7049,14 @@ that says a wired device is created. However, `ifconfig` shows no such device.
 sudo lshw -class network
 ```
 
+or 
+
+```
+ip a
+```
+
 but is is `DISABLED`.
+
 
 - Turn the device up using 
 
@@ -7074,3 +7083,5 @@ sudo netplan apply
 ```
 
 - Now `ifconfig` shows it has the ip address and internet works.
+
+- It is better to fix the logical name permanently by associating it with the Mac address in `/etc/netplan/99_config.yaml` but I don't do it here.
