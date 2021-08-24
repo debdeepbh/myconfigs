@@ -3554,8 +3554,71 @@ Later, do `view(u_th_x)` to see it rendered correctly.
 Facts (for Xubuntu):
 * xflock4 runs the default lock-screen program, which is slock if light-locker is not running.
   Otherwise, light-locker will run (xfce's own lock screen window)
-* xfce4-power-manager and /etc/systemd/logind.conf interferes with the lid response
+* xfce4-power-manager and /etc/systemd/logind.conf interferes with the lid response. 
+- By default, xfce4-power-manager inhibits logind-related events and takes over the buttons and lid events. If this is not the case, check if logind has precedence by issuing 
+```
+xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/logind-handle-lid-switch
+```
+or
+```
+xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/logind-handle-power-key
+```
+- See the capabilities of `xfce4-power-manager` with
+```
+xfce4-power-manager --dump
+```
 
+- To specify which one manages the button or lid events, see [link](https://docs.xfce.org/xfce/xfce4-power-manager/faq#how_can_i_make_logind_handle_button_events_instead_of_xfce4-power-manager) 
+
+- Install `pm-utils` to enable suspend (and possible hibernate) option if it is missing
+
+
+## To use logind for suspend-on-lid-close
+
+- first check if logind can suspend properly using
+
+```
+sudo systemctl suspend
+```
+
+- check if pressing the power button can suspend properly by uncommenting 
+
+```
+HandlePowerKey=suspend
+```
+
+in the file `/etc/systemd/logind.conf` and restarting logind using
+
+```
+systemctl restart systemd-logind.service
+```
+
+- allow `logind` to handle lid-switch
+
+```
+xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/logind-handle-lid-switch -n -t bool -s true
+```
+
+- Uncomment the lines in `/etc/systemd/logind.conf`:
+
+```
+HandleLidSwitch=suspend
+HandleLidSwitchExternalPower=suspend
+```
+
+Read more on the [options](https://www.freedesktop.org/software/systemd/man/logind.conf.html)
+Note: docked means an external display is connected
+
+- restart logind
+
+```
+systemctl restart systemd-logind.service
+```
+
+
+---
+
+### suspend and lock screen with logind and systemctl
 
 We follow this link:
 https://wiki.archlinux.org/index.php/Slock#Lock_on_suspend
@@ -6933,3 +6996,81 @@ fprintd-enroll -f right-little-finger
 ```
 auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 ```
+
+# Alienware x15-r1
+
+## Todo
+[ ] suspend on lid close
+[ ] brightness control with redshift
+[ ] ethernet adapter
+[ ] Keyboard LED control
+[ ] Bumblebee for Optimus (hybrid graphics)
+
+
+## Dual-boot with windows: 
+[link](https://askubuntu.com/questions/1257533/install-ubuntu-on-alienware-m15-r3)
+
+- In the BIOS, turn off secure boot and set to ACHI
+- Delete safeboot in windows: `bcdedit /set {current} safeboot minimal`
+- Restart windows (automatically in safe mode) and selete safeboot: `bcdedit /deletevalue {current} safeboot`
+- Restart and shrink partition
+- Intall Ubuntu from usb
+
+## Hardware drivers
+
+- Ubuntu 20.04 does not work with wifi, touchpad
+- Ubuntu (xubuntu) 21.10 (beta) comes with linux kernel 5.13.0, wifi works, but not touchpad
+- Disable `secure boot` in BIOS for new kernels to load at restart (otherwise `initramfs` mismatch error will be thrown)
+- Linux kernel 5.14.0 (beta): both wifi and touchpad work, but nvidia driver needs to be re-installed in the following way
+	- Go to `additional drivers` and select some other option than `properietary 370`
+	- It will install the other option and will fail to apply.
+	- Then revert back to `370` driver and apply again
+	- When done, restart, check if it is set at `370` and run `nvidia-smb` to see if it works 
+- Brightness can be controlled using `xrandr` (buttons don't work): use the graphic device in use as a target brighness device. To make the changes made by `xrandr` to stay, stop redshift, adjust brightness, and the restart redshift.
+- Turn off flashy leds in windows
+
+## Ethernet adapter
+
+Mainly followed [this](https://ubuntu.com/server/docs/network-configuration) guide.
+
+- Check if the device is recognised when attached using `sudo dmesg`. Found a line like
+
+```
+[ ... ] cdc_ncm 4-2:2.0 wwx0c3796485dda: renamed from wwan0
+```
+
+that says a wired device is created. However, `ifconfig` shows no such device.
+
+- See that the hardware is present
+
+```
+sudo lshw -class network
+```
+
+but is is `DISABLED`.
+
+- Turn the device up using 
+
+```
+sudo ifconfig wwx0c3796485dda up
+```
+Now `ifconfig` shows the device.
+
+- To make the Ethernet device ask for ip address, force it to run dhcp by creating a netplan in the file `/etc/netplan/99_config.yaml`
+
+```
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0:
+      dhcp4: true
+```
+
+and applying the netplan using
+
+```
+sudo netplan apply
+```
+
+- Now `ifconfig` shows it has the ip address and internet works.
