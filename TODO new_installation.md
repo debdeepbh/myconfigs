@@ -6443,9 +6443,17 @@ This is about 1GB of installation.
 
 * Check your gpu info with 
 ```
-nvidia-smi
+nvrdia-smi
 ```
 You can find your CUDA version here.
+
+- Find the number of cuda cores in your graphics card
+
+```
+nvidia-settings -q CUDACores -t
+```
+
+## cupy as an alternative to numpy
 
 * Install `cupy` (for CUDA version `11.1`, check website for other versions)
 ```
@@ -6497,9 +6505,66 @@ and all the arrays defined henceforth will be stored in the device `1`. The arra
 * Clear an array from memory with `del x` or `x = None`. After this, we can reassign the array `x`.
 However, this does not get reflected in `nvidia-smi` since the allocated memory is not freed immediately. To manually clear _unused_ memory, do `mempool.free_all_blocks()`, which id observed in `nvidia-smi`.
 
-
-
 * Install `nvidia-profiler` to use `nvprof` with code
+
+## numba
+
+- install with
+```
+pip3 install numba
+```
+
+- Try the code the runs in serial
+```
+import numpy as np
+from timeit import default_timer as timer
+
+def pow(a, b, c):
+    for i in range(a.size):
+         c[i] = a[i] ** b[i]
+
+def main():
+    vec_size = 100000000
+
+    a = b = np.array(np.random.sample(vec_size), dtype=np.float32)
+    c = np.zeros(vec_size, dtype=np.float32)
+
+    start = timer()
+    pow(a, b, c)
+    duration = timer() - start
+
+    print(duration)
+
+if __name__ == '__main__':
+    main()
+```
+
+- Now, with `numba`
+```
+import numpy as np
+from timeit import default_timer as timer
+from numba import vectorize
+
+@vectorize(['float32(float32, float32)'], target='cuda')
+def pow(a, b):
+    return a ** b
+
+def main():
+    vec_size = 100000000
+
+    a = b = np.array(np.random.sample(vec_size), dtype=np.float32)
+    c = np.zeros(vec_size, dtype=np.float32)
+
+    start = timer()
+    c = pow(a, b)
+    duration = timer() - start
+
+    print(duration)
+
+if __name__ == '__main__':
+    main()
+```
+
 
 ## OPENMP in C++
 [slides](https://ukopenmpusers.co.uk/wp-content/uploads/uk-openmp-users-2018-OpenMP45Tutorial_new.pdf)
@@ -7027,13 +7092,16 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 - Ubuntu 20.04 does not work with wifi, touchpad
 - Ubuntu (xubuntu) 21.10 (beta) comes with linux kernel 5.13.0, wifi works, but not touchpad
 - Disable `secure boot` in BIOS for new kernels to load at restart (otherwise `initramfs` mismatch error will be thrown)
-- Linux kernel 5.14.0 (beta): both wifi and touchpad work, but nvidia driver needs to be re-installed in the following way
-	- Go to `additional drivers` and select some other option than `properietary 370`
-	- It will install the other option and will fail to apply.
-	- Then revert back to `370` driver and apply again
-	- When done, restart, check if it is set at `370` and run `nvidia-smb` to see if it works 
+- Linux kernel 5.14.0 (beta): both wifi and touchpad work, 
 - Brightness can be controlled using `xrandr` (buttons don't work): use the graphic device in use as a target brighness device. To make the changes made by `xrandr` to stay, stop redshift, adjust brightness, and the restart redshift.
 - Turn off flashy leds in windows
+
+### nvidia driver needs to be re-installed in the following way
+- Go to `additional drivers` and select some other option than `properietary 370`
+- It will install the other option and will fail to apply.
+- Then revert back to `370` driver and apply again
+- When done, restart, check if it is set at `370` and run `nvidia-smb` to see if it works 
+- use `inxi -G` to see available graphic devices and `glxinfo|egrep "OpenGL vendor|OpenGL renderer"` to see the active device
 
 ## Ethernet adapter
 
