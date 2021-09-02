@@ -1295,6 +1295,18 @@ Note: you may get 'branch does not exist' error, in that case, `checkout` to the
 git mergetool
 ```
 
+- Delete the remote branch
+```
+git branch -d remote_branch
+```
+
+- Delete the remote branch on origin (remote)
+
+```
+git push -d origin remote_branch
+```
+
+
 ### Replacing _all_ files without resolving conflicts
 
 * **See below for alternative** ~~ To replace all the local files with the remote files, do 
