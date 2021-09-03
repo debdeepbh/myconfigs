@@ -7084,10 +7084,10 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 ## Todo
 [ ] suspend on lid close
 [ ] lock screen on suspend
-[x] ethernet adapter
 [ ] brightness control with redshift
 [ ] Keyboard LED control
-[ ] Bumblebee for Optimus (hybrid graphics)
+[x] ethernet adapter
+[x] [nvidia-settings takes care of it] Bumblebee for Optimus (hybrid graphics)
 
 
 ## Dual-boot with windows: 
@@ -7158,3 +7158,70 @@ sudo netplan apply
 - Now `ifconfig` shows it has the ip address and internet works.
 
 - It is better to fix the logical name permanently by associating it with the Mac address in `/etc/netplan/99_config.yaml` but I don't do it here.
+
+## Lid switch handling
+
+By default:
+- `sudo systemctl suspend` works as intended
+- Lock screen only (no suspend) on lid close works as intended (both via logind and xfce4-power-manager),
+- Suspend on lid close is *problematic* because the screen does not come back on after lid is opened. Basically the display `eDP-1` (in my case) is connected but disabled, which is not enabled by default.
+So, ssh-ing into the computer, and issuing 
+```
+export DISPLAY=:0
+xrandr --auto
+```
+resumes the screen.
+
+Moreover, when the screen is frozen, `CTRL+ALT+F1` works for login. It is possible to issue `sudo lightdm restart` and log back in to tty7.
+
+
+### Manually run `xrandr --auto` on lid open event: `sleep 1` is important
+
+- Specify a script to run on any lid event in  `/etc/acpi/events/lm_lid`
+```
+event=button/lid.*
+action=/etc/acpi/lid.sh
+```
+
+- Write the script `/etc/acpi/events/lm_lid` (which runs as root) to call `xrandr` as a user after waiting for a few seconds (this is crucial) 
+```
+grep -q open /proc/acpi/button/lid/LID*/state
+if [ $? = 1 ]
+then
+    sleep 1; su -c "DISPLAY=:0 xrandr --auto" debdeep;
+fi
+```
+
+- Make the script executable as root
+```
+sudo chmod a+x /etc/acpi/events/lm_lid
+```
+
+- Restart acpi service
+```
+systemctl restart acpid.service
+```
+
+
+### Other settings that go with this setup:
+
+- Turn off the lid-switch related decisions by logind
+```
+xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/logind-handle-lid-switch -n -t bool -s false
+```
+
+- Comment out all lines in `/etc/systemd/logind.conf`, in particular, the lines with `LidSwitch`
+
+- Allow `xfce4-power-manager` to launch at startup
+
+- Set the following in the settings:
+	- `General > Bottons`: `Do nothing` for all except `When power botton is pressed: Suspend`
+
+	- `System > On Battery`: `When inactive for (slider): Never` and `When laptop lid is closed: Lock screen`
+	- `System > Plugged In`: Same as `On Battery`
+	- `System > Security`: `Lock screen when system is going to sleep`
+
+	- `Display > On Battery`: `Put to sleep after: Never`, and `Switch off after: Never`
+	- `Display > Plugged in`: Same as on battery
+
+
