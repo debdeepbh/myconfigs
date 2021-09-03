@@ -17,9 +17,9 @@ exec --no-startup-id xfce4-panel
 # to use with notify-send
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
-#
-exec --no-startup-id xfce4-power-manager #experimental, to see if the xorg-lightdm memory leak is resolved
-exec --no-startup-id redshift
+exec --no-startup-id xfce4-power-manager 
+#exec --no-startup-id redshift
+exec --no-startup-id ~/.myscr/brightness -0.5
 #exec --no-startup-id onboard
 exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox'
 
@@ -66,6 +66,15 @@ bindsym $mod+shift+x exec xournal
 # brightness
 #bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 #bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
+# brightness adjustment
+bindsym $mod+Up exec  ~/.myscr/brightness +0.1
+bindsym $mod+Down exec  ~/.myscr/brightness -0.1
+# gamma adjustment
+bindsym $alt+Up exec  ~/.myscr/brightness none +0.1
+bindsym $alt+Down exec  ~/.myscr/brightness none -0.1
+# reset to brightness and gramma 1
+bindsym $mod+equal exec  ~/.myscr/brightness reset
 
 # kill focused window
 bindsym $mod+Shift+c kill

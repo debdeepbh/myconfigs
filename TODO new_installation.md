@@ -7082,10 +7082,10 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 # Alienware x15-r1
 
 ## Todo
-[ ] suspend on lid close
-[ ] lock screen on suspend
 [ ] brightness control with redshift
 [ ] Keyboard LED control
+[x] suspend on lid close
+[x] lock screen on suspend
 [x] ethernet adapter
 [x] [nvidia-settings takes care of it] Bumblebee for Optimus (hybrid graphics)
 
@@ -7113,7 +7113,7 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 - It will install the other option and will fail to apply.
 - Then revert back to `370` driver and apply again
 - When done, restart, check if it is set at `370` and run `nvidia-smb` to see if it works 
-- use `inxi -G` to see available graphic devices and `glxinfo|egrep "OpenGL vendor|OpenGL renderer"` to see the active device
+- use `inxi -G` to see all available graphic devices and `glxinfo|egrep "OpenGL vendor|OpenGL renderer"` to see the currently active device
 
 ## Ethernet adapter
 

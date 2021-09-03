@@ -1,0 +1,56 @@
+monitor=$(xrandr | grep " connected" | cut -f1 -d " ")
+
+#currval=$(xrandr --verbose | grep -m 1 -w "$monitor connected" -A8 | grep "$2" | cut -f2- -d: | tr -d ' ')
+currval=$(xrandr --verbose | grep $monitor -A8 | grep "Brightness" | cut -f2 -d " ")
+#echo "current brightness $currval"
+
+
+# remove redshift adjustment from the screen
+#redshift -x
+
+
+
+echo "Before"
+xrandr --verbose  | grep "Brightness"; xrandr --verbose  | grep "Gamma"
+
+if [ $1 = 'reset' ]; then
+echo "resetting to 1"
+    xrandr --output $monitor --gamma 1:1:1 --brightness 1
+    echo "After"
+    xrandr --verbose  | grep "Brightness"; xrandr --verbose  | grep "Gamma"
+    exit 1
+fi
+
+
+# if the second argument does not exist
+if [ -z "$2" ]; then
+    num=$(perl -e "print $currval$1")
+    echo "brightness to set: $num"
+    xrandr --output $monitor --brightness $num
+else
+    fgamma=$(xrandr --verbose | grep "Gamma")
+    ga1=$(echo $fgamma | cut -f2 -d ":")
+    ga2=$(echo $fgamma | cut -f3 -d ":")
+    ga3=$(echo $fgamma | cut -f4 -d ":")
+
+    echo "sec: $2"
+    #nga1=$(perl -e "print (1/$ga1)$2")
+    #nga2=$(perl -e "print (1/$ga2)$2")
+    #nga3=$(perl -e "print (1/$ga3)$2")
+    #
+    ## value set through --gamma is actually 1/(value shown in gamma)
+    nga1=$(perl -e "print 1/($ga1-($2))")
+    nga2=$(perl -e "print 1/($ga2-($2))")
+    nga3=$(perl -e "print 1/($ga3-($2))")
+
+echo "new gamma: $nga1:$nga2:$nga3"
+
+
+	echo "issue"
+    echo "xrandr --output $monitor --brightness $currval --gamma $nga1:$nga2:$nga3"
+    xrandr --output $monitor --gamma $nga1:$nga2:$nga3 --brightness $currval 
+fi
+
+
+echo "After"
+xrandr --verbose  | grep "Brightness"; xrandr --verbose  | grep "Gamma"
