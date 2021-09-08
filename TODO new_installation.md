@@ -4407,12 +4407,11 @@ sudo apt update
 sudo apt install zotero
 ```
 * Install the firefox plugin.
-- Download plugins: (right click and `save link as` to get the `.xpi` file instead of attempting to install on Firefox as a plugin)
+- Download plugins: (right click and `save link as` to get the `.xpi` file instead of attempting to install on Firefox as a plugin). To install plugins, goto Zotero app `Tools > Addon > Gear Icon > Install from file`. Restart Zotero.
     * Download the  `Zotfile` plugin from [link](http://zotfile.com/)
     * Download `Better Bibtex` plugin from [link](https://github.com/retorquere/zotero-better-bibtex)
     * Download `scihub` plugin from [link](https://github.com/ethanwillis/zotero-scihub)
 
-- To install plugins, goto `Tools > Addon > Gear Icon > Install from file`. Restart Zotero.
 
 - After installing the scihub plugin, follow this [link](https://medium.com/@gagarine/use-sci-hub-with-zotero-as-a-fall-back-pdf-resolver-cf139eb2cea7)
 and set your browser in `.bashrc` by adding
@@ -4435,7 +4434,7 @@ In `Tools > Zotfile preference`, set the following
 
 - Click on the green sync button on top right to sync
 
-### In Better Bibtex settings:
+### In Better Bibtex settings (Edit>Preferences>Better):
 * Add vim support by adding the following to `.vimrc`
 
 ```
@@ -4463,8 +4462,8 @@ inoremap <C-z> <C-r>=ZoteroCite()<CR>
 
 
 ## **Caution:** 
-* Items without a parent do not get moved or renamed, so make sure to create one for un-recognized files
-* Items do not get automatically copied to the new location until you select them and click _rename attachments_
+* Items without a parent do not get moved or renamed, so make sure to create one for unrecognized files
+* Items do not get automatically copied to the new location until you select them and click `rename attachments`
 * Moving items to another collection can be done by holding the shift key while dragging with the mouse
 * Auto syncing is done within a few seconds of change to the database.
 * Files in the _Unfiled items_ category are placed in the base directory, instead of in the collection directories. Edit or move them.
@@ -4547,6 +4546,21 @@ sudo apt-get install python3-setuptools
 pip3 install --user papis
 ```
 Add `~/.local/bin` to your `$PATH`.
+
+- View the config file `~/.config/papis/config` to find (or change) the default paper location
+```
+dir = ~/Documents/papers
+```
+
+- Create the directory (otherwise you get error while running)
+```
+mkdir ~/Documents/papers
+```
+
+- For papis-vim (follow instructions)
+```
+pip3 install whoosh
+```
 
 # MARP for presentation slides using markdown
 
@@ -7082,8 +7096,10 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 # Alienware x15-r1
 
 ## Todo
-[ ] brightness control with redshift
-[ ] Keyboard LED control
+[ ] [optional] Keyboard LED control
+[ ] [wait for new kernel] redshift along with brightness
+[ ] [trivial] audio tick sound
+[x] brightness control with redshift
 [x] suspend on lid close
 [x] lock screen on suspend
 [x] ethernet adapter
