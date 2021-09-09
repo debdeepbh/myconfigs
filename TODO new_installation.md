@@ -4396,6 +4396,14 @@ and creating the directory (`mkdir -p ~/.mutt/cache/headers`), which is very imp
 
 # Zotero
 
+- Install
+- Copy old profile `.zotero/zotero/<random_string>.default` (saved in google cloud directory `zotero`) into `$HOME`. This will have login and plugin information and settings, but not the database.
+- Run `zotero` and **refuse** to `sync to empty database` 
+- Disable `sci-hub`
+- Go to `Zotfiles settings` and verify the custom location and subdirectory (`General Settings > Location of Files` as `Custom Location`, `Subfolder defined by` as `/%c/`)
+- Sync
+- Enable `sci-hub`
+
 ### Installation
 * Install Zotero from source (the snap version does not follow system theme) by following the instruction.
 [link](https://www.zotero.org/support/installation)
