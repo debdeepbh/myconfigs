@@ -442,12 +442,11 @@ function stopwatch(){
 
 # An alias needed by .myscr called dwz to change to the tempo directory after extracting the latest zip file
 
+alias dwz='gtstf && cd ~/tempo'
+
+alias dwn='. ctstf'
+
 #alias comp='g++ `pkg-config opencv --cflags --libs`'
-
-
-# Extract the latest downloaded zip file and cd into it
-## Note that leading dot so that cd in the script takes effect in the shell that it calls from
-alias dwz='. dwz'
 
 # directory changing from the last opened path
 # ldp to load the path from the file .last_dir which was created by the modified "cd" alias. See the function cd_ for details.
@@ -714,6 +713,10 @@ export LD_LIBRARY_PATH=$HOME/libWTools/lib
 # Install Ruby Gems to ~/gems
 export GEM_HOME="$HOME/gems"
 export PATH="$PATH:$HOME/gems/bin"
+
+# papis
+export PATH="$PATH:$HOME/.local/bin"
+source $HOME/.local/etc/bash_completion.d/papis.sh
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 

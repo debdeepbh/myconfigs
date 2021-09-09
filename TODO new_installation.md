@@ -4409,8 +4409,8 @@ sudo apt install zotero
 * Install the firefox plugin.
 - Download plugins: (right click and `save link as` to get the `.xpi` file instead of attempting to install on Firefox as a plugin). To install plugins, goto Zotero app `Tools > Addon > Gear Icon > Install from file`. Restart Zotero.
     * Download the  `Zotfile` plugin from [link](http://zotfile.com/)
-    * Download `Better Bibtex` plugin from [link](https://github.com/retorquere/zotero-better-bibtex)
-    * Download `scihub` plugin from [link](https://github.com/ethanwillis/zotero-scihub)
+    * [install after Zotfile setup and sync] Download `Better Bibtex` plugin from [link](https://github.com/retorquere/zotero-better-bibtex)
+    * [install after Zotfile setup and sync] Download `scihub` plugin from [link](https://github.com/ethanwillis/zotero-scihub)
 
 
 - After installing the scihub plugin, follow this [link](https://medium.com/@gagarine/use-sci-hub-with-zotero-as-a-fall-back-pdf-resolver-cf139eb2cea7)
@@ -4426,13 +4426,15 @@ and `source ~/.bashrc`.
 In `Tools > Zotfile preference`, set the following
 * `Advanced Settings`: _uncheck_ Only work with the following filetypes. Therefore, renaming and moving attachments work for tex, xoj etc, including new unexpected filetypes as well.
 * `Advanced Settings`: check remove special characters from filenames
-* `General Settings`: Set `Location of Files` as `Custom Location` and select a new directory which will be backed up using gdrive. Possibly add `Subfolder defined by` as `%c/` to add the `collection` name as the subdirectory.
+* `General Settings`: Set `Location of Files` as `Custom Location` and select a new directory which will be backed up using gdrive. Add `Subfolder defined by` as `/%c/` to add the `collection` name as the subdirectory.
+- `Renaming rules:` Set `Format for all item Types except Patents` to `{%a} ({%y}) {%t}`. Also, `Delimiter between multiple authors` to `-`.
 
 
 ### Setup syncing (Edit > Preferences > Sync)
 * Set up syncing and turn off attachment syncing (uncheck `Sync attachment files in My Library using` and  `Sync attachment files in group libraries using Zotero Storage`. This way, the database is synced by Zotero and the pdf files (attachments) are backed up by drive.
 
 - Click on the green sync button on top right to sync
+- While using Zotfiles and a custom location for the pdf files, the path for the files in a new setup has to be the same (I think the original custom path is saved on the cloud). A path mismatch will throw a `not found` error.
 
 ### In Better Bibtex settings (Edit>Preferences>Better):
 * Add vim support by adding the following to `.vimrc`
@@ -4545,11 +4547,18 @@ sudo apt-get install python3-setuptools
 ```
 pip3 install --user papis
 ```
-Add `~/.local/bin` to your `$PATH`.
+- For bash completion add to `.bashrc`
+```
+# for local installation with --user
+export PATH="$PATH:$HOME/.local/bin"
+# for bash completion
+source $HOME/.local/etc/bash_completion.d/papis.sh
+```
 
 - View the config file `~/.config/papis/config` to find (or change) the default paper location
 ```
 dir = ~/Documents/papers
+pip3 install --user papis
 ```
 
 - Create the directory (otherwise you get error while running)
@@ -4561,6 +4570,24 @@ mkdir ~/Documents/papers
 ```
 pip3 install whoosh
 ```
+
+- If using `whoosh` as a database backend,
+
+```
+database-backend = whoosh
+```
+
+ open papis with
+
+```
+papis open '*'
+```
+
+- Clear papis cache with
+```
+papis --clear-cache
+```
+which clears the directory `~/.cache/papis`.
 
 # MARP for presentation slides using markdown
 
