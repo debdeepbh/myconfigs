@@ -7245,7 +7245,7 @@ fi
 
 - Make the script executable as root
 ```
-sudo chmod a+x /etc/acpi/events/lm_lid
+sudo chmod a+x /etc/acpi/lid.sh
 ```
 
 - Restart acpi service
