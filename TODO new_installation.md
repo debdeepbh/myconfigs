@@ -7234,7 +7234,7 @@ event=button/lid.*
 action=/etc/acpi/lid.sh
 ```
 
-- Write the script `/etc/acpi/events/lm_lid` (which runs as root) to call `xrandr` as a user after waiting for a few seconds (this is crucial) 
+- Write the script `/etc/acpi/lid.sh` (which runs as root) to call `xrandr` as a user after waiting for a few seconds (this is crucial) 
 ```
 grep -q open /proc/acpi/button/lid/LID*/state
 if [ $? = 1 ]
