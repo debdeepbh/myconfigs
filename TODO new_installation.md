@@ -6154,6 +6154,11 @@ omp_set_nested(1);
 a = np.zeros((5,7))
 ```
 
+- Convert column matrix to array
+```
+M  = np.squeeze(np.asarray(M))
+```
+
 * Matrix-matrix multiplication of numpy arrays are done using `@` operator or using `a.dot(b)`
 ```
 a = np.array([ [1, 3], [4, 5] ])
@@ -6183,6 +6188,14 @@ row_A_v = A * v[:, None]
 ```
 
 Note that `v` is of size `(3,)` whereas `v[:, None]` is of size `(3,1)`.
+
+* Convert asymmetric list to a numpy array (matrix) by padding zero
+
+```
+b = np.zeros([len(a),len(max(a,key = lambda x: len(x)))])
+for i,j in enumerate(a):
+    b[i][0:len(j)] = j
+```
 
 * max-min: use `np.amax()` with `axis=` 0 or 1 or _without_ for the flattened array
 
