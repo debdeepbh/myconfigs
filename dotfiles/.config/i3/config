@@ -363,8 +363,10 @@ set $accent_col #689d68
 #set $accent_col #98971a
 # blue
 #set $accent_col #458588
-# Purple
+# purple
 #set $accent_col #b16286
+# red
+#set $accent #cc241d
 
 # gray
 set $neutral_back #a89984
@@ -372,11 +374,11 @@ set $neutral_back #a89984
 #set $neutral_back #fbf1c7
 set $neutral_back #ebdbb2
 
-#color                  border      background  text      indicator child_border
-client.focused          $accent_col $accent_col $neutral_back $purple   $accent_col
-client.focused_inactive $neutral_back   $neutral_back   $yellow   $purple   $neutral_back
-client.unfocused        $neutral_back   $neutral_back   $yellow   $purple   $neutral_back
-client.urgent           $red        $red        $white    $red      $red
+#color                  border        background    text          indicator child_border
+client.focused          $accent_col   $accent_col   $neutral_back $purple   $accent_col
+client.focused_inactive $neutral_back $neutral_back $aqua         $purple   $neutral_back
+client.unfocused        $neutral_back $neutral_back $yellow       $purple   $neutral_back
+client.urgent           $red          $red          $white        $red      $red
 
 #######################################################################
 #                                extra                                #
@@ -410,7 +412,7 @@ new_float normal $my_width
 #for_window [title="x200: ~/wallpapers"] floating enable
 
 ## Hide vertical borders adjacent to the screen edges. This is useful if you are using scrollbars, or do not want to waste even two pixels in displayspace.
-hide_edge_borders vertical
+#hide_edge_borders vertical
 
 # Enable floating dialogs application window
 for_window [window_role="pop-up"] floating enable
