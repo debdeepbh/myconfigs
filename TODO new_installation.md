@@ -6779,6 +6779,12 @@ ping 127.0.0.1 > ~/statuspipe
 	2. Select the window that will move into the container
 	3. Move in the direction of the container
 
+# i3 window manager movements
+
+- To jump to a far away window without traversing all the ones in between: Focus parent, then focus window located in the parent level
+- Close multiple windows simultaneously: Focus parent and close multiple windows simultaneously
+- To combine two windows together, create a vertical split for one window, move the other to the vertical space, then toggle stack mode
+
 # Disable the  use of swap space
 
 * To temporary turn off swap space and move all data to ram, turn off and turn on swapping:
