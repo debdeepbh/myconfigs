@@ -1,28 +1,19 @@
 #supply .myscr, config files
-
-#
 sudo apt-get update
 
 ### Install packages
 sudo apt-get --assume-yes install $(cat packages)
 
-## Install git-like drive for google
-sudo snap install drive pdftk
-
-## if doesn't exist already
-#drive init ~/gdrive
-#cd gdrive
-#drive pull paper-org book work
-
-# sudo apt-cache depends octave | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs sudo apt-get --reinstall install -y
-
-## Bulky, probably avoid: Install i3 workspace plugin for xfce4-panel
-#./install-xfce4-i3-workspace-plugin
-
 ## google-chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 rm google-chrome-stable_current_amd64.deb
+
+## zoom
+wget https://zoom.us/client/latest/zoom_amd64.deb
+#sudo apt-get install libgl1-mesa-glx -y # dependency, added to packages
+sudo dpkg -i zoom_amd64.deb
+rm zoom_amd64.deb
 
 ## skype
 wget https://go.skype.com/skypeforlinux-64.deb
@@ -34,7 +25,6 @@ rm skypeforlinux-64.deb
 git clone https://github.com/3ximus/gruvbox-gtk
 sudo cp -r gruvbox-gtk /usr/share/themes/
 
-
 # get configs
 git clone https://github.com/debdeepbh/myconfigs.git ~/myconfigs
 # copy dotfiles
@@ -42,29 +32,39 @@ cp -r ~/myconfigs/dotfiles/. ~/
 # install vim plugins
 vim +PlugInstall +qall
 
+## Avoiding very bulky snap, alternatives are preferable
+## Install git-like drive for google
+#sudo snap install drive pdftk zoom-client
 
-#### Turn off this to avoid X11 programs crashing like gmsh, latexdraw, octave, fltk backend, etc 
-#### Does it fix X11 memory leak when connected to hdmi via usb hub?
-### xbacklight fix
-## write to file
-#cat <<EOF >> 20-intel.conf
-#Section "Device"
-#        Identifier  "card0"
-#        Driver      "intel"
-#        Option      "Backlight"  "intel_backlight"
-#        BusID       "PCI:0:2:0"
-#EndSection
-#EOF
-## move the file
-#sudo mv 20-intel.conf /usr/share/X11/xorg.conf.d/
+## Install go and then drive
+go_version="1.17.1"
+wget https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
+rm -rf $HOME/go && tar -C $HOME -xzf go${go_version}.linux-amd64.tar.gz
+rm go${go_version}.linux-amd64.tar.gz
+export PATH=$PATH:$HOME/go:$HOME/go/bin
+## install drive (download and compile)
+go get -u github.com/odeke-em/drive/cmd/drive
+## move the compiled binary
+mkdir $HOME/.local/bin
+cp $HOME/go/bin/drive $HOME/.local/bin/
+rm -rf $HOME/go
 
+## if doesn't exist already
+#drive init ~/gdrive
+#cd gdrive
+#drive pull paper-org book work
+
+## Bulky, probably avoid: Install i3 workspace plugin for xfce4-panel
+#./install-xfce4-i3-workspace-plugin
+
+# sudo apt-cache depends octave | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs sudo apt-get --reinstall install -y
 #### Jupyter Lab and octave kernel
 ## the following code installs the python packages locally
 ## i.e. in $HOME/.local/share/ 
 # pip3 install jupyterlab octave_kernel
 ## To install it globally and save space in the home directory 
 ## use `sudo -H`. That way, it installs in /usr/share/ 
-yes | sudo -H pip3 install jupyterlab octave_kernel pandas numpy scipy matplotlib  scikit-learn
+#yes | sudo -H pip3 install jupyterlab octave_kernel pandas numpy scipy matplotlib  scikit-learn
 # vim keybiniding (a long installation process)
 # dependency
 
@@ -84,12 +84,10 @@ sudo apt-get -f install
 ## Install cocalc
 #sudo docker run --name=cocalc -d -v ~/cocalc:/projects -p 443:443 sagemathinc/cocalc
 
-
 ## SSH
 #ssh-keygen
 #eval `ssh-agent -s`
 #ssh-add
-
 ## to copy publickey, print it out
 #cat ~/.ssh/id_rsa.pub
 ## check if connection works
@@ -111,57 +109,4 @@ sudo apt-get -f install
 #### Firefox ##############
 ### Bigger Firefox font
 # about:config > devPixelsPerPx to 1.2
-
-### Firefox plugins
-# Ublock origin
-# Vim vixen
-# Dark Mode (WebExtension) by Bernard > Customize > select 'coffee
-# dark' or 'classy dark'
-##########################
-
-
-### Xournal patches
-
-#Install xournal from the patched version from xournal-patches by following the INSTALL file from the source code, satisfying the dependencies (see lin/TODO new installation), make and sudo make install
-
-#Open "Software & Update" app and check the "source codes" box, password and reload
-#Install build-dependencies for xournal using: sudo apt-get build-dep xournal
-#In the patched source code directory,  (archyhome/xournal-patches/xournal-0.4.8.2016)
-#	./autogen.sh
-#	make
-#	sudo make install
-#	sudo make desktop-install
-
-############# Now automatic ###################
-#
-## xfce4-terminal menubar
-# Taken care of using .config/xfce4/terminal/terminalrc
-# Open Preference of xfce4-terminal
-# General > Scrolling  > Scrollbar is > Disabled
-# Appearance > Display menubar in new windows
-
-## Clear xubuntu keyboard shortcut to work with awesome
-# Taken care of using
-# .config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
-# Alt+F3 to open search application menu > Keyboard > Shortcuts >  Remove all with 'Super' except possibly this interesting shortcut: Super  + F1
-
-### Rotate script
-# modify: in rotate script, set the display name e.g. 'eDP-1' from xrandr, if needed
-#
-### Brightness
-# xbacklight cannot find the right hardware: write in /etc/X11/xorg.conf
-# Section "Device"
-#    Identifier  "0x72"
-#    Driver      "intel"
-#    Option      "Backlight"  "intel_backlight"
-# EndSection
-#
-###### Add to panel:
-# weather applet
-# new launcher: rotate left, right, normal, inverted
-# new launcher: touchtoggle
-# applet: memory, cpu without text
-#
-##### Add onboard to the startup program list
-# Shortcut: firefocusl, rotate up/dpwn/left/right, thunar
 

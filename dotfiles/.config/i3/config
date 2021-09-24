@@ -13,6 +13,7 @@
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id xfsettingsd
+exec --no-startup-id compton
 exec --no-startup-id xfce4-panel
 # to use with notify-send
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd

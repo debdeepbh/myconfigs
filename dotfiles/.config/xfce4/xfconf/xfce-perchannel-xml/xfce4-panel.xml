@@ -11,12 +11,11 @@
       <property name="icon-size" type="uint" value="0"/>
       <property name="size" type="uint" value="20"/>
       <property name="plugin-ids" type="array">
-        <value type="int" value="1"/>
+        <value type="int" value="7"/>
         <value type="int" value="2"/>
         <value type="int" value="3"/>
         <value type="int" value="5"/>
         <value type="int" value="6"/>
-        <value type="int" value="7"/>
         <value type="int" value="8"/>
         <value type="int" value="9"/>
         <value type="int" value="10"/>
@@ -30,9 +29,6 @@
     </property>
   </property>
   <property name="plugins" type="empty">
-    <property name="plugin-1" type="string" value="applicationsmenu">
-      <property name="button-title" type="string" value=""/>
-    </property>
     <property name="plugin-2" type="string" value="tasklist">
       <property name="grouping" type="uint" value="1"/>
     </property>
@@ -43,27 +39,29 @@
     <property name="plugin-5" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
-
     <property name="plugin-6" type="string" value="systray">
       <property name="show-frame" type="bool" value="false"/>
       <property name="square-icons" type="bool" value="true"/>
       <property name="names-ordered" type="array">
-	<value type="string" value="task manager"/>
-	<value type="string" value="network"/>
+        <value type="string" value="task manager"/>
+        <value type="string" value="network"/>
+      </property>
+      <property name="known-legacy-items" type="array">
+        <value type="string" value="xfce4-power-manager"/>
+        <value type="string" value="thunar"/>
+        <value type="string" value="xfce terminal"/>
+        <value type="string" value="bluetooth enabled"/>
+        <value type="string" value="network"/>
+      </property>
+      <property name="known-items" type="array">
+        <value type="string" value="nm-applet"/>
+        <value type="string" value="blueman"/>
       </property>
     </property>
-
-    <!--<property name="plugin-7" type="string" value="statusnotifier">-->
-      <!--<property name="square-icons" type="bool" value="true"/>-->
-      <!--<property name="symbolic-icons" type="bool" value="true"/>-->
-      <!--<property name="known-items" type="array">-->
-	<!--<value type="string" value="nm-applet"/>-->
-      <!--</property>-->
-    <!--</property>-->
-
     <property name="plugin-8" type="string" value="pulseaudio">
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
       <property name="show-notifications" type="bool" value="true"/>
+      <property name="mpris-players" type="string" value="firefox.instance2139;firefox.instance2335;firefox.instance5691"/>
     </property>
     <property name="plugin-9" type="string" value="power-manager-plugin"/>
     <property name="plugin-10" type="string" value="notification-plugin"/>
@@ -77,6 +75,20 @@
       <property name="style" type="uint" value="0"/>
     </property>
     <property name="plugin-4" type="string" value="cpugraph"/>
-    <property name="plugin-14" type="string" value="systemload"/>
+    <property name="plugin-14" type="string" value="systemload">
+      <property name="cpu" type="empty">
+        <property name="label" type="string" value="c"/>
+      </property>
+      <property name="memory" type="empty">
+        <property name="label" type="string" value="m"/>
+      </property>
+      <property name="swap" type="empty">
+        <property name="label" type="string" value="s"/>
+      </property>
+      <property name="network" type="empty">
+        <property name="label" type="string" value="n"/>
+      </property>
+    </property>
+    <property name="plugin-7" type="string" value="whiskermenu"/>
   </property>
 </channel>

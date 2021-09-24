@@ -663,6 +663,7 @@ VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
 
+## For drive
 #export GOPATH=$HOME/gopath
 #export PATH=$GOPATH:$GOPATH/bin:$PATH
 
@@ -714,9 +715,10 @@ export LD_LIBRARY_PATH=$HOME/libWTools/lib
 export GEM_HOME="$HOME/gems"
 export PATH="$PATH:$HOME/gems/bin"
 
-# papis
+## for compiled drive (with go)
 export PATH="$PATH:$HOME/.local/bin"
-source $HOME/.local/etc/bash_completion.d/papis.sh
+# papis
+#source $HOME/.local/etc/bash_completion.d/papis.sh
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
