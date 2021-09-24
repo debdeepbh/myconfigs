@@ -2,6 +2,5 @@
 cd $HOME/Downloads
 file=$(ls -t *.zip | head -1)
 outdir=$(echo "$file" | cut -f 1 -d '.')
-echo "Will extract file $file to directory $outdir"
 unzip "$file" -d $outdir
-cd "$HOME/Downloads/$outdir"
+echo "Extracted file $file to directory $outdir"

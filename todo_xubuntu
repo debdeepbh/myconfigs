@@ -46,8 +46,9 @@ export PATH=$PATH:$HOME/go:$HOME/go/bin
 go get -u github.com/odeke-em/drive/cmd/drive
 ## move the compiled binary
 mkdir $HOME/.local/bin
-cp $HOME/go/bin/drive $HOME/.local/bin/
-rm -rf $HOME/go
+cp $HOME/go/bin/drive $HOME/.local/bin/ #make sure .bashrc has this path included
+## delete go
+sudo rm -rf $HOME/go
 
 ## if doesn't exist already
 #drive init ~/gdrive
@@ -57,6 +58,7 @@ rm -rf $HOME/go
 ## Bulky, probably avoid: Install i3 workspace plugin for xfce4-panel
 #./install-xfce4-i3-workspace-plugin
 
+## Python and octave stuff
 # sudo apt-cache depends octave | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs sudo apt-get --reinstall install -y
 #### Jupyter Lab and octave kernel
 ## the following code installs the python packages locally
@@ -83,28 +85,6 @@ sudo apt-get -f install
 
 ## Install cocalc
 #sudo docker run --name=cocalc -d -v ~/cocalc:/projects -p 443:443 sagemathinc/cocalc
-
-## SSH
-#ssh-keygen
-#eval `ssh-agent -s`
-#ssh-add
-## to copy publickey, print it out
-#cat ~/.ssh/id_rsa.pub
-## check if connection works
-#ssh -T git@github.com
-
-### For RISE, I have done
-#sudo -H pip3 install RISE
-#sudo -H jupyter-nbextension install rise --py --sys-prefix
-### However, it is malfunctioning and the close button is missing
-
-## I moved to jupyter notebook for its RISE support
-# Moreover, the only reason to use jupter lab was vim keybinding,
-# which is available now with
-# https://github.com/lambdalisue/jupyter-vim-binding
-# Even better, now file edits can be done in new firefox tabs, 
-# not in tabs inside the tab of jupyter lab
-### Install RISE by following the instruction from RISE git
 
 #### Firefox ##############
 ### Bigger Firefox font

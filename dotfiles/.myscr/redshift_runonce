@@ -1,0 +1,7 @@
+#!/bin/bash	
+if [[ $(pgrep --exact redshift) ]]; then 
+    echo "already running"  
+else 
+    redshift &
+fi
+

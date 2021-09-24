@@ -1,0 +1,9 @@
+## SSH
+ssh-keygen
+eval `ssh-agent -s`
+ssh-add
+## to copy publickey, print it out
+cat ~/.ssh/id_rsa.pub
+echo "Copy key over. Check if connection works with"
+echo "ssh -T git@github.com"
+

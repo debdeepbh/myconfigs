@@ -1,0 +1,20 @@
+
+## Install
+wget -qO- https://github.com/retorquere/zotero-deb/releases/download/apt-get/install.sh | sudo bash
+sudo apt update
+sudo apt install zotero
+
+## Get config for gdrive
+dr=$HOME/gdrive/zotero
+drive pull $dr
+mkdir $HOME/.zotero
+tar -C $HOME/.zotero -xvf $dr/zotero-conf.tar.gz 
+
+## Get papers
+drive pull $HOME/gdrive/paper-org
+
+echo "Before running sync, check: 1. scihub is off 2. gdrive/paper-org  exists and set in Zotfiles preference..."
+
+zotero 
+
+## Set firefox default pdf viewer to set the same for zotero

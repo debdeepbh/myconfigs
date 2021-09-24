@@ -19,7 +19,8 @@ exec --no-startup-id xfce4-panel
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id xfce4-power-manager 
-#exec --no-startup-id redshift
+exec --no-startup-id redshift
+exec --no-startup-id syndaemon -i 0.75 -t -K -R
 exec --no-startup-id ~/.myscr/brightness -0.5
 #exec --no-startup-id onboard
 exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox'
@@ -76,6 +77,12 @@ bindsym $alt+Up exec  ~/.myscr/brightness none +0.1
 bindsym $alt+Down exec  ~/.myscr/brightness none -0.1
 # reset to brightness and gramma 1
 bindsym $mod+equal exec  ~/.myscr/brightness reset
+
+## redshift off and on switch before applying brightness control
+bindsym $alt+shift+r exec pkill redshift
+#bindsym $alt+r exec redshift
+## don't run if already running
+bindsym $alt+r exec ~/.myscr/redshift_runonce
 
 # kill focused window
 bindsym $mod+Shift+c kill

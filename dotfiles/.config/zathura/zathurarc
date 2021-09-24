@@ -17,10 +17,10 @@ set adjust-open width
 "set default-bg "#002B36"
 "set default-fg "#93A1A1"
 
-set recolor-darkcolor "#93A1A1"
-"set recolor-lightcolor "#002B36"
-"matching my modified solarized theme
-set recolor-lightcolor "#1c1c1c"
+#set recolor-darkcolor "#93A1A1"
+#"set recolor-lightcolor "#002B36"
+#"matching my modified solarized theme
+#set recolor-lightcolor "#1c1c1c"
 
 #set recolor true
 set completion-bg \#a89984
@@ -52,7 +52,7 @@ set adjust-open width
 set incremental-search false
 set highlight-color \#ebdbb2
 set highlight-active-color \#3c3836
-set recolor true
+#set recolor true
 set recolor-darkcolor \#3c3836
 set recolor-lightcolor \#fbf1c7
 set recolor-reverse-video false
