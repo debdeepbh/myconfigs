@@ -3700,10 +3700,12 @@ fi
 
 Then, add this script to 
 
+```
 /etc/acpi/events/lm_lid
 ---------------------
 event=button/lid.*
 action=/etc/acpi/lid.sh
+```
 
 Finally, set the permissions and restart the services
 

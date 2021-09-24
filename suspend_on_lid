@@ -1,0 +1,9 @@
+#!/bin/bash
+## Script to fix the behavior of suspend on lid close
+sudo cp $HOME/myconfigs/lm_lid /etc/acpi/events/
+sudo cp $HOME/myconfigs/lid.sh /etc/acpi/lid.sh
+sudo chmod a+x /etc/acpi/lid.sh
+# Turn off the lid-switch related decisions by logind
+xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/logind-handle-lid-switch -n -t bool -s false
+# Restart acpi service
+systemctl restart acpid.service
