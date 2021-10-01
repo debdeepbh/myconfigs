@@ -1,7 +1,6 @@
 vim vim-gtk3 zathura ranger xdotool git gimp openssh-server powertop awesome awesome-extra unclutter redshift mplayer sxiv xbacklight
 texlive-latex-recommended texlive-pictures texlive-xetex latexdraw latexmk
 texlive-science
-pdftk libgl1-mesa-glx
 python3-pip pandoc docker.io nodejs npm
 exuberant-ctags
 suckless-tools

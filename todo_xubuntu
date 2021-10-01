@@ -5,27 +5,33 @@ sudo apt-get update
 sudo apt-get --assume-yes install $(cat packages)
 
 ## google-chrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-rm google-chrome-stable_current_amd64.deb
+#wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#sudo dpkg -i google-chrome-stable_current_amd64.deb
+#rm google-chrome-stable_current_amd64.deb
 
-## zoom
-wget https://zoom.us/client/latest/zoom_amd64.deb
-#sudo apt-get install libgl1-mesa-glx -y # dependency, added to packages
-sudo dpkg -i zoom_amd64.deb
-rm zoom_amd64.deb
+### zoom
+#wget https://zoom.us/client/latest/zoom_amd64.deb
+##sudo apt-get install libgl1-mesa-glx -y # dependency, added to packages
+#sudo dpkg -i zoom_amd64.deb
+#rm zoom_amd64.deb
 
-## skype
-wget https://go.skype.com/skypeforlinux-64.deb
-sudo dpkg -i skypeforlinux-64.deb 
-rm skypeforlinux-64.deb
+### skype
+#wget https://go.skype.com/skypeforlinux-64.deb
+#sudo dpkg -i skypeforlinux-64.deb 
+#rm skypeforlinux-64.deb
 
-###### Appearance #############
-## Install gruvbox-gtk theme from git to use `themeset dark`
-git clone https://github.com/3ximus/gruvbox-gtk
-sudo cp -r gruvbox-gtk /usr/share/themes/
+####### Appearance #############
+### Install gruvbox-gtk theme from git to use `themeset dark`
+#git clone https://github.com/3ximus/gruvbox-gtk
+#sudo cp -r gruvbox-gtk /usr/share/themes/
 
-# get configs
+### Install nodejs for coc                        #
+curl -sL install-node.now.sh/lts >> install_nodejs
+chmod +x install_nodejs
+# install locally
+./install_nodejs --prefix=$HOME/.local
+
+### get configs
 git clone https://github.com/debdeepbh/myconfigs.git ~/myconfigs
 # copy dotfiles
 cp -r ~/myconfigs/dotfiles/. ~/
@@ -37,18 +43,18 @@ vim +PlugInstall +qall
 #sudo snap install drive pdftk zoom-client
 
 ## Install go and then drive
-go_version="1.17.1"
-wget https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
-rm -rf $HOME/go && tar -C $HOME -xzf go${go_version}.linux-amd64.tar.gz
-rm go${go_version}.linux-amd64.tar.gz
-export PATH=$PATH:$HOME/go:$HOME/go/bin
-## install drive (download and compile)
-go get -u github.com/odeke-em/drive/cmd/drive
-## move the compiled binary
-mkdir $HOME/.local/bin
-cp $HOME/go/bin/drive $HOME/.local/bin/ #make sure .bashrc has this path included
-## delete go
-sudo rm -rf $HOME/go
+#go_version="1.17.1"
+#wget https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
+#rm -rf $HOME/go && tar -C $HOME -xzf go${go_version}.linux-amd64.tar.gz
+#rm go${go_version}.linux-amd64.tar.gz
+#export PATH=$PATH:$HOME/go:$HOME/go/bin
+### install drive (download and compile)
+#go get -u github.com/odeke-em/drive/cmd/drive
+### move the compiled binary
+#mkdir $HOME/.local/bin
+#cp $HOME/go/bin/drive $HOME/.local/bin/ #make sure .bashrc has this path included
+### delete go
+#sudo rm -rf $HOME/go
 
 ## if doesn't exist already
 #drive init ~/gdrive
@@ -71,17 +77,17 @@ sudo rm -rf $HOME/go
 # dependency
 
 # the vim externsion
-sudo jupyter labextension install jupyterlab_vim
+#sudo jupyter labextension install jupyterlab_vim
 ### Tip: to plot nice plots in octave_kernel, use
 # %plot -f svg
 # in the beginning of the notebook
 
 ## Update the system
-sudo apt-get update -y
-sudo apt-get -y upgrade
+#sudo apt-get update -y
+#sudo apt-get -y upgrade
 
-## fix-broken
-sudo apt-get -f install
+### fix-broken
+#sudo apt-get -f install
 
 ## Install cocalc
 #sudo docker run --name=cocalc -d -v ~/cocalc:/projects -p 443:443 sagemathinc/cocalc
