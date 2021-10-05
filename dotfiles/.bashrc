@@ -442,6 +442,10 @@ function stopwatch(){
 
 # An alias needed by .myscr called dwz to change to the tempo directory after extracting the latest zip file
 
+# Extract the latest downloaded zip file and cd into it
+## Note that leading dot so that cd in the script takes effect in the shell that it calls from
+alias dwz='. dwz'
+
 #alias comp='g++ `pkg-config opencv --cflags --libs`'
 
 # directory changing from the last opened path
