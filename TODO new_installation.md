@@ -4414,7 +4414,8 @@ and creating the directory (`mkdir -p ~/.mutt/cache/headers`), which is very imp
 
 # Zotero
 
-### Restore old setup **(use script `zotero_setup` instead)**
+### Restore old setup 
+**(use script `myconfigs/zotero_setup` instead)**
 - Install
 - Copy old profile `.zotero/zotero/<random_string>.default` (saved in google cloud directory `zotero`) into `$HOME`. This will have login and plugin information and settings, but not the database.
 - Run `zotero` and **refuse** to `sync to empty database` 
