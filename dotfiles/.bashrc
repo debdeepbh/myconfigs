@@ -700,7 +700,7 @@ VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 #export ANITA_UTIL_INSTALL_DIR=/home/debdeep/anitaUtil
 #export ANITA_UTIL_INC_DIR=/home/debdeep/anitaUtil/include
 # then you run your cpp files with: g++ filename `root-config --libs`
-export LD_LIBRARY_PATH=$HOME/libWTools/lib
+#export LD_LIBRARY_PATH=$HOME/libWTools/lib
 
 
 #################################
