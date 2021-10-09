@@ -7317,4 +7317,10 @@ xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/logind-handle-lid-sw
 	- `Display > On Battery`: `Put to sleep after: Never`, and `Switch off after: Never`
 	- `Display > Plugged in`: Same as on battery
 
+## Crackling and popping sound on headphone when idle
+Turn off power saving feature using
+```
+pactl unload-module module-suspend-on-idle
+```
+
 
