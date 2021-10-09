@@ -7323,4 +7323,9 @@ Turn off power saving feature using
 pactl unload-module module-suspend-on-idle
 ```
 
+To make the change permanent, comment out a line in a file
+```
+sudo sed -i 's/load-module module-suspend-on-idle/#load-module module-suspend-on-idle/g' /etc/pulse/default.pa
+```
+
 
