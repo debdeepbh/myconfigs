@@ -7206,6 +7206,8 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 - When done, restart, check if it is set at `370` and run `nvidia-smb` to see if it works 
 - use `inxi -G` to see all available graphic devices and `glxinfo|egrep "OpenGL vendor|OpenGL renderer"` to see the currently active device
 
+**Note:** After updating the kernel, you need to reinstall the nvidia driver (to compile it aginst the new kernel) by going to `Additional driver`, clicking on another driver that is not in use, applying it (it fails, so restart at time point), clicking on the desired one, and applying it again. Check the driver update is successful by issuing `nvidia-smi`
+
 ## Ethernet adapter
 
 Mainly followed [this](https://ubuntu.com/server/docs/network-configuration) guide.

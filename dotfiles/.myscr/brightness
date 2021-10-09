@@ -24,10 +24,13 @@ fi
 
 # if the second argument does not exist
 if [ -z "$2" ]; then
+    pkill redshift
     num=$(perl -e "print $currval$1")
     echo "brightness to set: $num"
     xrandr --output $monitor --brightness $num
+    $HOME/.myscr/redshift_runonce
 else
+    pkill redshift
     fgamma=$(xrandr --verbose | grep "Gamma")
     ga1=$(echo $fgamma | cut -f2 -d ":")
     ga2=$(echo $fgamma | cut -f3 -d ":")
@@ -42,6 +45,7 @@ else
     nga1=$(perl -e "print 1/($ga1-($2))")
     nga2=$(perl -e "print 1/($ga2-($2))")
     nga3=$(perl -e "print 1/($ga3-($2))")
+    $HOME/.myscr/redshift_runonce
 
 echo "new gamma: $nga1:$nga2:$nga3"
 
