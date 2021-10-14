@@ -4087,6 +4087,33 @@ chown -R motion:motion dir_within_anoter_user
 
 Note that, motion cannot even write to a location that is owned by another user even when we run motion as super user (via `sudo systemctl motion start`).
 
+# MotionEye on usual Ubuntu
+
+```
+sudo docker create -v $HOME/Pictures:/pics -t -p 8765:8765 -p 8081:8081 --shm-size=4096m --name motioneye --privileged=true -e TZ=Asia/Colombo --restart="always" ccrisan/motioneye:master-amd64
+```
+This starts docker with an additional mount point where `$HOME/Pictures` exists.
+
+- run
+```
+sudo docker start motioneye
+```
+
+- Set admin password
+- Turn on `Movies` or `Still images`
+- `File Storage`: select the storage device with appropriate size. In Root directory, `/` means `/pics` (set while creating the docker)
+- Apply to take effect
+
+- See the installed docker images with 
+```
+sudo docker images -a
+```
+
+- Uninstall an image with
+```
+sudo docker image rm ID
+```
+
 # MotionEye on raspberry pi
 - Convert the image file `.img.xz` file into `.img` using `unxz`.
 ```
