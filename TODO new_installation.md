@@ -133,10 +133,10 @@ ffmpeg -start_number 1 -i img_tc_%5d.png -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:
 - Use `-crf` along with framerate `-r` to produce smaller video
     * Larger the framerate, bigger the video (good range 20-28)
     * Larger the `crf` smaller the video (good range 20-30)
-- To increase the duration of each image in the video, use `-vf 'zoompan=d=25'` where 25 is the number of frames for which the image should appear.
+- To increase the duration of each image in the video, use `-framerate` option which specifies how many frames to show per second (i.e. decreasing this value will increase the duration of each image).
 
 ```
-ffmpeg -start_number 1 -i img_tc_%5d.png -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2,zoompan=d=2" -r 25 -crf 30 vid.mp4
+ffmpeg -framerate 10 -start_number 1 -i img_tc_%5d.png -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -r 25 -crf 30 vid.mp4
 ```
 
 
@@ -7172,10 +7172,10 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 
 ## Todo
 [ ] [optional] Keyboard LED control
-[ ] [wait for new kernel] redshift along with brightness
-[ ] [trivial] audio tick sound
+[x] [script does that, although flashy] redshift along with brightness
+[x] [trivial] audio tick sound
 [x] brightness control with redshift
-[x] suspend on lid close
+[-] suspend on lid close
 [x] lock screen on suspend
 [x] ethernet adapter
 [x] [nvidia-settings takes care of it] Bumblebee for Optimus (hybrid graphics)
