@@ -6027,9 +6027,22 @@ Here, `code_1()` will be executed `omp_get_max_threads()` number of times.
 
 ### For loop:
 
-* Simply:
+- The long-hand version is
 ```
-#pragma omp for
+#pragma omp parallal
+{
+    #pragma omp for
+    for(int n=0; n<10; ++n){
+	    print(" %d", n);
+}
+}
+``` 
+
+This first creates `omp_get_num_threads()` number of threads. Then, the statement `#pragma omp for` picks a value of `n` and *assigns* the associated `printf` task to one of threads. Not that this is **not** a nested multithreading. The outer `pragma` creates a parallel space and the next `pragma` assigns tasks to each of the threads.
+
+* This is same as writing simply the following shortcut:
+```
+#pragma omp parallel for
 for(int n=0; n<10; ++n){
 	printf(" %d", n);
 }
@@ -6038,7 +6051,7 @@ Note that there is no order in which the code inside the omp directive runs.
 
 * The `ordered` part of the code is executed in the same order of the `for` loop: (note the two occurrences of `#pragma` to specify which part of the code is ordered):
 ```
-#pragma omp for ordered schedule(dynamic)
+#pragma omp parallel for ordered schedule(dynamic)
 for(int n=0; n<10; ++n){
 	// do other unordered things
 	code_1();
