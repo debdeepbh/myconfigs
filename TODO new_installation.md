@@ -4014,6 +4014,30 @@ Alternatively, use the `ccls` (`sudo snap install ccls --classic`) and include i
 }
 ```
 
+- Install `ccls` from source
+[link](https://github.com/MaskRay/ccls/wiki/Build)
+```
+# download
+git clone --depth=1 --recursive https://github.com/MaskRay/ccls
+cd ccls
+
+# install dependencies
+sudo apt install cmake clang libclang-dev
+sudo apt install zlib1g-dev libncurses-dev
+
+# cmake configure
+cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_PREFIX_PATH=/usr/lib/llvm-7 \
+    -DLLVM_INCLUDE_DIR=/usr/lib/llvm-7/include \
+    -DLLVM_BUILD_INCLUDE_DIR=/usr/include/llvm-7/
+
+# cmake build
+cmake --build Release
+
+# install
+sudo cmake --build Release --target install
+```
+
 * In your C/C++ project, generate a file called `compile_commands.json` using `CMake` (if the project is CMake-based) or `bear` (if the project is `make`-based) in the following way. [link](https://releases.llvm.org/8.0.0/tools/clang/tools/extra/docs/clangd/Installation.html)
 
 * If your project builds with CMake, it can generate `compile_commands.json`. You should enable it with:
@@ -7368,4 +7392,11 @@ To make the change permanent, comment out a line in a file
 sudo sed -i 's/load-module module-suspend-on-idle/#load-module module-suspend-on-idle/g' /etc/pulse/default.pa
 ```
 
+# OpenMPI
+
+- Install on ubuntu with
+```
+sudo apt-get install libopenmpi-dev
+```
+and see the version using `mpic++ --showme:version`.
 
