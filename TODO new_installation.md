@@ -4087,6 +4087,33 @@ chown -R motion:motion dir_within_anoter_user
 
 Note that, motion cannot even write to a location that is owned by another user even when we run motion as super user (via `sudo systemctl motion start`).
 
+# MotionEye on usual Ubuntu
+
+```
+sudo docker create -v $HOME/Pictures:/pics -t -p 8765:8765 -p 8081:8081 --shm-size=4096m --name motioneye --privileged=true -e TZ=Asia/Colombo --restart="always" ccrisan/motioneye:master-amd64
+```
+This starts docker with an additional mount point where `$HOME/Pictures` exists.
+
+- run
+```
+sudo docker start motioneye
+```
+
+- Set admin password
+- Turn on `Movies` or `Still images`
+- `File Storage`: select the storage device with appropriate size. In Root directory, `/` means `/pics` (set while creating the docker)
+- Apply to take effect
+
+- See the installed docker images with 
+```
+sudo docker images -a
+```
+
+- Uninstall an image with
+```
+sudo docker image rm ID
+```
+
 # MotionEye on raspberry pi
 - Convert the image file `.img.xz` file into `.img` using `unxz`.
 ```
@@ -6000,9 +6027,22 @@ Here, `code_1()` will be executed `omp_get_max_threads()` number of times.
 
 ### For loop:
 
-* Simply:
+- The long-hand version is
 ```
-#pragma omp for
+#pragma omp parallal
+{
+    #pragma omp for
+    for(int n=0; n<10; ++n){
+	    print(" %d", n);
+}
+}
+``` 
+
+This first creates `omp_get_num_threads()` number of threads. Then, the statement `#pragma omp for` picks a value of `n` and *assigns* the associated `printf` task to one of threads. Not that this is **not** a nested multithreading. The outer `pragma` creates a parallel space and the next `pragma` assigns tasks to each of the threads.
+
+* This is same as writing simply the following shortcut:
+```
+#pragma omp parallel for
 for(int n=0; n<10; ++n){
 	printf(" %d", n);
 }
@@ -6011,7 +6051,7 @@ Note that there is no order in which the code inside the omp directive runs.
 
 * The `ordered` part of the code is executed in the same order of the `for` loop: (note the two occurrences of `#pragma` to specify which part of the code is ordered):
 ```
-#pragma omp for ordered schedule(dynamic)
+#pragma omp parallel for ordered schedule(dynamic)
 for(int n=0; n<10; ++n){
 	// do other unordered things
 	code_1();
