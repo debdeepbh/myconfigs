@@ -7400,3 +7400,60 @@ sudo apt-get install libopenmpi-dev
 ```
 and see the version using `mpic++ --showme:version`.
 
+
+# Setting up vim and other goodies in a local environment
+
+## vim
+- compile vim 8 from source with python3 support
+- add path (~/.local/bin/vim) to local vim *before* the system vim path
+
+## nvim
+- download the executable binary
+- copy the content (`bin`, `lib`, `share`) of the extracted tar to `~/.local` so that it can be launched
+- [see before] create `.config/nvim/init.vim` according to instructions and populate with appropriate lines
+- run `nvim` and issue `:checkhealth` to see what does not work
+
+### fixing ultisnip python3 path
+- find python3 path with `which python3`
+- insert in `.vimrc` for `nvim` to specify the path of python3
+```
+let g:python3_host_prog = <full path from `which python3` output>
+```
+- install `pynvim` using
+```
+pip3 install pynvim
+```
+- run `:checkhealth` to see if there is still an issue
+
+### nodejs
+
+- Download nodejs binary from [website](https://nodejs.org/en/download/)
+```
+wget -c https://nodejs.org/dist/v16.13.0/node-v16.13.0-linux-x64.tar.xz
+```
+- extract and add the path of extracted location to `$PATH` in `~/.bashrc` and source
+- check `node` command runs
+- [unnecessary] install npm package `neovim` using ` npm install -g neovim `
+
+### coc.nvim
+- with `:PlugInstall` command you will get the error that the `Release` branch could not be found
+- go to the downloaded repository and (build and) install it with npm using
+```
+cd $HOME/.vim/plugged/coc.nvim
+npm install
+```
+- open `nvim` and check that coc is not showing any error
+- Install language servers using `:CocInstall coc-pyright`
+
+## ranger
+```
+pip3 install ranger-fm
+```
+
+## Issues
+- [ ] `nvim` takes a while to load
+- [ ] the first insert mode in `nvim`  is very slow, after that it works well
+- [ ] ranger takes a while to start
+
+
+
