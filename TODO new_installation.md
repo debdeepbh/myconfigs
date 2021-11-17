@@ -145,6 +145,10 @@ Next, convert the output mp4 to gif to get correct color reproduction using
 ffmpeg -i vid4.mp4 vid4.gif
 ```
 
+- Combine multiple videos side-by-side using `hstack`
+```
+ffmpeg -i vid_1.mp4 -i vid_2.mp4 -i vid_3.mp4 -filter_complex hstack=inputs=3 vid_combined.mp4
+```
  
 # Printing:
  
