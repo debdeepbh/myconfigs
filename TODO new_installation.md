@@ -398,6 +398,14 @@ done
 * `:/` to search for the last searched string
 * Use buffer instead of tabs for the same project
 
+## vim window splitting
+- Make window sizes equal after resizing with `<C-W>=`. Resize further using `<C-W>>/<`
+- Split current window with the last buffer horizontally using `:sb#`
+- Split current window with the last buffer vertically using `:vert sb#`
+- Similarly, split with `N`-th buffer (from `:b`) using `:sb N` and `:vert sb N`
+* Move current split to (horizontally) left or right using `<C-W><S-H/L>` and (vertically) to top or bottom using  `<C-W><S-J/K>`
+
+
 ## vim Ex commands
 
 We can apply a command on a range of lines using ex commands.
