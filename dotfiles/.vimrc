@@ -114,7 +114,8 @@ nnoremap gp `[v`]
 " without restarting vim
 " Not sure if I'll ever use it though
 nmap <silent> <leader>sv :source $MYVIMRC<CR>
-nnoremap <Leader>ev :tab drop $MYVIMRC<CR>
+"nnoremap <Leader>ev :tab drop $MYVIMRC<CR>
+nnoremap <Leader>ev :e $MYVIMRC<CR>
 
 " persistent undo, even after saving and closing
 set undodir=~/.vimundo/ " a place to store the undo files, you need to create
@@ -495,8 +496,8 @@ let g:lightline = {
 "" https://github.com/francoiscabrol/ranger.vim
 """"""""""""""""""""""""""""""""""""
 let g:ranger_map_keys = 0
-"map <leader>r :Ranger<CR>
-map <leader>r :RangerCurrentFileNewTab<CR>
+map <leader>r :Ranger<CR>
+"map <leader>r :RangerCurrentFileNewTab<CR
 "map <leader>r :RangerCurrentFileNewTab<CR>
 
 " this is great! Ranger in the place of vim browser
@@ -671,8 +672,9 @@ let g:vimtex_view_automatic=0
 "                                    fzf                                     "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader>p :Files %:p:h<CR>
 nnoremap <silent> <leader>t :Buffers<CR>
-nnoremap <silent> <Leader>g :GFiles?
+nnoremap <silent> <Leader>g :GFiles?<CR>
 nnoremap <silent> <Leader>]  :Tags<CR>
 nnoremap <silent> <Leader>b] :BTags<CR>
 
