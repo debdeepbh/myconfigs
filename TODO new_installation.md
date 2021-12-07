@@ -4716,16 +4716,22 @@ papis addto 'einstein photon definition' -f a.pdf -f b.pdf
 
 ## To make papis as functional as Zotero, it needs to be able to 
 
-- [x] [manually using gdrive] sync the database
-- [x] [edit with C-e and manually add file] store attachments, mainly .xoj files
-- [x] [warns when adding] remove duplicates
-- [ ] extract metadata from supplied pdf
-- [ ] tag papers for projects
-- [x] [craetes unique(?) citation key in `ref` field] should have unique citation keys 
+- [ ] [add `--from pdf2doi` before filename that works sometimes ] extract metadata from supplied pdf
+- [ ] [currently broken] sci-hub auto download
 - [ ] bulk add multiple files
-- [ ] meaningful filename of pdf
-- [ ] sci-hub auto download
+- [ ] tag papers for projects
 - [ ] [papis-vim]  should be able to generate .bib from .aux files
+- [x] [manually using gdrive] sync the database
+- [x] [use `addto` or edit with C-e to manually add file] store attachments, mainly .xoj files
+- [x] [warns when adding] remove duplicates
+- [x] [craetes unique(?) citation key in `ref` field] should have unique citation keys 
+- [x] [can set default filename pattern in config] meaningful filename of pdf
+
+## Current Bugs 
+- [ ] [add `--from pdf2doi` before filename that works sometimes] Cannot `papis add <filename>.pdf` when there is a white space in `<filename>`
+- [ ] [add `--from pdf2doi` before filename that works sometimes] Cannot extract doi info from local pdf
+- [ ] Cannot compile from github even after installing `libxml2` and more. There some talk of version 0.12 (which possibly fixed some of the issues) but where is it?
+- [ ] Sci-hub script does not work
 
 # MARP for presentation slides using markdown
 
