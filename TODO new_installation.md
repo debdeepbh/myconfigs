@@ -4631,11 +4631,19 @@ cpupower frequency-set -g ondemand
 # Papis
 
 ## Install
+- Install from source
+```
+sudo apt-get install libxml2-dev libxslt1-dev
+git clone https://github.com/alejandrogallo/papis.git
+cd papis
+python3 setup.py install --user
+```
+
 * Install the dependency
 ```
 sudo apt-get install python3-setuptools
 ```
-* As user
+* As user (create default directory `$HOME/Documents/papers` to avoid errors on first run)
 ```
 pip3 install --user papis
 ```
@@ -4669,7 +4677,7 @@ pip3 install whoosh
 database-backend = whoosh
 ```
 
- open papis with
+now open papis with (or add `default-query-string = title:*` to the config)
 
 ```
 papis open '*'
@@ -4680,6 +4688,44 @@ papis open '*'
 papis --clear-cache
 ```
 which clears the directory `~/.cache/papis`.
+
+## Usage
+- Use query language for searching like this
+```
+papis open `author:einstein publisher:review Principia` 
+```
+All specified options are joined with `AND` for default database type.
+With `whoosh` database, we can use `OR` (and other whoosh query language strings)
+```
+papis open '(author:einstein AND year:1905) OR title:einstein'
+```
+ - Use `project` YAML field for papers
+
+- Exporting all references from a project to bibtex
+
+```
+papis export --all --format bibtex project:pterodactyl-migration > bibliography.bib
+```
+
+- Add files to existing paper (selected by a search string) with `addto`
+```
+papis addto 'einstein photon definition' -f a.pdf -f b.pdf
+```
+
+- Update a .bib file after changing some YAML info: [see](https://papis.readthedocs.io/en/latest/commands.html#module-papis.commands.bibtex)
+
+## To make papis as functional as Zotero, it needs to be able to 
+
+- [x] [manually using gdrive] sync the database
+- [x] [edit with C-e and manually add file] store attachments, mainly .xoj files
+- [x] [warns when adding] remove duplicates
+- [ ] extract metadata from supplied pdf
+- [ ] tag papers for projects
+- [x] [craetes unique(?) citation key in `ref` field] should have unique citation keys 
+- [ ] bulk add multiple files
+- [ ] meaningful filename of pdf
+- [ ] sci-hub auto download
+- [ ] [papis-vim]  should be able to generate .bib from .aux files
 
 # MARP for presentation slides using markdown
 
