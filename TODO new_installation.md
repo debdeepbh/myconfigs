@@ -4605,6 +4605,8 @@ cd ~/gdrive
 drive push zotero
 ```
 
+- Copy configs and `drive pull paper-org` into new computers before syncing
+
 - Use patched xournal for compatibility with xoj files (or xournalpp)
 - Use sci-hub to populate empty references
 
