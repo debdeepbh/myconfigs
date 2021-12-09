@@ -4561,6 +4561,12 @@ inoremap <C-z> <C-r>=ZoteroCite()<CR>
 * Auto syncing is done within a few seconds of change to the database.
 * Files in the _Unfiled items_ category are placed in the base directory, instead of in the collection directories. Edit or move them.
 
+## Navigation
+- Ctrl-F to search
+- Select and item and hold down `Alt` key to highlight the collection it belongs to
+- Select collection pane with `Ctrl-Shift-L`
+- [ ] no way to focus on the main pane (with the attachments etc)
+
 
 ## Cleanup
 
