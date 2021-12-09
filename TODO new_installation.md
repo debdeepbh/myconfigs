@@ -4519,8 +4519,7 @@ In `Tools > Zotfile preference`, set the following
 * `Advanced Settings`: _uncheck_ Only work with the following filetypes. Therefore, renaming and moving attachments work for tex, xoj etc, including new unexpected filetypes as well.
 * `Advanced Settings`: check remove special characters from filenames
 * `General Settings`: Set `Location of Files` as `Custom Location` and select a new directory which will be backed up using gdrive. Add `Subfolder defined by` as `/%c/` to add the `collection` name as the subdirectory.
-- `Renaming rules:` Set `Format for all item Types except Patents` to `{%a} ({%y}) {%t}`. Also, `Delimiter between multiple authors` to `-`.
-
+- `Renaming rules:` Set `Format for all item Types except Patents` to `{%a} ({%y}) {%t}`. Also, `Delimiter between multiple authors` to `-`. Set `Number of authors to display when authors are omitted` to `2`.
 
 ### Setup syncing (Edit > Preferences > Sync)
 * Set up syncing and turn off attachment syncing (uncheck `Sync attachment files in My Library using` and  `Sync attachment files in group libraries using Zotero Storage`. This way, the database is synced by Zotero and the pdf files (attachments) are backed up by drive.
@@ -4561,6 +4560,48 @@ inoremap <C-z> <C-r>=ZoteroCite()<CR>
 * Moving items to another collection can be done by holding the shift key while dragging with the mouse
 * Auto syncing is done within a few seconds of change to the database.
 * Files in the _Unfiled items_ category are placed in the base directory, instead of in the collection directories. Edit or move them.
+
+
+## Cleanup
+
+### Removing missing attachments with `zotero-storage-scanner` plugin
+
+- Storage Scanner creates tags for broken attachments and duplicate attachments.
+-  Selecting `#broken_attachments` filters items that have broken attachments.
+- Selecting *1* of those broken attachments, then selecting ctrl+a appears to select all the broken attachments, which you can then delete by pressing `delete`
+
+### Detecting and removing orphan attachments
+Sometimes, files are added to the disk but are not linked with attachments. To detect those
+- Set a new location to store files in zotifiles preferences
+- select all files and `rename attachements`
+- This way, all linked attachments will be moved to a new location. Unlinked files remain in the old location.
+- Delete old unlinked files (or save them elsewhere to link later), and revert the storage directory back in zotfile preferences and `rename attachments` again.
+
+## Other practices
+
+- Merge duplicates
+- Don't keep a file in more than one collection (to avoid having to select a location while renaming attachments via zotfiles). Use tags to mark files instead
+- Rename attachments often
+- Back up papers to gdrive often
+
+```
+cd ~/gdrive
+drive push paper-org
+```
+
+- Back up Zotero configs occasionally
+
+```
+cd ~/.zotero
+tar czvf zotero-conf.tar.gz zotero/
+mv zotero-conf.tar.gz ~/gdrive/zotero/
+cd ~/gdrive
+drive push zotero
+```
+
+- Use patched xournal for compatibility with xoj files (or xournalpp)
+- Use sci-hub to populate empty references
+
 
 ## Scenario:
 
@@ -4631,13 +4672,26 @@ cpupower frequency-set -g ondemand
 # Papis
 
 ## Install
-- Install from source
+- (Doesn't work) Install from source
 ```
 sudo apt-get install libxml2-dev libxslt1-dev
-git clone https://github.com/alejandrogallo/papis.git
+#git clone https://github.com/alejandrogallo/papis.git # bad link
+git clone https://github.com/papis/papis.git
 cd papis
 python3 setup.py install --user
 ```
+Uninstall with `make uninstall` from the directory or
+
+```
+python3 setup.py install --user --record files.txt 
+xargs rm -rf < files.txt
+```
+
+(Still doesn't work) Install older python version which provides the latest packages (weird)
+Get `python3.8.6`
+[link](https://hackersandslackers.com/multiple-versions-python-ubuntu/)
+and 
+[link](https://linuxconfig.org/how-to-change-from-default-to-alternative-python-version-on-debian-linux)
 
 * Install the dependency
 ```
@@ -4685,7 +4739,7 @@ papis open '*'
 
 - Clear papis cache with
 ```
-papis --clear-cache
+papis --clear-d 
 ```
 which clears the directory `~/.cache/papis`.
 
@@ -4714,24 +4768,33 @@ papis addto 'einstein photon definition' -f a.pdf -f b.pdf
 
 - Update a .bib file after changing some YAML info: [see](https://papis.readthedocs.io/en/latest/commands.html#module-papis.commands.bibtex)
 
+## Moving from Zotero
+- Generate a bibtex from zotero (without exporting files). File paths will be extracted from bib files, even when zotfiles is in use.
+- Import in papis using
+```
+papis bibtex read ./path/to/my/bibfile.bib import -o test
+```
+
 ## To make papis as functional as Zotero, it needs to be able to 
 
-- [ ] [add `--from pdf2doi` before filename that works sometimes ] extract metadata from supplied pdf
-- [ ] [currently broken] sci-hub auto download
-- [ ] bulk add multiple files
-- [ ] tag papers for projects
-- [ ] [papis-vim]  should be able to generate .bib from .aux files
-- [x] [manually using gdrive] sync the database
-- [x] [use `addto` or edit with C-e to manually add file] store attachments, mainly .xoj files
-- [x] [warns when adding] remove duplicates
-- [x] [craetes unique(?) citation key in `ref` field] should have unique citation keys 
-- [x] [can set default filename pattern in config] meaningful filename of pdf
+- [ ] (add `--from pdf2doi` before filename that works sometimes ) extract metadata from supplied pdf
+- [ ] (currently broken) sci-hub auto download
+- [ ] (from zotero-exported bibtex file, but filenames with special characters are ignored) bulk add multiple files (or convert Zotero database to this)
+- [ ] (papis-vim)  should be able to generate .bib from .aux files
+- [x] tag papers for projects
+- [x] (manually using gdrive) sync the database
+- [x] (use `addto` or edit with C-e to manually add file) store attachments, mainly .xoj files
+- [x] (warns when adding) remove duplicates
+- [x] (creates unique(?) citation key in `ref` field) should have unique citation keys 
+- [x] (can set default filename pattern in config) meaningful filename of pdf
 
 ## Current Bugs 
-- [ ] [add `--from pdf2doi` before filename that works sometimes] Cannot `papis add <filename>.pdf` when there is a white space in `<filename>`
-- [ ] [add `--from pdf2doi` before filename that works sometimes] Cannot extract doi info from local pdf
-- [ ] Cannot compile from github even after installing `libxml2` and more. There some talk of version 0.12 (which possibly fixed some of the issues) but where is it?
+- [ ] (add `--from pdf2doi` before filename that works sometimes) Cannot `papis add <filename>.pdf` when there is a white space in `<filename>`
+- [ ] cannot add pdf file if `add-folder-name` is specified to be something non-default
+- [ ] (add `--from pdf2doi` before filename that works sometimes) Cannot extract doi info from local pdf
 - [ ] Sci-hub script does not work
+
+- [x] (compiles with latest git after `pip3 uninstall papis` and `make uninstall` from `papis` repos) Cannot compile from github even after installing `libxml2` and more. There some talk of version 0.12 (which possibly fixed some of the issues) but where is it?
 
 # MARP for presentation slides using markdown
 
