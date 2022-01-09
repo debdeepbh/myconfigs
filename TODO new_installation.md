@@ -4161,14 +4161,14 @@ sudo dd if=motioneye....img of=/dev/sdb bs=4M
 ```
 - Set the wifi information in the 30MB partition that contains `boot.ini` files etc by creating `wpa_supplicant.conf` file with
 ```
-# wpa_supplicant.conf
 country=US
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
+ctrl_interface=/var/run/wpa_supplicant
+
 network={
-	ssid="MyWiFiNetwork"
-	psk="aVeryStrongPassword"
-	key_mgmt=WPA-PSK
+    scan_ssid=1
+    ssid="MyWiFiSSID"
+    psk="password"
 }
 ```
 * Let it boot and log in using `user:admin` `pass:<blank>` to the web interface and set an new passwd
