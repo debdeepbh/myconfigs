@@ -7612,36 +7612,39 @@ We want to create the following table from a matrix of values.
 
 The following code can be used
 ```
-mlist=(4 5 6)
-dellist=(1 2 3)
-
 ## markdown table
 file=$HOME/img_compare.md
 rm $file
 
+echo "# comparison" >> $file
+echo "" >> $file
+
 # headers
-echo -n "| " >> $file
-for m in ${mlist[@]}
+#echo -n "| " >> $file
+echo -n "|    |" >> $file
+for del in ${dellist[@]}
 do
-    echo -n " $m | "  >> $file
+    echo -n " del=$del | "  >> $file
 done
 echo "" >> $file
 
 # alignment
-echo -n "| " >> $file
-for m in ${mlist[@]}
+#echo -n "| " >> $file
+echo -n "| :---: | " >> $file
+for del in ${dellist[@]}
 do
     echo -n " :---: |"  >> $file
 done
 echo "" >> $file
 
-# body
 for m in ${mlist[@]}
 do
-    echo -n "| " >> $file
+    #echo -n "| " >> $file
+    echo -n "| m=$m | " >> $file
     for del in ${dellist[@]}
     do
 	echo -n " ($m,$del) |" >> $file
+	#echo -n " ![img]($HOME/img_pacman_comp/${del}_${m}_${rc}/img_tc_00025.png) |" >> $file
     done
     echo "" >> $file
 done
