@@ -7599,3 +7599,62 @@ pip3 install ranger-fm
 
 
 
+# Bash script to create a table in markdown
+
+We want to create the following table from a matrix of values.
+```
+|  4 |  5 |  6 | 
+|  :---: | :---: | :---: |
+|  (4,1) | (4,2) | (4,3) |
+|  (5,1) | (5,2) | (5,3) |
+|  (6,1) | (6,2) | (6,3) |
+```
+
+The following code can be used
+```
+mlist=(4 5 6)
+dellist=(1 2 3)
+
+## markdown table
+file=$HOME/img_compare.md
+rm $file
+
+# headers
+echo -n "| " >> $file
+for m in ${mlist[@]}
+do
+    echo -n " $m | "  >> $file
+done
+echo "" >> $file
+
+# alignment
+echo -n "| " >> $file
+for m in ${mlist[@]}
+do
+    echo -n " :---: |"  >> $file
+done
+echo "" >> $file
+
+# body
+for m in ${mlist[@]}
+do
+    echo -n "| " >> $file
+    for del in ${dellist[@]}
+    do
+	echo -n " ($m,$del) |" >> $file
+    done
+    echo "" >> $file
+done
+```
+
+The body can be images too:
+```
+echo -n " ![img]($HOME/img_pacman_comp/${del}_${m}_${rc}/img_tc_00025.png) |" >> $file
+```
+
+The markdown can be converted into html (or latex, or pdf) using
+```
+html=$HOME/img_compare.html
+pandoc $file -s -o $html --css $HOME/pandoc.css
+```
+The css template `pandoc.css` is taken from [here](https://gist.github.com/killercup/5917178). The css file also controls the width of the page. Without it, the page size is undefined. Other templates can be used to convert to html with different style.
