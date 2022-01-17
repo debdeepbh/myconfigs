@@ -7655,6 +7655,60 @@ The body can be images too:
 echo -n " ![img]($HOME/img_pacman_comp/${del}_${m}_${rc}/img_tc_00025.png) |" >> $file
 ```
 
+- To transpose the matrix (table), we add an optional argument to the function
+
+```
+    if [ "$1" = "transpose" ]
+    then
+	arr2=("${mlist[@]}") 
+	arr1=("${dellist[@]}") 
+    else
+	arr1=("${mlist[@]}") 
+	arr2=("${dellist[@]}") 
+    fi
+
+    ## markdown table
+    file=$HOME/img_compare.md
+    rm $file
+
+    # headers
+    #echo -n "| " >> $file
+    echo -n "|    |" >> $file
+    for val2 in ${arr2[@]}
+    do
+	echo -n " del=R/$val2 | "  >> $file
+    done
+    echo "" >> $file
+
+    # alignment
+    #echo -n "| " >> $file
+    echo -n "| :---: | " >> $file
+    for val2 in ${arr2[@]}
+    do
+	echo -n " :---: |"  >> $file
+    done
+    echo "" >> $file
+
+    #for m in ${mlist[@]}
+    for val1 in ${arr1[@]}
+    do
+	#echo -n "| " >> $file
+	echo -n "| m=$val1 | " >> $file
+	#for del in ${dellist[@]}
+	for val2 in ${arr2[@]}
+	do
+
+	    if [ "$1" = "transpose" ]
+	    then
+		#echo -n " ($val1,$val2) |" >> $file
+	    else
+		#echo -n " ($val2,$val1) |" >> $file
+	    fi
+	done
+	echo "" >> $file
+    done
+```
+
 The markdown can be converted into html (or latex, or pdf) using
 ```
 html=$HOME/img_compare.html
