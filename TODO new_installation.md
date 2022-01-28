@@ -6474,6 +6474,17 @@ index = [2, 3, 6]
 new_a = np.delete(a, index)
 ```
 
+- Joining sublists into a single list using double list comprehension `[j for i in Array for j in i]`:
+
+```
+arr = [[[1, 2], [2, 3]], [[6, 7], [6, 9]]]
+
+>> [j for i in arr for j in i]
+
+[[1, 2], [2, 3], [6, 7], [6, 9]]
+
+```
+
 # Python class
 * See the list of attributes of a class using `.__dict__.keys()`
 
@@ -7715,3 +7726,39 @@ html=$HOME/img_compare.html
 pandoc $file -s -o $html --css $HOME/pandoc.css
 ```
 The css template `pandoc.css` is taken from [here](https://gist.github.com/killercup/5917178). The css file also controls the width of the page. Without it, the page size is undefined. Other templates can be used to convert to html with different style.
+
+# mpi4py  python with mpi
+
+- Start with 
+
+```
+from mpi4py import MPI
+comm = MPI.COMM_WORLD
+size = comm.Get_size()
+rank = comm.Get_rank()
+print('rank', rank, flush=True)
+```
+
+- Run python script with
+
+```
+mpiexec -np 4 python3 filename_with_mpi.py
+```
+
+- Run a for loop over [1,2,...,N] using
+```
+for p in range(rank, N, size):    # mpi
+	# do stuff with index p, which would be unique for each rank, and would cover 1 to N
+```
+
+- You can gather the output from different ranks into a single list using
+
+```
+result = comm.gather(some_list, root=0)
+```
+Then it will look like `result  = [ some_list_1, some_list_2, ..., some_list_size ]`.
+If `some_list` is itself a list, we can join them using
+
+```
+joined_list = [j for i in result for j in i]
+```
