@@ -6484,6 +6484,13 @@ arr = [[[1, 2], [2, 3]], [[6, 7], [6, 9]]]
 [[1, 2], [2, 3], [6, 7], [6, 9]]
 
 ```
+# Python inline if then else
+
+- use `(if a then b else c)`
+```
+[((n-1) if n>0 else 0) for n in array]
+```
+
 
 # Python class
 * See the list of attributes of a class using `.__dict__.keys()`
