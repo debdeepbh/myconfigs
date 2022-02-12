@@ -1351,6 +1351,13 @@ git merge remote_branch
 ```
 git mergetool
 ```
+or with 
+```
+git mergetool tool=vimdiff
+```
+if it not not configured.
+
+- Resize vimdiff window after maximizing using `Ctrl+w =`
 
 * There are 3 windows on top:
 	left: local: the file from the branch we are current staying, i.e. the local branch
