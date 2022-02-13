@@ -1,65 +1,99 @@
-#supply .myscr, config files
-sudo apt-get update
+get_packages(){
+    sudo apt-get update
+    ### Install packages
+    sudo apt-get --assume-yes install $(cat packages)
+}
 
-### Install packages
-sudo apt-get --assume-yes install $(cat packages)
+#######################################################################
+# debian packages
 
-## google-chrome
-#wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#sudo dpkg -i google-chrome-stable_current_amd64.deb
-#rm google-chrome-stable_current_amd64.deb
+get_chrome(){
+    echo 'installing google-chrome'
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo dpkg -i google-chrome-stable_current_amd64.deb
+    rm google-chrome-stable_current_amd64.deb
+}
 
-### zoom
-#wget https://zoom.us/client/latest/zoom_amd64.deb
-##sudo apt-get install libgl1-mesa-glx -y # dependency, added to packages
-#sudo dpkg -i zoom_amd64.deb
-#rm zoom_amd64.deb
+get_zoom(){
+    echo 'installing zoom'
+    wget https://zoom.us/client/latest/zoom_amd64.deb
+    #sudo apt-get install libgl1-mesa-glx -y # dependency, added to packages
+    sudo dpkg -i zoom_amd64.deb
+    rm zoom_amd64.deb
+}
 
-### skype
-#wget https://go.skype.com/skypeforlinux-64.deb
-#sudo dpkg -i skypeforlinux-64.deb 
-#rm skypeforlinux-64.deb
+get_skype(){
+    echo 'installing skype'
+    wget https://go.skype.com/skypeforlinux-64.deb
+    sudo dpkg -i skypeforlinux-64.deb 
+    rm skypeforlinux-64.deb
+}
+
+get_debs(){
+	get_chrome
+	get_zoom
+	get_skype
+}
 
 ####### Appearance #############
-### Install gruvbox-gtk theme from git to use `themeset dark`
-#git clone https://github.com/3ximus/gruvbox-gtk
-#sudo cp -r gruvbox-gtk /usr/share/themes/
+get_theme(){
+    echo 'installing gruvbox-gtk theme from git to use `themeset dark`'
+    git clone https://github.com/3ximus/gruvbox-gtk
+    sudo cp -r gruvbox-gtk /usr/share/themes/
+}
 
-### Install nodejs for coc                        #
-curl -sL install-node.now.sh/lts >> install_nodejs
-chmod +x install_nodejs
-# install locally
-./install_nodejs --prefix=$HOME/.local
+#######################################################################
+# vim and config setup
+setup_vim(){
+    echo 'installing nodejs for coc'
+    curl -sL install-node.now.sh/lts >> install_nodejs
+    chmod +x install_nodejs
+    # install locally
+    ./install_nodejs --prefix=$HOME/.local
 
-### get configs
-git clone https://github.com/debdeepbh/myconfigs.git ~/myconfigs
-# copy dotfiles
-cp -r ~/myconfigs/dotfiles/. ~/
-# install vim plugins
-vim +PlugInstall +qall
+    echo 'installing vim plugins'
+    vim +PlugInstall +qall
+}
+
+get_dotfiles(){
+    ### get configs
+    git clone https://github.com/debdeepbh/myconfigs.git ~/myconfigs
+    # copy dotfiles
+    cp -r ~/myconfigs/dotfiles/. ~/
+}
 
 ## Avoiding very bulky snap, alternatives are preferable
 ## Install git-like drive for google
 #sudo snap install drive pdftk zoom-client
 
-## Install go and then drive
-#go_version="1.17.1"
-#wget https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
-#rm -rf $HOME/go && tar -C $HOME -xzf go${go_version}.linux-amd64.tar.gz
-#rm go${go_version}.linux-amd64.tar.gz
-#export PATH=$PATH:$HOME/go:$HOME/go/bin
-### install drive (download and compile)
-#go get -u github.com/odeke-em/drive/cmd/drive
-### move the compiled binary
-#mkdir $HOME/.local/bin
-#cp $HOME/go/bin/drive $HOME/.local/bin/ #make sure .bashrc has this path included
-### delete go
-#sudo rm -rf $HOME/go
+#######################################################################
+# gdrive
+#
 
-## if doesn't exist already
-#drive init ~/gdrive
-#cd gdrive
-#drive pull paper-org book work
+get_drive(){
+    ## Install go and then drive
+    echo 'installing go'
+    go_version="1.17.1"
+    wget https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
+    rm -rf $HOME/go && tar -C $HOME -xzf go${go_version}.linux-amd64.tar.gz
+    rm go${go_version}.linux-amd64.tar.gz
+    export PATH=$PATH:$HOME/go:$HOME/go/bin
+    ## install drive (download and compile)
+    echo 'installing drive'
+    go get -u github.com/odeke-em/drive/cmd/drive
+    ## move the compiled binary
+    mkdir $HOME/.local/bin
+    cp $HOME/go/bin/drive $HOME/.local/bin/ #make sure .bashrc has this path included
+    ## delete go
+    sudo rm -rf $HOME/go
+}
+
+setup_drive(){
+    # if doesn't exist already
+    drive init ~/gdrive
+    cd gdrive
+    drive pull -no-prompt paper-org book work
+}
 
 ## Bulky, probably avoid: Install i3 workspace plugin for xfce4-panel
 #./install-xfce4-i3-workspace-plugin
@@ -76,7 +110,7 @@ vim +PlugInstall +qall
 # vim keybiniding (a long installation process)
 # dependency
 
-# the vim externsion
+# the vim extension
 #sudo jupyter labextension install jupyterlab_vim
 ### Tip: to plot nice plots in octave_kernel, use
 # %plot -f svg
@@ -90,9 +124,39 @@ vim +PlugInstall +qall
 #sudo apt-get -f install
 
 ## Install cocalc
-#sudo docker run --name=cocalc -d -v ~/cocalc:/projects -p 443:443 sagemathinc/cocalc
+get_cocalc(){
+    echo 'installing cocalc'
+    sudo docker run --name=cocalc -d -v ~/cocalc:/projects -p 443:443 sagemathinc/cocalc
+}
 
 #### Firefox ##############
 ### Bigger Firefox font
 # about:config > devPixelsPerPx to 1.2
 
+install_existing(){
+	echo 'installing for existing functional home directory'
+	get_packages
+	get_debs
+}
+
+install_new(){
+	echo 'installing a fully functional setup for an empty home directory'
+	get_packages
+	get_debs
+	setup_vim
+	get_dotfiles
+	get_drive
+	setup_drive
+	get_cocalc
+}
+
+install_minimal(){
+	echo 'installing a minimal setup for an empty home directory'
+	sudo apt install -y vim vim-gtk3 zathura ranger xdotool git openssh-server powertop unclutter redshift mplayer sxiv xbacklight exuberant-ctags suckless-tools i3 rofi i3blocks py3status tmux xfce4-goodies blueman htop compton
+	setup_vim
+	get_dotfiles
+}
+
+
+#install_existing
+#install_new
