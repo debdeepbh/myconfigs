@@ -27,7 +27,7 @@ get_chrome(){
 get_zoom(){
     echo 'installing zoom'
     wget https://zoom.us/client/latest/zoom_amd64.deb
-    #sudo apt-get install libgl1-mesa-glx -y # dependency, added to packages
+    sudo apt-get install libgl1-mesa-glx -y # dependency, added to packages
     sudo dpkg -i zoom_amd64.deb
     rm zoom_amd64.deb
 }
@@ -170,34 +170,41 @@ setup_zotero(){
     ## Set firefox default pdf viewer to zathura to set the same for zotero
 }
 
+setup_os(){
+    echo 'adding and running os-prober (disabled in Ubuntu 22.04 etc)'
+    sudo echo 'GRUB_DISABLE_OS_PROBER=false' | sudo tee -a /etc/default/grub
+    sudo update-grub2
+    sudo grub-install /dev/nvme0n1
+}
+
 #### Firefox ##############
 ### Bigger Firefox font
 # about:config > devPixelsPerPx to 1.2
 
 #######################################################################
 
-install_existing(){
-	echo 'installing for existing functional home directory'
-	get_packages
-	get_debs
-}
+install(){
 
-install_new(){
-	echo 'installing a fully functional setup for an empty home directory'
-	get_packages
-	get_debs
-	setup_vim
-	setup_ssh	# requires github setup
-	get_dotfiles
-	get_drive
-	setup_drive
-	get_cocalc
-	setup_zotero
+    	if [ "$1" = "existing" ]; then
+	    echo 'installing for existing functional home directory'
+	    get_packages
+	    get_debs
+	    setup_os
+    	fi
+    	if [ "$1" = "new" ]; then
+	    echo 'installing a fully functional setup for an empty home directory'
+	    get_packages
+	    get_debs
+	    setup_vim
+	    setup_ssh	# requires github setup
+	    get_dotfiles
+	    get_drive
+	    setup_drive
+	    get_cocalc
+	    setup_zotero
+	    setup_os
+	fi
 }
 
 #######################################################################
-
-#install_existing
-#install_new
-
 install $1
