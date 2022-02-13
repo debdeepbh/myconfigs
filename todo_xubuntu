@@ -1,7 +1,17 @@
+#!/bin/bash
+
 get_packages(){
+
+    min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop powertop unclutter redshift mplayer sxiv xbacklight exuberant-ctags suckless-tools i3 rofi i3blocks py3status tmux xfce4-goodies blueman compton"
+    code="python3-pip pandoc docker.io nodejs npm"
+    soft="gimp xournal cheese"
+    tex="texlive-latex-recommended texlive-pictures texlive-xetex latexmk texlive-science"
+
+    pkglist="$min $code $soft $tex"
+
+    echo "installing packages: $1"
     sudo apt-get update
-    ### Install packages
-    sudo apt-get --assume-yes install $(cat packages)
+    sudo apt-get --assume-yes install $pkglist
 }
 
 #######################################################################
@@ -35,12 +45,11 @@ get_debs(){
 	get_skype
 }
 
-####### Appearance #############
-get_theme(){
-    echo 'installing gruvbox-gtk theme from git to use `themeset dark`'
-    git clone https://github.com/3ximus/gruvbox-gtk
-    sudo cp -r gruvbox-gtk /usr/share/themes/
-}
+#get_theme(){
+    #echo 'installing gruvbox-gtk theme from git to use `themeset dark`'
+    #git clone https://github.com/3ximus/gruvbox-gtk
+    #sudo cp -r gruvbox-gtk /usr/share/themes/
+#}
 
 #######################################################################
 # vim and config setup
@@ -55,11 +64,22 @@ setup_vim(){
     vim +PlugInstall +qall
 }
 
+setup_ssh(){
+    echo 'generating SSH key'
+    ssh-keygen
+    eval `ssh-agent -s`
+    ssh-add
+    ## to copy publickey, print it out
+    cat $HOME/.ssh/id_rsa.pub
+    echo "Copy key over. Check if connection works with"
+    echo "ssh -T git@github.com"
+}
+
 get_dotfiles(){
     ### get configs
-    git clone https://github.com/debdeepbh/myconfigs.git ~/myconfigs
+    git clone https://github.com/debdeepbh/myconfigs.git $HOME/myconfigs
     # copy dotfiles
-    cp -r ~/myconfigs/dotfiles/. ~/
+    cp -r $HOME/myconfigs/dotfiles/. $HOME/
 }
 
 ## Avoiding very bulky snap, alternatives are preferable
@@ -129,9 +149,32 @@ get_cocalc(){
     sudo docker run --name=cocalc -d -v ~/cocalc:/projects -p 443:443 sagemathinc/cocalc
 }
 
+setup_zotero(){
+    echo 'installing zotero'
+    wget -qO- https://github.com/retorquere/zotero-deb/releases/download/apt-get/install.sh | sudo bash
+    sudo apt update
+    sudo apt install zotero
+
+    echo 'Getting config for gdrive'
+    dr=$HOME/gdrive/zotero
+    drive pull $dr
+    mkdir $HOME/.zotero
+    tar -C $HOME/.zotero -xvf $dr/zotero-conf.tar.gz 
+
+    echo 'Getting papers'
+    drive pull -no-prompt $HOME/gdrive/paper-org
+
+    echo "Before running sync, check: 1. scihub is off 2. gdrive/paper-org  exists and set in Zotfiles preference..."
+
+    #zotero 
+    ## Set firefox default pdf viewer to zathura to set the same for zotero
+}
+
 #### Firefox ##############
 ### Bigger Firefox font
 # about:config > devPixelsPerPx to 1.2
+
+#######################################################################
 
 install_existing(){
 	echo 'installing for existing functional home directory'
@@ -144,19 +187,17 @@ install_new(){
 	get_packages
 	get_debs
 	setup_vim
+	setup_ssh	# requires github setup
 	get_dotfiles
 	get_drive
 	setup_drive
 	get_cocalc
+	setup_zotero
 }
 
-install_minimal(){
-	echo 'installing a minimal setup for an empty home directory'
-	sudo apt install -y vim vim-gtk3 zathura ranger xdotool git openssh-server powertop unclutter redshift mplayer sxiv xbacklight exuberant-ctags suckless-tools i3 rofi i3blocks py3status tmux xfce4-goodies blueman htop compton
-	setup_vim
-	get_dotfiles
-}
-
+#######################################################################
 
 #install_existing
 #install_new
+
+install $1
