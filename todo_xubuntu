@@ -39,6 +39,8 @@ get_skype(){
     wget https://go.skype.com/skypeforlinux-64.deb
     sudo dpkg -i skypeforlinux-64.deb 
     rm skypeforlinux-64.deb
+    # remove from autostart
+    rm $HOME/.config/autostart/skypeforlinux.desktop
 }
 
 get_debs(){
