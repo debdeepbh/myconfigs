@@ -6788,11 +6788,13 @@ nvidia-settings -q CUDACores -t
 
 - Device memory = GPU memory
 - Host memory = CPU memory
+- SM = streaming multiprocessor
 
 ## Running C++ codes
-[quick tutorial](https://developer.nvidia.com/blog/unified-memory-cuda-beginners/)
+[quick tutorial](https://developer.nvidia.com/blog/even-easier-introduction-cuda/)
 - Save the code with `.cu` extension
-- Compile with nvcc
+- Compile with `nvcc` or with path `/usr/local/cuda-11.6/bin/nvcc`
+- Run the executable with regular  `./`
 
 
 # CUDA NVIDIA with python
