@@ -6757,7 +6757,45 @@ for name in f:
 rsync -rv  <user>@<server>:~/graph-cpp/output/img/ img_graph/
 ```
 
-# CUDA NVIDIA
+# CUDA NVIDIA with C++
+
+## Installation
+
+- If using properietary GPU driver from Nvidia (like nvidia-driver-495), installing nvidia-cuda-toolkit changes it to 'Using a manully installed driver'.
+
+* Install `CUDA Toolkit`: 
+Follow instruction on [sit](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal) to download the `.deb` and install for ubuntu version.
+
+Using `apt-get`  (about 2GB of installation)
+```
+sudo apt-get install nvidia-cuda-toolkit
+```
+gives the error on compilation with nvcc: `error: attribute "__malloc__" does not take arguments`.
+
+* Check your gpu info with 
+```
+nvidia-smi
+```
+You can find your CUDA version here.
+
+- Find the number of cuda cores in your graphics card
+
+```
+nvidia-settings -q CUDACores -t
+```
+
+## Jargon
+
+- Device memory = GPU memory
+- Host memory = CPU memory
+
+## Running C++ codes
+[quick tutorial](https://developer.nvidia.com/blog/unified-memory-cuda-beginners/)
+- Save the code with `.cu` extension
+- Compile with nvcc
+
+
+# CUDA NVIDIA with python
 
 * Install `CUDA Toolkit`: 
 Follow instruction on [sit](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal) to download the `.deb` and install for ubuntu version.
@@ -6765,11 +6803,11 @@ Or, using `apt-get`
 ```
 sudo apt-get install nvidia-cuda-toolkit
 ```
-This is about 1GB of installation.
+This is about 2GB of installation.
 
 * Check your gpu info with 
 ```
-nvrdia-smi
+nvidia-smi
 ```
 You can find your CUDA version here.
 
@@ -6781,7 +6819,7 @@ nvidia-settings -q CUDACores -t
 
 ## cupy as an alternative to numpy
 
-* Install `cupy` (for CUDA version `11.1`, check website for other versions)
+* Install `cupy` (for CUDA version `11.1`, check [website](https://cupy.dev/) for other versions)
 ```
 pip3 install cupy-cuda111
 ```
@@ -7776,3 +7814,57 @@ If `some_list` is itself a list, we can join them using
 ```
 joined_list = [j for i in result for j in i]
 ```
+
+# Using an older version of gcc
+
+- In Ubuntu 22.04 the default gcc is version 11 (`gcc -v`). To install `gcc-10` use
+```
+sudo apt install gcc-10 g++-10
+```
+
+- Check now available compilers using
+```
+dpkg --list | grep compiler
+```
+
+- To see the symlink for the current `gcc` using
+```
+ln -l /usr/bin/gcc
+ln -l /usr/bin/g++
+```
+
+- Install all available versions as an alternative to `gcc`
+
+```
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 10
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 10
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 11
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 11
+```
+
+- Configure which one will be in use using
+```
+sudo update-alternatives --config gcc
+sudo update-alternatives --config g++
+```
+and selecting the older choice `gcc-10` and `g++-10`.
+
+- Verify that the desired version is in use using
+```
+gcc -v
+g++ -v
+```
+
+# nvcc with Ubuntu 22.04
+
+- Installing `nvidia-cuda-toolkit` doesn't help.
+
+- Installing `nvidia-cuda-toolkit-11.6` from the website has the issue that `sudo apt install -y cuda` fails due to missing package.
+
+- Download missing package from
+https://packages.ubuntu.com/impish/amd64/liburcu6/download
+install using `sudo dpkg -i liburcu6`
+
+- Compiling with `nvcc` produces gcc compatibility error
+
+- Calling `nvcc` with full path `/usr/local/cuda-11.6/bin/nvcc test.cu` works!
