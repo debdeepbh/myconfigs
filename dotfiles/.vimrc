@@ -8,7 +8,7 @@ let &t_TE = ""
 "let g:netrw_browsex_viewer= "xdg-open"
 "nmap gx :silent execute "!xdg-open " . shellescape("<cWORD>")<CR>
 "nmap gx :silent execute "!firefox " . shellescape("<cWORD>") . " &"<CR>
-nmap gx :execute "!firefox " . shellescape("<cWORD>") . " &"<CR><CR>
+"nmap gx :execute "!firefox " . shellescape("<cWORD>") . " &"<CR><CR>
 
 " moving this option to another file so that I can source it using
 " a .myscript called themeset
@@ -311,7 +311,7 @@ Plug 'simnalamburt/vim-mundo'
 
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " Don't like syntax folding, don't use conversion of markdown to other formats
-"Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc'
 
 "Plug 'godlygeek/tabular'
 "Plug 'plasticboy/vim-markdown'
