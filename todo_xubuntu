@@ -193,7 +193,7 @@ install(){
 	    echo 'installing for existing functional home directory'
 	    get_packages
 	    get_debs
-	    setup_os
+	    #setup_os
     	fi
     	if [ "$1" = "new" ]; then
 	    echo 'installing a fully functional setup for an empty home directory'

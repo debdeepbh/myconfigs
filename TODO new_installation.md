@@ -7451,6 +7451,20 @@ auth	[success=2 default=ignore]	pam_fprintd.so max_tries=1 timeout=5 # debug
 [x] ethernet adapter
 [x] [nvidia-settings takes care of it] Bumblebee for Optimus (hybrid graphics)
 
+## Fresh windows 10 install
+
+**Conclusion:** Creating live usb via linux produces error that `Drivers are missing`. The only way out so far is to use a Windows computer to download `Windows media creating tool` (link only shows up in the browser visited from windows computer) and creating a `usb tool for another computer`. This tool has also an option to create an iso that can be `dd`ed to an usb later (not tested yet).
+
+- Download windows 10 iso from microsoft
+- To copy more than 4GB iso, we need exFAT (not FAT32) formatted disk. Install using
+```
+sudo apt install exfat-utils
+```
+- With ubuntu software `disks`, format the usb drive to `Compatible with all systems (dos)`. Add partition `Other` -> `exfat`.
+- Mount the windows 10 iso and copy files into the newly created exfat partition within the usb drive.
+- Unmount and wait until the busy symbol goes away.
+- Before booting set to ACHI mode in bios (not tested)
+- Booting with F12 and clicking on `Install` produces error `Driver not found`
 
 ## Dual-boot with windows: 
 [link](https://askubuntu.com/questions/1257533/install-ubuntu-on-alienware-m15-r3)
