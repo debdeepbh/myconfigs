@@ -30,7 +30,7 @@ get_zoom(){
     sudo apt-get install libgl1-mesa-glx -y # dependency, added to packages
     sudo dpkg -i zoom_amd64.deb
     # libgl1-mesa-glx will fail to install due to unmet dependencies, therefore install them via fix-broken
-    sudo apt --fix-broken install
+    sudo apt --fix-broken install -y
     rm zoom_amd64.deb
 }
 
