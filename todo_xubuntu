@@ -114,6 +114,7 @@ get_drive(){
 
 setup_drive(){
     # if doesn't exist already
+    export PATH=$PATH:$HOME/.local/bin/
     drive init ~/gdrive
     cd gdrive
     drive pull -no-prompt paper-org book work
@@ -154,6 +155,7 @@ get_cocalc(){
 }
 
 setup_zotero(){
+
     echo 'installing zotero'
     wget -qO- https://github.com/retorquere/zotero-deb/releases/download/apt-get/install.sh | sudo bash
     sudo apt update
@@ -161,7 +163,9 @@ setup_zotero(){
 
     echo 'Getting config for gdrive'
     dr=$HOME/gdrive/zotero
-    drive pull $dr
+    # if path for drive does not exist already
+    export PATH=$PATH:$HOME/.local/bin/
+    drive pull -no-prompt $dr
     mkdir $HOME/.zotero
     tar -C $HOME/.zotero -xvf $dr/zotero-conf.tar.gz 
 
@@ -199,14 +203,15 @@ install(){
 	    echo 'installing a fully functional setup for an empty home directory'
 	    get_packages
 	    get_debs
-	    setup_vim
-	    setup_ssh	# requires github setup
 	    get_dotfiles
 	    get_drive
-	    setup_drive
 	    get_cocalc
-	    setup_zotero
 	    setup_os
+	    # requires user intpu
+	    setup_ssh	# requires github setup
+	    setup_vim
+	    setup_drive
+	    setup_zotero
 	fi
 }
 
