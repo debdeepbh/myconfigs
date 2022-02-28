@@ -173,9 +173,10 @@ setup_zotero(){
     drive pull -no-prompt $HOME/gdrive/paper-org
 
     echo "Before running sync, check: 1. scihub is off 2. gdrive/paper-org  exists and set in Zotfiles preference..."
+    echo "Set firefox default pdf viewer to zathura to set the same for zotero"
 
-    #zotero 
-    ## Set firefox default pdf viewer to zathura to set the same for zotero
+    # launch
+    zotero 
 }
 
 setup_os(){
