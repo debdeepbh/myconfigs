@@ -7892,4 +7892,5 @@ Put this line as the first line of the tex file
 ```
 %! TEX program = xelatex
 ```
+and restart vim.
 
