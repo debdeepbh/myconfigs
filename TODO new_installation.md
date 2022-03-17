@@ -7884,3 +7884,12 @@ install using `sudo dpkg -i liburcu6`
 - Compiling with `nvcc` produces gcc compatibility error
 
 - Calling `nvcc` with full path `/usr/local/cuda-11.6/bin/nvcc test.cu` works!
+
+# vimtex use xelatex and the compiler
+
+Put this line as the first line of the tex file
+
+```
+%! TEX program = xelatex
+```
+
