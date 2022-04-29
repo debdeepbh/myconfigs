@@ -8,3 +8,33 @@ import matplotlib.pyplot as plt
 $0
 endsnippet
 
+
+snippet plta "plt formalities" w
+#plt.title(${1:title})
+#plt.xlabel(${2:xlabel})
+#plt.ylabel(${3:ylabel})
+
+#plt.xlim(float(xx[0]), float(xx[1]))
+#plt.ylim(float(xx[0]), float(xx[1]))
+
+plt.axis('scaled')
+plt.grid()
+${4:#}plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
+$0
+endsnippet
+
+snippet mpi "plt formalities" w
+from mpi4py import MPI
+comm = MPI.COMM_WORLD
+size = comm.Get_size()
+rank = comm.Get_rank()
+print('rank', rank, flush=True)
+$0
+endsnippet
+
+snippet sns "plt formalities" w
+import seaborn as sns
+sns.set()
+$0
+endsnippet
