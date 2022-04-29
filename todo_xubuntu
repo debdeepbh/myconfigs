@@ -205,7 +205,6 @@ install(){
 	    get_packages
 	    get_debs
 	    get_dotfiles
-	    get_drive
 	    get_cocalc
 	    setup_os
 	    # requires user intpu
