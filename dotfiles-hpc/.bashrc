@@ -88,7 +88,7 @@ PROMPT_COMMAND="history -a"
 #PS1="\[${SU}\]\u@\[${CNX}\]\h\[${NC}\]:"
 #PS1=${PS1}"\W\[${CNX}\]>\[${NC}\] "
 
-PS1="\[${BCyan}\]\u@\[${BBlue}\]\h\[${NC}\]:\[${Green}\]\W\[${NC}\]> "
+PS1="\[${BCyan}\]\u@\[${Blue}\]\h\[${NC}\]:\[${Green}\]\W\[${NC}\]> "
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
@@ -210,3 +210,15 @@ export PATH="$PATH:$HOME/Downloads/node-v16.13.0-linux-x64/bin"
 
 # force read inputrc
 export INPUTRC=$HOME/.inputrc
+
+
+### qsub shortcuts
+# watch jobs
+alias qw="watch qstat -u $USER"
+# show jobs
+alias qs="qstat -u $USER"
+# delete all jobs
+alias qda="qselect -u $USER | xargs qdel"
+# cd to work directory
+alias cdw="cd /work/$USER/peri-wheel-output/wheel"
+alias lsw="ls /work/$USER/peri-wheel-output/wheel"
