@@ -33,13 +33,14 @@ set $alt Mod1
 
 # script path
 ## select a mark from available ones
-set $scr_mark_sel $HOME/.config/i3/my_scr/mark-select
+set $scr_mark_sel $HOME/.config/i3/my_scr/rofi_mark_select
 set $i3get $HOME/.config/i3/my_scr/i3get
 # script to update current and last focus
 set $update_file $HOME/.config/i3/my_scr/update_window
 # script swap focus and swap old and new
 set $focus_swap $HOME/.config/i3/my_scr/focus_last
-set $window_switch $HOME/.config/i3/my_scr/rofiworkspace.sh
+set $window_switch $HOME/.config/i3/my_scr/rofi_switch_wsp
+set $window_moveto $HOME/.config/i3/my_scr/rofi_moveto_wsp
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -178,7 +179,8 @@ bindsym $mod+apostrophe exec i3-msg [con_mark="$($scr_mark_sel)"] focus; exec $u
 bindsym $mod+shift+apostrophe exec i3-msg move window to mark $($scr_mark_sel)
 
 # move current container to a window
-bindsym $mod+shift+w exec i3-msg move container to workspace $(rofi -dmenu -lines 0 -p 'move to workspace')
+#bindsym $mod+shift+w exec i3-msg move container to workspace $(rofi -dmenu -lines 0 -p 'move to workspace')
+bindsym $mod+shift+w exec $window_moveto
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
