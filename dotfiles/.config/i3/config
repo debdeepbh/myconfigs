@@ -130,7 +130,8 @@ bindsym $mod+l focus right; exec $update_file
 #bindsym $mod+shift+z [class="^Zathura$"] focus
 bindsym $mod+shift+z [class="Zathura"] focus	; exec $update_file
 bindsym $mod+shift+v [class="Xfce4-terminal" title=" - VIM"] focus	; exec $update_file
-bindsym $mod+shift+f [class="Firefox"] focus	; exec $update_file
+#bindsym $mod+shift+f [class="Firefox"] focus	; exec $update_file
+bindsym $mod+shift+f [class="firefox"] focus	; exec $update_file
 
 # window navigation
 bindsym $mod+Right workspace next; exec $update_file
