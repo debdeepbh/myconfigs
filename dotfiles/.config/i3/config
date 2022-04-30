@@ -20,8 +20,9 @@ exec --no-startup-id /usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id xfce4-power-manager 
 exec --no-startup-id redshift
-exec --no-startup-id syndaemon -i 0.75 -t -K -R
-exec --no-startup-id ~/.myscr/brightness -0.5
+#exec --no-startup-id /usr/bin/syndaemon -i 0.75 -t -K -R
+exec --no-startup-id /usr/bin/syndaemon -i 0.75 -k
+#exec --no-startup-id ~/.myscr/brightness -0.5
 #exec --no-startup-id onboard
 exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox'
 
@@ -38,6 +39,7 @@ set $i3get $HOME/.config/i3/my_scr/i3get
 set $update_file $HOME/.config/i3/my_scr/update_window
 # script swap focus and swap old and new
 set $focus_swap $HOME/.config/i3/my_scr/focus_last
+set $window_switch $HOME/.config/i3/my_scr/rofiworkspace.sh
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -110,6 +112,9 @@ bindsym $mod+space exec rofi -show window
 #bindsym $alt+s exec $i3get c > $lst_f
 #bindsym $alt+Tab exec $focus_swap
 bindsym $mod+Tab exec $focus_swap
+
+# grave is tilde
+bindsym $mod+grave exec $window_switch
 
 # change focus
 bindsym $mod+h focus left;  exec $update_file
@@ -298,45 +303,45 @@ bindsym $mod+r mode "resize"
 
 ## Start i3bar to display a workspace bar (plus the system information i3status finds out, if available)
 ## panel
-bar {
-	colors {
-
-	background #2f343f
-
-	## Turns background text unreadable
-	#statusline #2f343f
-	#separator #4b5262
-
-	# colour of border, background, and text
-	focused_workspace       #2f343f #bf616a #d8dee8
-	active_workspace        #2f343f #2f343f #d8dee8
-	inactive_workspace      #2f343f #2f343f #d8dee8
-	urgent_workspace       #2f343f #ebcb8b #2f343f
-    }
-	### i3blocks
-	#status_command SCRIPT_DIR=~/.config/i3blocks i3blocks -c ~/.config/i3blocks/config
-	## For Debuggin purposes
-	## Parallely use
-	## tail -f /tmp/i3blocks.err
-	#status_command 2>/tmp/i3blocks.err SCRIPT_DIR=~/.config/i3blocks i3blocks /usr/bin/i3blocks -v -c ~/.config/i3blocks/config | tee /tmp/i3blocks.out
-
-	## i3status
-	# Default
-	#status_command py3status -c ~/.config/i3status/py3config
-	status_command py3status -c ~/.config/i3status/py3config-dw
-	#status_command i3status
-	#status_command i3status --config ~/.config/i3status/sample/config
-	#status_command i3status --config ~/.config/i3status/sample/config.starterkit
-	#
-	#mode hide
-	
-	tray_output primary
-	# Obey Fitts's law
-	tray_padding 0
-
-	#separator_symbol ⁞
-	#separator_symbol none
-}
+#bar {
+#	colors {
+#
+#	background #2f343f
+#
+#	## Turns background text unreadable
+#	#statusline #2f343f
+#	#separator #4b5262
+#
+#	# colour of border, background, and text
+#	focused_workspace       #2f343f #bf616a #d8dee8
+#	active_workspace        #2f343f #2f343f #d8dee8
+#	inactive_workspace      #2f343f #2f343f #d8dee8
+#	urgent_workspace       #2f343f #ebcb8b #2f343f
+#    }
+#	### i3blocks
+#	#status_command SCRIPT_DIR=~/.config/i3blocks i3blocks -c ~/.config/i3blocks/config
+#	## For Debuggin purposes
+#	## Parallely use
+#	## tail -f /tmp/i3blocks.err
+#	#status_command 2>/tmp/i3blocks.err SCRIPT_DIR=~/.config/i3blocks i3blocks /usr/bin/i3blocks -v -c ~/.config/i3blocks/config | tee /tmp/i3blocks.out
+#
+#	## i3status
+#	# Default
+#	#status_command py3status -c ~/.config/i3status/py3config
+#	status_command py3status -c ~/.config/i3status/py3config-dw
+#	#status_command i3status
+#	#status_command i3status --config ~/.config/i3status/sample/config
+#	#status_command i3status --config ~/.config/i3status/sample/config.starterkit
+#	#
+#	#mode hide
+#	
+#	tray_output primary
+#	# Obey Fitts's law
+#	tray_padding 0
+#
+#	#separator_symbol ⁞
+#	#separator_symbol none
+#}
 
 ## color of border, background, text, indicator, and child_border
 #client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
