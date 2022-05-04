@@ -7918,3 +7918,22 @@ Put this line as the first line of the tex file
 ```
 and restart vim.
 
+
+# Downloading zoom links
+
+[zoomdl](https://github.com/Battleman/zoomdl)
+
+```
+zoomdl -u <http_link>
+```
+
+## Supplying a input file of Zoom urls
+
+```
+Lines=$(cat "$1")
+for line in $Lines
+do
+    echo "$line"
+    zoomdl -u "$line" &
+done
+```
