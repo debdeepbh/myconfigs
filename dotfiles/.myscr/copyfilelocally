@@ -1,0 +1,33 @@
+#!/bin/bash
+## Copy the fzf-selected files (multiple selection with Tab)
+## output the selected and copied files with their new location
+if [ -z "$1" ]
+  then
+    # default local directory
+    dir=data
+else
+    dir=$1
+fi
+
+tmpfile="/tmp/fzf_selected"
+localfile="/tmp/fzf_local"
+mkdir $dir > /dev/null 2>&1
+
+find * -type f | fzf -m > $tmpfile
+
+while read -r line
+do
+    cp "$line" "$dir"/
+    localname=$(basename "$line")
+    echo "$dir/$localname" >> $localfile
+done < $tmpfile
+
+# output
+#echo "Copied to directory: $dir"
+cat $localfile
+
+rm $tmpfile
+rm $localfile
+
+
+

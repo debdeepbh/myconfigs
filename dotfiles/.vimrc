@@ -29,6 +29,30 @@ nnoremap Q <Nop>
 noremap qq :q!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Read from interactive shell command
+function! <SID>InteractiveFZFCommand(...)
+    let tempfile = tempname()
+    if a:0
+	" if an argument is supplied
+	let dirname = a:1
+    else
+	" if no argument is supplied
+	let dirname = ""
+    endif
+
+    let command = "!$HOME/.myscr/copyfilelocally " . dirname . ' >' . shellescape(tempfile)
+    execute command
+    try 
+        silent execute 'read' tempfile
+    finally
+        call delete(tempfile)
+    endtry
+endfunction
+
+command! -nargs=? GetFile call <SID>InteractiveFZFCommand(<f-args>)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Tab navigation                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
