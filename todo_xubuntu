@@ -2,7 +2,7 @@
 
 get_packages(){
 
-    min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop powertop unclutter redshift mplayer sxiv xbacklight exuberant-ctags suckless-tools i3 rofi i3blocks py3status tmux xfce4-goodies blueman compton curl"
+    min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop powertop unclutter redshift mplayer sxiv xbacklight exuberant-ctags suckless-tools i3 rofi i3blocks py3status tmux xfce4-goodies blueman compton curl fzf"
     code="python3-pip pandoc docker.io nodejs npm"
     soft="gimp xournal cheese"
     tex="texlive-latex-recommended texlive-pictures texlive-xetex latexmk texlive-science"

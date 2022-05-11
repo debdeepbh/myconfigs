@@ -7714,7 +7714,8 @@ We want to create the following table from a matrix of values.
 ```
 
 The following code can be used
-```
+
+```bash
 ## markdown table
 file=$HOME/img_compare.md
 rm $file
@@ -7760,7 +7761,7 @@ echo -n " ![img]($HOME/img_pacman_comp/${del}_${m}_${rc}/img_tc_00025.png) |" >>
 
 - To transpose the matrix (table), we add an optional argument to the function
 
-```
+```bash
     if [ "$1" = "transpose" ]
     then
 	arr2=("${mlist[@]}") 
@@ -7963,3 +7964,43 @@ endfunction
 " ? means 0 or 1 arguments
 command! -nargs=? GetFile call <SID>InteractiveFZFCommand(<f-args>)
 ```
+
+# Markdown as writing tool
+
+A combination of tools required to make the entire workflow possible.
+
+| Tool                  | Purpose                                   |
+|-----------------------|-------------------------------------------|
+| vim-pandoc            | compilation, live preview                 |
+| vim-pandoc-syntax     | syntax highlighting for delimited code    |
+| easy-pandoc-templates | to produce reasonable looking html output |
+| vim-tablemode         | creating and handling markdown tables     |
+| ?                     | file management, tagging, searching       |
+| ?                     | file backup                               |
+
+### Good things
+
+- Easy to type
+- Easy to include images
+
+- pdf output
+ - perfect equation rendering with default parameters
+ - Images get rescaled correctly
+
+- HTML output
+ - easy to scroll and click on links
+
+### Issues
+- html rendering requires bunch of custom flags and templates
+- Autorun command launches the browser window every time (run command on write is on)
+- Custom templates depend on google api website which slows down the launch time (for the first time only)
+- Handling large md file with TableMode on is too laggy (need to manually turn it off)
+- Folding for large files is slow (need to install fastfold plugin)
+- Recompiles the whole page on each save, so progressively longer compile time
+- Only single column pictures are available. No side-by-side.
+
+### Compare workflow and ease with
+- Jupyter
+- vimtex
+
+

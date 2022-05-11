@@ -337,6 +337,10 @@ Plug 'simnalamburt/vim-mundo'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " Don't like syntax folding, don't use conversion of markdown to other formats
 Plug 'vim-pandoc/vim-pandoc'
+" Use :TableModeEnable or :TableModeToggle to enable; 
+" Start table with | col1 |  col2 | col3 | <Cr> ||
+" After editing table info, hover cursor on the table to reformat
+Plug 'dhruvasagar/vim-table-mode'
 
 "Plug 'godlygeek/tabular'
 "Plug 'plasticboy/vim-markdown'
@@ -993,8 +997,29 @@ autocmd BufEnter *.m     map <silent> <Leader>ll :make<CR>:copen<CR>
 "    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 "augroup END
 
-let g:pandoc#syntax#codeblocks#embeds#langs = ["c", "cpp", "python", "bash=sh", "vim"]
+let g:pandoc#syntax#codeblocks#embeds#langs = ["c", "cpp", "python", "bash=sh", "vim", "html", "latex=tex", "makefile=make"]
 
+" conceal urls
+let g:pandoc#syntax#conceal#urls = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-pandoc                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"As a convenience, you can have vim-pandoc auto execute pandoc on writes. To
+"enable this functionality, set |g:pandoc#command#autoexec_on_writes| to 1 and
+"provide a command to execute like so:
+"
+let g:pandoc#command#autoexec_on_writes = 1
+"Which command to autoexecute on writes if
+" |g:pandoc#command#autoexec_on_writes| is enabled.
+" More examples: https://pandoc.org/demos.html
+let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html"
+
+" mapping local leader to \ (same as leader)
+" Now, we can do \cb to insert/toggle checkbox for list items.
+" see :h vim-pandoc
+let maplocalleader = "\\"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        Zotero better-bibtex plugin                         "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
