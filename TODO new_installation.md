@@ -7929,7 +7929,7 @@ zoomdl -u <http_link>
 
 ## Supplying a input file of Zoom urls
 
-```
+```bash
 Lines=$(cat "$1")
 for line in $Lines
 do
@@ -7939,7 +7939,8 @@ done
 ```
 
 # Interactive terminal command from vim
-```
+
+```vim
 function! <SID>InteractiveFZFCommand(...)
     let tempfile = tempname()
     if a:0

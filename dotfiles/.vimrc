@@ -989,10 +989,11 @@ autocmd BufEnter *.m     map <silent> <Leader>ll :make<CR>:copen<CR>
 " as python blocks that start with python
 "
 "" No need to use this when using vim-pandoc
-augroup pandoc_syntax
-    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-augroup END
+"augroup pandoc_syntax
+"    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+"augroup END
 
+let g:pandoc#syntax#codeblocks#embeds#langs = ["c", "cpp", "python", "bash=sh", "vim"]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        Zotero better-bibtex plugin                         "
