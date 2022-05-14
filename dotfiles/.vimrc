@@ -52,6 +52,20 @@ endfunction
 
 command! -nargs=? GetFile call <SID>InteractiveFZFCommand(<f-args>)
 
+" save, goto the right i3 window, run the previous command
+function! <SID>Savegorunprev(...)
+    let tempfile = tempname()
+    let command = "!i3-msg focus right; " . shellescape(tempfile)
+    silent execute command
+endfunction
+
+command! -nargs=? Savegorunprev call <SID>Savegorunprev(<f-args>)
+
+nnoremap <silent> <Leader>er :w<Cr>:!i3-msg focus right; xdotool key Escape k Return<Cr><Cr>
+nnoremap <silent> <Leader>el :w<Cr>:!i3-msg focus left;  xdotool key Escape k Return<Cr><Cr>
+
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Tab navigation                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -137,7 +151,7 @@ nnoremap gp `[v`]
 " source .vimrc after editing
 " without restarting vim
 " Not sure if I'll ever use it though
-nmap <silent> <leader>sv :source $MYVIMRC<CR>
+nmap <silent> <leader>sv :source $MYVIMRC<CR>:echom 'vimrc sourced.'<CR>
 "nnoremap <Leader>ev :tab drop $MYVIMRC<CR>
 nnoremap <Leader>ev :e $MYVIMRC<CR>
 
@@ -1014,7 +1028,10 @@ let g:pandoc#command#autoexec_on_writes = 1
 "Which command to autoexecute on writes if
 " |g:pandoc#command#autoexec_on_writes| is enabled.
 " More examples: https://pandoc.org/demos.html
-let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html"
+" More options: --toc: generate a table of contents
+" let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html --number-sections"
+ let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html --number-sections"
+"let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s -c ~/test/bootstrap.css --number-sections"
 
 " mapping local leader to \ (same as leader)
 " Now, we can do \cb to insert/toggle checkbox for list items.
