@@ -1,0 +1,10 @@
+#!/bin/bash
+i3-msg rename workspace to 'reports'
+
+cd ~/reports
+i3-msg split h
+xfce4-terminal -e 'vim wheel.md'
+firefox -new-window
+i3-msg focus left
+i3-msg focus left
+
