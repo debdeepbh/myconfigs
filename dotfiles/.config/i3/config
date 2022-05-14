@@ -62,6 +62,14 @@ floating_modifier $mod
 
 ## Launching applications
 bindsym $mod+Return exec xfce4-terminal
+
+
+## save vim, goto the right i3 window, run the previous command
+## need --release command for xdotool to work
+## use xdotool key --clearmodifiers to clear held down Winkey etc
+bindsym --release $alt+l exec i3-msg focus right; exec xdotool key Escape k
+bindsym --release $alt+h exec i3-msg focus left; exec xdotool key Escape k
+
 bindsym $mod+z exec xfce4-terminal --drop-down
 #bindsym $alt+Control+l exec i3lock -c 000000
 bindsym $alt+Control+l exec xflock4
@@ -113,9 +121,6 @@ bindsym $mod+space exec rofi -show window
 #bindsym $alt+s exec $i3get c > $lst_f
 #bindsym $alt+Tab exec $focus_swap
 bindsym $mod+Tab exec $focus_swap
-
-# grave is tilde
-bindsym $mod+grave exec $window_switch
 
 # change focus
 bindsym $mod+h focus left;  exec $update_file
@@ -179,9 +184,12 @@ bindsym $mod+apostrophe exec i3-msg [con_mark="$($scr_mark_sel)"] focus; exec $u
 # move current window to a mark (similar to mod+j vs mod+shift+j)
 bindsym $mod+shift+apostrophe exec i3-msg move window to mark $($scr_mark_sel)
 
+
+# grave is tilde
+bindsym $mod+grave exec $window_switch
 # move current container to a window
 #bindsym $mod+shift+w exec i3-msg move container to workspace $(rofi -dmenu -lines 0 -p 'move to workspace')
-bindsym $mod+shift+w exec $window_moveto
+bindsym $mod+shift+grave exec $window_moveto
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking

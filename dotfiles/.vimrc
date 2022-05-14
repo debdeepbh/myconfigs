@@ -52,18 +52,10 @@ endfunction
 
 command! -nargs=? GetFile call <SID>InteractiveFZFCommand(<f-args>)
 
-" save, goto the right i3 window, run the previous command
-function! <SID>Savegorunprev(...)
-    let tempfile = tempname()
-    let command = "!i3-msg focus right; " . shellescape(tempfile)
-    silent execute command
-endfunction
-
-command! -nargs=? Savegorunprev call <SID>Savegorunprev(<f-args>)
-
-nnoremap <silent> <Leader>er :w<Cr>:!i3-msg focus right; xdotool key Escape k Return<Cr><Cr>
-nnoremap <silent> <Leader>el :w<Cr>:!i3-msg focus left;  xdotool key Escape k Return<Cr><Cr>
-
+"" save, goto the right i3 window, run the previous command
+"" Will run this from i3 config
+"nnoremap <silent> <Leader>er :w<Cr>:!i3-msg focus right; xdotool key Escape k<Cr><Cr>
+"nnoremap <silent> <Leader>el :w<Cr>:!i3-msg focus left;  xdotool key Escape k<Cr><Cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
