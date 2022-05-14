@@ -1,0 +1,6 @@
+#!/bin/bash
+i3-msg split h
+xfce4-terminal -e 'ssh -t smic "cd ~/peri-wheel; bash -l"'
+xfce4-terminal -e 'ssh -t smic "watch qstat -u  $USER; bash -l"'
+i3-msg split v
+xfce4-terminal -e 'ssh -t smic "cd /work/$USER/peri-wheel-output/wheel; ~/.local/bin/ranger; bash -l"'
