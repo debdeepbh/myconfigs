@@ -12,6 +12,10 @@ get_packages(){
     echo "installing packages: $1"
     sudo apt-get update
     sudo apt-get --assume-yes install $pkglist
+
+    # remove dunst (used by i3) to get pretty notification popup
+    sudo apt purge dunst
+
 }
 
 #######################################################################
