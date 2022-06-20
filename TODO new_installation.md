@@ -131,7 +131,7 @@ ffmpeg -start_number 1 -i img_tc_%5d.png -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:
 ```
 
 - Use `-crf` along with framerate `-r` to produce smaller video
-    * Larger the framerate, bigger the video (good range 20-28)
+    * Larger the framerate, smaller and faster the video (good range 20-28)
     * Larger the `crf` smaller the video (good range 20-30)
 - To increase the duration of each image in the video, use `-framerate` option which specifies how many frames to show per second (i.e. decreasing this value will increase the duration of each image).
 
