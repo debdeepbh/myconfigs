@@ -6799,18 +6799,88 @@ nvidia-settings -q CUDACores -t
 
 # CUDA NVIDIA with python
 
-* Install `CUDA Toolkit`: 
-Follow instruction on [sit](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal) to download the `.deb` and install for ubuntu version.
-Or, using `apt-get`
+## Installation on Xubuntu-22.04
+
+### Install liveUSB with
+
+1. wifi on
+2. check `updating packaging while installing`
+3. check `install proprietary drivers`
+
+### If `Additional Drivers` is disabled
+
 ```
-sudo apt-get install nvidia-cuda-toolkit
+sudo apt install nvidia-384
 ```
-This is about 2GB of installation.
+
+This  will enable the drivers listed in the page.
+
+### In `Additional Drivers`:
+
+1. Use `nvidia-510` (proprietary, tested)
+1. Restart
+
+### Install cuda from website
+
+1. Run scripts in sequence from [site](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64)
+
+For cuda 11.7, the scripts are
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda-repo-ubuntu2204-11-7-local_11.7.0-515.43.04-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu2204-11-7-local_11.7.0-515.43.04-1_amd64.deb
+sudo cp /var/cuda-repo-ubuntu2204-11-7-local/cuda-*-keyring.gpg /usr/share/keyrings/
+sudo apt-get update
+sudo apt-get -y install cuda
+```
+
+1.  Restart 
+
+### `nvcc`
+
+Even after installing commands like `nvcc --version` won't be available. You would need to add the cuda installation path to your `.bashrc`. For cuda version 11.7, we need to add to `.bashrc`:
+
+```bash
+export PATH="/usr/local/cuda-11.7/bin:$PATH"
+```
+
+For using nvcc in compiling C++ code, 
+
+```bash
+export LD_LIBRARY_PATH="/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH"
+```
+
+1. Source `.bashrc`
+
+### Installing pytorch
+
+1. uninstall older torch: `pip3 uninstall torch`
+2. Use script generated from [pytorch website](https://pytorch.org/get-started/locally/)
+by selecting the platform, cuda version etc.
+
+For cuda 11.7 version (which is required for 3070 and 3080 graphic cards), pytorch 11.6 works as well.
+
+```
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
+```
+
+3. Test pytorch works with cuda by running
+
+```python
+import torch
+print('cuda available in torch:', torch.cuda.is_available())
+```
+
+## Showing stats
 
 * Check your gpu info with 
+
 ```
 nvidia-smi
 ```
+
 You can find your CUDA version here.
 
 - Find the number of cuda cores in your graphics card
