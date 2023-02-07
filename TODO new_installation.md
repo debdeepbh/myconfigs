@@ -4978,9 +4978,9 @@ Solarized dark             |  Solarized Ocean
 ![](https://...Dark.png)  |  ![](https://...Ocean.png)
 ```
 
-## Columns
+## marp columns
 
-To have columns within a slide, use scoped style called `.columns`.
+To have columns within a slide, use scoped style called `.columns`. Here is an example of a slide.
 
 ```
 
@@ -4988,7 +4988,7 @@ To have columns within a slide, use scoped style called `.columns`.
 <style scoped>
     .columns {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 60% 40%;
     gap: 1rem;
 }
 </style>
