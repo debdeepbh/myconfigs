@@ -4153,6 +4153,7 @@ sudo docker images -a
 ```
 
 - Uninstall an image with
+
 ```
 sudo docker image rm ID
 ```
@@ -4851,6 +4852,28 @@ sudo snap install marp-cli-carroarmato0
 
 Marp uses KaTeX for rendering latex. Here are the supported functions.
 https://katex.org/docs/supported.html
+
+You can specify which math engine to use in the header
+
+```
+---
+theme: gaia
+math: mathjax
+---
+```
+
+With mathjax, we can also specify preludes of tex files in the beginning of the page. For examples, if you add
+
+```
+$$
+% User defined functions
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\R}{\mathbb{R}}
+$$
+```
+
+early on in the page, you can keep using `\R` to denote real numbers throughout the page.
 
 ## Changing settings for the current slide only
 * Use underscored directives at the top of the current slide. For example, to temporarily change the background to a gradient color, do
@@ -8073,4 +8096,133 @@ A combination of tools required to make the entire workflow possible.
 - Jupyter
 - vimtex
 
+
+# SQL on linux
+
+### Setup
+
+- Install
+
+```
+sudo apt install mysql-server
+```
+
+- Check installation
+
+```
+mysql --version
+```
+
+- Start as sudo
+
+```
+sudo mysql
+```
+
+- Exit
+
+```
+exit;
+```
+
+
+### Usage
+
+- General
+	- Nothing is case sensitive, except quoted strings
+
+- Show databases
+
+```
+show databases;
+```
+
+- Create database
+
+```
+create database mydatabase;
+```
+
+- Select database
+
+```
+use mydatabase;
+```
+
+- Create table `person` in the currently selected database with columns `Id, Firstname, Lastname` with datatype and length
+
+```
+create table person (Id int(10) not null, Firstname varchar(10), Lastname varchar(10) );
+```
+
+### Import/export databases
+
+- Import
+
+```
+sudo mysql -u <username> -p <database> < /path/to/database.sql
+```
+
+- Export with `mysqldump`
+
+```
+sudo mysqldump -u <username> -p <database> > /path/to/database.sql
+```
+
+### Read/write
+
+- Operations
+    - C (create)	: `insert into <tablename> (col1, col2, col3) values (data1, data2, data3)`
+    - R (read)		: `select * from <tablename> where ...`
+    - U (update)	: `update <tablename> set <colname>=<value> where ...`
+    - D (delete)	: `delete from <tablename> where ...`
+
+- Insert data into table
+
+```
+insert into person (Id, Firstname, Lastname) values (1, 'Richard', 'Winters');
+```
+
+- Read
+
+```
+select * from person;
+```
+
+	- Read selectively
+
+	```
+	select * from person where Id=1;
+	select * from person where id = 1;
+	select * from person where Firstname = 'Richard';
+	select * from person where firstname='richard';
+	```
+
+- Update data
+
+```
+update person set Lastname = 'Clark' where Firstname = 'Richard';
+```
+
+- Delete data
+
+```
+delete from person where Id = 1;
+```
+
+
+# Protonvpn for ubuntu
+
+After installing the `.deb` package the website specifies, the following command does not work
+
+```
+sudo apt install protonvpn
+```
+
+with error `protonvpn: could not locate`.
+
+The issue is the repository list file did not get copied to `/etc/apt/sources.list.d/`. 
+Simply extract the `.deb` file with tar `tar -xvf protonvpn....deb` and copy the file `./etc/apt/sources.list.d/protonvpn-stable.list` to `/etc/apt/sources.list.d/`. 
+
+Then do `sudo apt update`. Now can find and install the package.
 

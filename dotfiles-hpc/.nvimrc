@@ -1,4 +1,6 @@
 let g:python3_host_prog = '/usr/local/packages/python/3.8.5-anaconda/bin/python3'
+let g:python_host_prog = '/usr/local/packages/python/3.8.5-anaconda/bin/python3'
+
 " Weird garbage character on vim 8.2 launch
 " https://vimhelp.org/map.txt.html#modifyOtherKeys
 let &t_TI = ""
