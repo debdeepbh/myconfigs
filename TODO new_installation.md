@@ -4980,7 +4980,7 @@ Solarized dark             |  Solarized Ocean
 
 ## marp columns
 
-To have columns within a slide, use scoped style called `.columns`. Here is an example of a slide.
+To have columns within a slide, use scoped style called `.columns`. Here is an example of a slide with two columns, with the right column an image with subtitle.
 
 ```
 
@@ -5007,7 +5007,11 @@ Column 1 text goes here
 
 ## Column 2
 
-Column 1 text goes here
+Column 2 text goes here
+![img h:300](data/domain.png)
+<center><font size="12">Centered text<font></center>
+
+Text
 
 </div>
 </div>
