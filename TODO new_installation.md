@@ -4978,6 +4978,48 @@ Solarized dark             |  Solarized Ocean
 ![](https://...Dark.png)  |  ![](https://...Ocean.png)
 ```
 
+## Columns
+
+To have columns within a slide, use scoped style called `.columns`.
+
+```
+
+---
+<style scoped>
+    .columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+</style>
+
+# Multi columns in Marp slide
+
+<div class="columns">
+<div>
+
+## Column 1
+
+Column 1 text goes here
+
+</div>
+<div>
+
+## Column 2
+
+Column 1 text goes here
+
+</div>
+</div>
+
+This text is outside the columns.
+
+---
+
+```
+
+Change the `repeat()` to increase the number of columns.
+
 # Tridactyl for firefox
 
 ## Installation
