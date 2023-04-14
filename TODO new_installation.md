@@ -4821,6 +4821,9 @@ papis bibtex read ./path/to/my/bibfile.bib import -o test
 
 # MARP for presentation slides using markdown
 
+Various tips:
+[link](https://www.hashbangcode.com/article/seven-tips-getting-most-out-marp)
+
 ## Installation
 * ~~Using npm~~ (didn't work)
 * ~~Install from ubuntu snap repo~~ (the executable filename is weird)
@@ -4847,6 +4850,7 @@ sudo snap install marp-cli-carroarmato0
 * Sublists need two preceding spaces
 * Highlight text with ticks `text`, which can also be used to embed code
 - Comment with `<!-- comment -->` which can span over multiple lines.
+
 
 ## Tex support
 
@@ -5022,9 +5026,95 @@ This text is outside the columns.
 
 ```
 
-Change the `repeat()` to increase the number of columns.
+
+## Repeated css styles
+
+To avoid retyping detailed scoped styles (`<style scoped> ... </style>`) every time, you can give the style a name and reuse it using `<p class='stylename'> .. </p>`. 
+Define the name of the style at the beginning globally like this:
+
+```
+
+---
+marp: true
+theme: gaia
+style: |
+  .subtext {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+---
+
+---
+# Big text here
+
+<p class="subtext">small text</p>
+
+---
+
+```
+
+Note: in CSS, `rem` is root element.
+
+## New theme files
+
+Instead of defining new style names within `style: |` in the header, you can put custom themes in a new css file (you need to call with `marp --theme newthemefile.css` for it to load) based on the existing theme `gaia`.
+
+The body of `newthemefile.css`
+
+```
+/* @theme theme-new */
+
+@import 'gaia';
+
+h1 {
+  font-size: 60px;
+  color: #09c;
+}
+
+.cols {
+    display: grid;
+    grid-template-columns: 60% 30%;
+    gap: 1rem;
+}
+
+.subtext {
+    font-size: 0.75rem;
+    text-align: center;
+}
+```
+
+In the body of `slided.md` use the style (and modify options on the fly) as
+
+```
+
+--- 
+theme: theme-new
+---
+..
+---
+# Title
+<div class="cols", style="grid-template-columns="50% 50%;">
+	<div>
+	col 1	
+	</div>
+
+	<div>
+	col 2	
+	</div>
+</div>
+
+<p class="subtext"> subtitle </p>
+---
+```
+
+Compile with
+
+```
+./marp slides.md --html --watch --preview --theme newtheme.css
+```
 
 # Tridactyl for firefox
+
 
 ## Installation
 * Download the `.xpi` file from git and install it from `Addon > 'gear menu' > Install from file`
