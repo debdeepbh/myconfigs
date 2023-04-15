@@ -727,3 +727,7 @@ export PATH="$PATH:$HOME/.local/bin"
 # For matlab curl usage
 #export DYLD_LIBRARY_PATH="/usr/bin"
 export BROWSER=/usr/bin/firefox
+
+# change caps lock to escape
+setxkbmap -option caps:escape
+
