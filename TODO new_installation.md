@@ -8362,3 +8362,17 @@ Simply extract the `.deb` file with tar `tar -xvf protonvpn....deb` and copy the
 
 Then do `sudo apt update`. Now can find and install the package.
 
+## No internet due to ip leak protection
+
+Turn off the service using
+
+```
+sudo nmcli connection delete pvpn-ipv6leak-protection
+```
+
+# Changing caps lock to escape
+
+```
+setxkbmap -option caps:escape
+```
+
