@@ -1,6 +1,6 @@
 #!/bin/bash
 cd $HOME/Downloads
-file=$(ls -t *.zip | head -1)
-outdir=$(echo "$file" | cut -f 1 -d '.')
-unzip "$file" -d $outdir
-echo "Extracted file $file to directory $outdir"
+file="$(ls -t *.zip | head -1)"
+outdir="$(echo "$file" | cut -f 1 -d '.')"
+unzip "$file" -d "$outdir"
+echo "Extracted file "$file" to directory "$outdir""
