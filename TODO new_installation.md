@@ -8376,3 +8376,12 @@ sudo nmcli connection delete pvpn-ipv6leak-protection
 setxkbmap -option caps:escape
 ```
 
+# Table borders in pandoc-converted html from markdown
+
+When converting markdown files to html, the table borders do not show up. Add the following css snippet within the `.md` files so that
+
+```
+pandoc file.md -o file.html
+```
+
+actually renders a border in the tables.
