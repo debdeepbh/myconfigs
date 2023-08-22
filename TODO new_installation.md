@@ -8384,4 +8384,13 @@ When converting markdown files to html, the table borders do not show up. Add th
 pandoc file.md -o file.html
 ```
 
-actually renders a border in the tables.
+actually renders a border in the tables:
+
+```html
+<style>
+table { border-collapse: collapse; }
+th, td { border: solid black 1px; padding: 0 1ex; }
+tr:nth-of-type(odd) { background-color:#eee; }
+th { color: white; background: #444; }
+</style>
+```

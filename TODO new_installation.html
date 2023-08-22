@@ -479,11 +479,11 @@ done</code></pre>
 <pre><code> cat filename | grep &#39;http://[^&quot;]*&#39;</code></pre>
 <p>Alternatively, and more intuitively (more useful too), extracting mp3 links from a html file in Vim:</p>
 <p>Open the file. Type: gg (goto the beginning of the file) /.mp3 (searches for all occurrence of .mp3 and the cursor waits on the first occurrence of it) qr (starts recording a macro named r) yi" (yanks all link inside " " and cursor moves to the beginning of the corresponding " “) G (goes to the end of the file) o Esc p (Inserts a new line and goes to normal mode and pastes the link in the end) (two back ticks. Two single apostrophies also work) (to go back to the previous cursor position, which is the beginning of the” “) nn (Here, the number of n’s may vary depending on the format of the page. first n takes the cursor to .mp3 inside of the current” " and the second takes it to the next one, which maybe part of the text in a hyperlink rather than being part of a link. In that case you need to enter 3 n’s i.e. nnn) q (now that we have completed the loop, we stop recording the macro, which was named r)</p>
-<p>Now press <span class="citation" data-cites="r">(<span class="citeproc-not-found" data-reference-id="r"><strong>???</strong></span>)</span> to run the macro once more and the 5@r to repeat it 5 times. At the end of the process, you have a all the links at the end of the file, which you can yank and paste in a file called dumpfile.</p>
+<p>Now press <span class="citation" data-cites="r">@r</span> to run the macro once more and the 5@r to repeat it 5 times. At the end of the process, you have a all the links at the end of the file, which you can yank and paste in a file called dumpfile.</p>
 <p>The whole sequence of key presses to create the macro named “r” is: gg/.mp3<Enter>qryi"Go<Esc>p``nnq</p>
 <p>(note: here the `` two backticks, not apostrophies. Remember this otherwise it might cause trouble)</p>
 <p>Notes: Instead of using two backticks, which may give “mark not set” error, you can actually set a mark every time the cursor is on the search string by giving it a name (say b) using mb. When jumping to that position, use `<code>b</code> and it will be back to that position again.</p>
-<p>You can save the macro named r inside .vimrc using let <span class="citation" data-cites="r">(<span class="citeproc-not-found" data-reference-id="r"><strong>???</strong></span>)</span> = ‘yi"Go<Esc>p’‘nnq’</p>
+<p>You can save the macro named r inside .vimrc using let <span class="citation" data-cites="r">@r</span> = ‘yi"Go<Esc>p’‘nnq’</p>
 <p>Inside vim you can actually issue "rp to paste the content of the macro to copy it to vimrc.</p>
 <p>Then you can dump the output in a file by &gt;&gt; and wget -i dumpfile to download them.</p>
 <p>Note: A better and much faster way to download all the files:</p>
@@ -5251,7 +5251,13 @@ select * from person where firstname=&#39;richard&#39;;
 <h1 id="table-borders-in-pandoc-converted-html-from-markdown">Table borders in pandoc-converted html from markdown</h1>
 <p>When converting markdown files to html, the table borders do not show up. Add the following css snippet within the <code>.md</code> files so that</p>
 <pre><code>pandoc file.md -o file.html</code></pre>
-<p>actually renders a border in the tables.</p>
+<p>actually renders a border in the tables:</p>
+<div class="sourceCode" id="cb524"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb524-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb524-2" title="2">table { <span class="kw">border-collapse</span>: <span class="dv">collapse</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb524-3" title="3">th<span class="op">,</span> td { <span class="kw">border</span>: <span class="dv">solid</span> <span class="cn">black</span> <span class="dv">1</span><span class="dt">px</span><span class="op">;</span> <span class="kw">padding</span>: <span class="dv">0</span> <span class="dv">1</span><span class="dt">ex</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb524-4" title="4">tr<span class="in">:nth-of-type(odd)</span> { <span class="kw">background-color</span>:<span class="cn">#eee</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb524-5" title="5">th { <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span> <span class="kw">background</span>: <span class="cn">#444</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb524-6" title="6"><span class="kw">&lt;/style&gt;</span></a></code></pre></div>
             </div>
     </div>
   </div>
