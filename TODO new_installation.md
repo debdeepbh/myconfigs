@@ -8394,3 +8394,24 @@ tr:nth-of-type(odd) { background-color:#eee; }
 th { color: white; background: #444; }
 </style>
 ```
+
+# Compiling tex files with svg
+
+- Include the svg package
+
+```
+\usepackage{svg}
+```
+
+- Add svg files with
+
+```
+\includesvg{path/file.svg}
+```
+
+
+- Use shell escape to compile
+
+```
+pdflatex --shell-escape file.tex
+```
