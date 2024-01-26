@@ -8415,3 +8415,83 @@ th { color: white; background: #444; }
 ```
 pdflatex --shell-escape file.tex
 ```
+
+# Local image server immich.app
+
+
+## Installation
+
+Follow the beautifully written tutorial
+
+- The default docker.io installation (`sudo apt install docker.io`) will not work. Need to follow described method to download it from docker website. Then we need to run docker using
+
+```
+systemctl start docker
+```
+
+- The `.env` file should not have any prefix (first name). It is just `.env`.
+
+- Need to use sudo for compose up
+
+```
+sudo docker compose up -d
+```
+
+- Better to set up with filename template engine on for easy organization. The original files will be stored in `./library/library/<user>/`
+
+
+## File structure
+
+- Add backed up files are stored in
+
+## Testing
+
+- Can delete all backed up photos and delete the database with `docker copmose down -v` (see the [Administration](https://immich.app/docs/administration/backup-and-restore/)  for details)
+
+```
+docker compose down -v  # CAUTION! Deletes all Immich data to start from scratch.
+```
+
+## Extra work
+
+### Security
+
+- Default password for the server is written in plaintext within the config file. Must change it from default before running the docker image.
+
+- https for app: need to use a reverse proxy like nginx or caddy (described in the guide)
+
+### Dynamic DNS
+
+- They recommend duckdns
+
+### Backup
+
+Borg script is provided for local and remote (via ssh) backup.
+
+- Install borg with
+
+```
+sudo apt install borgbackup
+```
+
+- Like a git repository, initiate a borg repository with
+
+```
+borg init --encryption=none <backup_dir>
+```
+
+- Create the backup using
+
+```
+
+borg create --stats --progress <backup_dir>::{now} immich-app/library/ --exclude=immich-app/library/thumbs/ --exclude immich-app/library/encoded-video/
+```
+
+The stats will show the statistics after compression is done. The progress bar is good for large backups.
+
+- Need to prune the trees and compact to reduce size of multiple backups
+
+```
+borg prune --keep-weekly=4 --keep-monthly=3 <backup_dir>
+borg compact <backup_dir>
+```
