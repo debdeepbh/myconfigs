@@ -66,15 +66,15 @@ setup_vim(){
     curl -sL install-node.now.sh/lts >> install_nodejs
     chmod +x install_nodejs
     # install locally
-    ./install_nodejs --prefix=$HOME/.local
+    ./install_nodejs --prefix=$HOME/.local --yes
 
     echo 'installing vim plugins'
     vim +PlugInstall +qall
 }
 
 setup_ssh(){
-    echo 'generating SSH key'
-    ssh-keygen
+    echo 'generating SSH key: silent with nopassphrase'
+    ssh-keygen -t rsa -N '' -f $HOME/.ssh/id_rsa
     eval `ssh-agent -s`
     ssh-add
     ## to copy publickey, print it out
