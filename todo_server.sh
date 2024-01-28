@@ -6,8 +6,10 @@ sudo apt-get --assume-yes upgrade
 sudo snap refresh
 
 # install minimal packages minus the laptop-specific ones
-min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop unclutter redshift mplayer sxiv exuberant-ctags suckless-tools i3 rofi i3blocks py3status xfce4-goodies compton curl fzf tmux python3-pip pandoc"
-sudo apt-get install --assume-yes $minpkg
+min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop unclutter redshift mplayer sxiv exuberant-ctags suckless-tools i3 rofi i3blocks py3status xfce4-goodies compton curl fzf tmux python3-pip pandoc xclip"
+
+pkglist="$min"
+sudo apt-get install --assume-yes $pkglist
 
 # get dotfiles
 git clone https://github.com/debdeepbh/myconfigs.git $HOME/myconfigs
@@ -16,7 +18,6 @@ source $HOME/.bashrc	# this will add some paths too
 
 # remove dunst (used by i3) to get pretty notification popup
 sudo apt purge dunst
-
 
 # nodejs: need to add .local/bin as path, so need to get the dotfiles first
 echo 'installing nodejs for coc'
@@ -35,5 +36,40 @@ ssh-keygen -t rsa -N '' -f $HOME/.ssh/id_rsa
 eval `ssh-agent -s`
 ssh-add
 
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip
+echo "Key copied to clipboard. Check if connection works with: ssh -T git@github.com"
+firefox https://github.com/settings/keys &
 
-# docker
+
+#######################################################################
+
+## docker: From https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl --assume-yes
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin --assume-yes
+## need to start the service
+# systemctl start docker 
+## Testing
+sudo docker run hello-world
+
+#######################################################################
+
+# immich-app: https://immich.app/docs/install/docker-compose
+immich_dir=$HOME/immich-app
+mkdir $immich_dir
+cd $immich_dir
+wget  https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
+wget https://github.com/immich-app/immich/releases/latest/download/hwaccel.yml
+sudo docker compose up -d
