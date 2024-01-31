@@ -73,3 +73,9 @@ wget  https://github.com/immich-app/immich/releases/latest/download/docker-compo
 wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
 wget https://github.com/immich-app/immich/releases/latest/download/hwaccel.yml
 sudo docker compose up -d
+
+# tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up	# requires login and setup
+sudo tailscale funnel --set-path /immich --bg 2283
+tailscale funnel status
