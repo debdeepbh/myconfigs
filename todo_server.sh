@@ -6,7 +6,7 @@ sudo apt-get --assume-yes upgrade
 sudo snap refresh
 
 # install minimal packages minus the laptop-specific ones
-min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop unclutter redshift mplayer sxiv exuberant-ctags suckless-tools i3 rofi i3blocks py3status xfce4-goodies compton curl fzf tmux python3-pip pandoc xclip"
+min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop unclutter redshift mplayer sxiv exuberant-ctags suckless-tools i3 rofi i3blocks py3status xfce4-goodies compton curl fzf tmux python3-pip pandoc xclip borgbackup"
 
 pkglist="$min"
 sudo apt-get install --assume-yes $pkglist
@@ -72,7 +72,22 @@ cd $immich_dir
 wget  https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
 wget https://github.com/immich-app/immich/releases/latest/download/hwaccel.yml
-sudo docker compose up -d
+# sudo docker compose up -d
+
+# To run docker commands without root, add yourself as a docker manager https://docs.docker.com/engine/install/linux-postinstall/
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+docker run hello-world
+
+read -p "Change the database password in .env file: $HOME/immich-app/.env"
+
+docker compose up -d
+
+# immich cli for bulk upload of images
+npm i -g @immich/cli
+
+#######################################################################
 
 # tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
@@ -80,3 +95,13 @@ sudo tailscale up	# requires login and setup
 sudo tailscale funnel --set-path /immich --bg 2283	# open to web
 #sudo tailscale serve --set-path /immich --bg 2283	# open to private network
 tailscale funnel status
+
+#######################################################################
+
+# borg 
+
+#######################################################################
+# bulk upload
+# immich-go does not work very well as it makes many of the uploaded file corrupted (but downloading and uploading them fixes them). Therefore, we will use: https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper/tree/master?tab=readme-ov-file
+# Download the script from the github, and run it on extracted takeout zips. This creates a flattened list of images which we can upload using bulk-upload script.
+

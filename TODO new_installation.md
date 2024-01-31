@@ -8544,3 +8544,8 @@ The stats will show the statistics after compression is done. The progress bar i
 borg prune --keep-weekly=4 --keep-monthly=3 <backup_dir>
 borg compact <backup_dir>
 ```
+
+### Bulk upload
+
+immich-go does not work very well as it makes many of the uploaded file corrupted (but downloading and uploading them fixes them). Therefore, we will use: https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper/tree/master?tab=readme-ov-file
+Download the script from the github, and run it on extracted takeout zips. This creates a flattened list of images which we can upload using bulk-upload script.
