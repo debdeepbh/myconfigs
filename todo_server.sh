@@ -66,9 +66,9 @@ sudo docker run hello-world
 #######################################################################
 
 # immich-app: https://immich.app/docs/install/docker-compose
-immich_dir=$HOME/immich-app
-mkdir $immich_dir
-cd $immich_dir
+immich_dir="$HOME/immich-app"
+mkdir "$immich_dir"
+cd "$immich_dir"
 wget  https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
 wget https://github.com/immich-app/immich/releases/latest/download/hwaccel.yml
@@ -98,10 +98,16 @@ tailscale funnel status
 
 #######################################################################
 
-# borg 
+# borg backup 
+cp $HOME/myconfigs/borg-setup.sh "$immich_dir/"
+# Add to crontab -e: run everyday at 3:27 am
+# 27 3 * * * ~/myconfigs/borg-setup.sh >> ~/immich-app/backup.log
+
 
 #######################################################################
 # bulk upload
 # immich-go does not work very well as it makes many of the uploaded file corrupted (but downloading and uploading them fixes them). Therefore, we will use: https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper/tree/master?tab=readme-ov-file
 # Download the script from the github, and run it on extracted takeout zips. This creates a flattened list of images which we can upload using bulk-upload script.
-
+# Create an api key for the user. Then upload all images from directory [see](https://immich.app/docs/features/command-line-interface/)
+# immich login-key http://localhost:2283/api <api_key>
+# immich upload --recursive directory/
