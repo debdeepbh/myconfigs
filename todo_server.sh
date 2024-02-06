@@ -103,6 +103,10 @@ cp $HOME/myconfigs/borg-setup.sh "$immich_dir/"
 # Add to crontab -e: run everyday at 3:27 am
 # 27 3 * * * ~/myconfigs/borg-setup.sh >> ~/immich-app/backup.log
 
+# set up /etc/fstab to auto mount backup media on boot
+# lsblk or blkid to find device name or uuid
+# sudo vim /etc/fstab for setting it up. Set 0 0 to skip dskchk etc
+
 
 #######################################################################
 # bulk upload
