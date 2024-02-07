@@ -5,8 +5,8 @@
 
 # Paths
 UPLOAD_LOCATION="$HOME/immich-app/library"
-BACKUP_PATH="/media/debdeep/hdd320/immich-borg"
-BACKUP_PATH_DB="/media/debdeep/hdd320/immich-borg-db"
+BACKUP_PATH="/mnt/hdd320/immich-borg"
+BACKUP_PATH_DB="/mnt/hdd320/immich-borg-db"
 LOG="$HOME/immich-app/backup.log"
 
 echo $(date)

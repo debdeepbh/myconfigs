@@ -17,7 +17,7 @@ cp -r $HOME/myconfigs/dotfiles/. $HOME/
 source $HOME/.bashrc	# this will add some paths too
 
 # remove dunst (used by i3) to get pretty notification popup
-sudo apt purge dunst
+sudo apt purge dunst --assume-yes
 
 # nodejs: need to add .local/bin as path, so need to get the dotfiles first
 echo 'installing nodejs for coc'
