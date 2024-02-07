@@ -7,6 +7,7 @@
 UPLOAD_LOCATION="$HOME/immich-app/library"
 BACKUP_PATH="/media/debdeep/hdd320/immich-borg"
 BACKUP_PATH_DB="/media/debdeep/hdd320/immich-borg-db"
+LOG="$HOME/immich-app/backup.log"
 
 echo $(date)
 
@@ -25,9 +26,9 @@ borg init --encryption=none "$BACKUP_PATH"
 docker exec -t immich_postgres pg_dumpall -c -U postgres | /usr/bin/gzip > $BACKUP_PATH_DB/tmp-immich-db.sql.gz
 
 ### Append to local Borg repository
-borg create $BACKUP_PATH::{now} $UPLOAD_LOCATION --exclude $UPLOAD_LOCATION/thumbs/ --exclude $UPLOAD_LOCATION/encoded-video/ --progress >>
-borg prune --keep-weekly=4 --keep-monthly=3 $BACKUP_PATH -v
-borg compact $BACKUP_PATH -v
+borg create $BACKUP_PATH::{now} $UPLOAD_LOCATION --exclude $UPLOAD_LOCATION/thumbs/ --exclude $UPLOAD_LOCATION/encoded-video/ --progress >> "$LOG"
+borg prune --keep-weekly=4 --keep-monthly=3 $BACKUP_PATH -v >> "$LOG"
+borg compact $BACKUP_PATH -v >> "$LOG"
 
 
 # ### Append to remote Borg repository
