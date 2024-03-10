@@ -71,7 +71,7 @@ mkdir "$immich_dir"
 cd "$immich_dir"
 #wget  https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 #wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
-#wget https://github.com/immich-app/immich/releases/latest/download/hwaccel.yml
+#wget https://github.com/immich-app/immich/releases/latest/download/hwaccel.ml.yml
 ## sudo docker compose up -d
 
 # To run docker commands without root, add yourself as a docker manager https://docs.docker.com/engine/install/linux-postinstall/
