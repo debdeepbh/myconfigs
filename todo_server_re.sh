@@ -92,7 +92,8 @@ npm i -g @immich/cli
 # tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up	# requires login and setup
-sudo tailscale funnel --set-path /immich --bg 2283	# open to web
+sudo tailscale funnel --bg 2283	# open to web; immich does not work with --set-path
+# sudo tailscale funnel --set-path /immich --bg 2283	# open to web
 #sudo tailscale serve --set-path /immich --bg 2283	# open to private network
 tailscale funnel status
 
