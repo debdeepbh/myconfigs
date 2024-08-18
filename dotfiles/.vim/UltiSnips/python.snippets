@@ -50,7 +50,7 @@ import argparse
 import sys
 # Instantiate the parser
 parser = argparse.ArgumentParser(description='Optional app description')
-parser.add_argument('--path', type=str, help='path to store output files', default='{$1:./out}')
+parser.add_argument('--path', type=str, help='path to store output files', default='${1:./out}')
 parser.add_argument('--noplot', action='store_true', help='do not plot')
 args = parser.parse_args()
 # save args
@@ -58,5 +58,22 @@ filename = args.path + '/args'
 with open(filename, 'w') as file:
     file.write('sys.args:' + str(sys.argv) + '\n')
     file.write('args:' + str(args))
+file_na = args.path+'/margs.pkl'
+print("Writing to ", file_na)
+with open(file_na,'wb') as f:
+    pickle.dump(args, f)
 $0
+endsnippet
+
+snippet exit "exit with sys"
+import sys
+sys.exit(0)
+endsnippet
+
+snippet prv "print variable"
+print('$1', ${1:var})
+endsnippet
+
+snippet wait "wait until keypress"
+wait = input("Press Enter to continue.")
 endsnippet

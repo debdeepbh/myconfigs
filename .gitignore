@@ -3,3 +3,4 @@
 *.swo
 
 /install_nodejs
+dotfiles/.vim/plugged/*

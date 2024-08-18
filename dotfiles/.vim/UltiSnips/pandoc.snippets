@@ -45,13 +45,18 @@ snippet sup "superscript"
 <sup>${1:1}</sup>
 endsnippet
 
-snippet vid "vid"
+snippet vidh "html video"
 <center>
 <video height="${1:500}" controls autoplay loop>
 <source src="${2:path}" type="video/mp4">
 Tag
 </video> 
 </center>
+$0
+endsnippet
+
+snippet vid "pandoc video"
+![video](${1:path}){ height=${2:500} }
 $0
 endsnippet
 

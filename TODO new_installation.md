@@ -8549,3 +8549,25 @@ borg compact <backup_dir>
 
 immich-go does not work very well as it makes many of the uploaded file corrupted (but downloading and uploading them fixes them). Therefore, we will use: https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper/tree/master?tab=readme-ov-file
 Download the script from the github, and run it on extracted takeout zips. This creates a flattened list of images which we can upload using bulk-upload script.
+
+# Dual filetype
+
+While working on a pandoc (markdown) file which contains some latex code, one needs to use the plugin features targeted toward each of the filetypes.
+
+```
+:set ft=pandoc.tex
+```
+
+This will likely have collisions between various snippets and keymaps, but seems to work for now.
+
+Alternatively, you can temporarily change the filetype to tex using
+
+```
+:set ft=tex
+```
+
+do your tex editing, and come back to pandoc using
+
+```
+:set ft=pandoc
+```

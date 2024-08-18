@@ -1,121 +1,496 @@
-<!doctype html>
-<html >
-<head>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!--[if lt IE 9]>
-                <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-        <![endif]-->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Content-Style-Type" content="text/css" />
+<!DOCTYPE html>
+<html  dir="ltr">
 
-    <!-- <link rel="stylesheet" type="text/css" href="template.css" /> -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/diversen/pandoc-bootstrap-adaptive-template/959c3622/template.css" />
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
 
-    <link href="https://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.4/css/uikit.gradient.css">
 
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-    <!-- <script type='text/javascript' src='menu/js/jquery.cookie.js'></script> -->
-    <!-- <script type='text/javascript' src='menu/js/jquery.hoverIntent.minified.js'></script> -->
-    <!-- <script type='text/javascript' src='menu/js/jquery.dcjqaccordion.2.7.min.js'></script> -->
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="https://cdn.rawgit.com/diversen/pandoc-uikit/master/style.css">
+        <link href="https://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <!-- <script src="uikit.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/uikit.js"></script>
+        <!-- <script src="scripts.js"></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/scripts.js"></script>
+        <!-- <script src="jquery.sticky-kit.js "></script> -->
+        <script src="https://cdn.rawgit.com/diversen/pandoc-uikit/master/jquery.sticky-kit.js"></script>
 
-    <!-- <link href="menu/css/skins/blue.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="menu/css/skins/graphite.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="menu/css/skins/grey.css" rel="stylesheet" type="text/css" /> -->
-  
-    <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-        
-  
-    <!-- <script src="script.js"></script> -->
-  
-    <!-- <script src="jquery.sticky-kit.js "></script> -->
-    <script type='text/javascript' src='https://cdn.rawgit.com/diversen/pandoc-bootstrap-adaptive-template/959c3622/menu/js/jquery.cookie.js'></script>
-    <script type='text/javascript' src='https://cdn.rawgit.com/diversen/pandoc-bootstrap-adaptive-template/959c3622/menu/js/jquery.hoverIntent.minified.js'></script>
-    <script type='text/javascript' src='https://cdn.rawgit.com/diversen/pandoc-bootstrap-adaptive-template/959c3622/menu/js/jquery.dcjqaccordion.2.7.min.js'></script>
+        <meta name="generator" content="pandoc-uikit" />
+                        <title>TODO new_installation</title>
+        <style type="text/css">code{white-space: pre;}</style>
+                        <style type="text/css">
+            a.sourceLine { display: inline-block; line-height: 1.25; }
+            a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+            a.sourceLine:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode { white-space: pre; position: relative; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            code.sourceCode { white-space: pre-wrap; }
+            a.sourceLine { text-indent: -1em; padding-left: 1em; }
+            }
+            pre.numberSource a.sourceLine
+              { position: relative; left: -4em; }
+            pre.numberSource a.sourceLine::before
+              { content: attr(title);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; pointer-events: all; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              { background-color: #f8f8f8; }
+            @media screen {
+            a.sourceLine::before { text-decoration: underline; }
+            }
+            code span.al { color: #ef2929; } /* Alert */
+            code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #c4a000; } /* Attribute */
+            code span.bn { color: #0000cf; } /* BaseN */
+            code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4e9a06; } /* Char */
+            code span.cn { color: #000000; } /* Constant */
+            code span.co { color: #8f5902; font-style: italic; } /* Comment */
+            code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+            code span.dt { color: #204a87; } /* DataType */
+            code span.dv { color: #0000cf; } /* DecVal */
+            code span.er { color: #a40000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #0000cf; } /* Float */
+            code span.fu { color: #000000; } /* Function */
+            code span.im { } /* Import */
+            code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+            code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+            code span.ot { color: #8f5902; } /* Other */
+            code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+            code span.sc { color: #000000; } /* SpecialChar */
+            code span.ss { color: #4e9a06; } /* SpecialString */
+            code span.st { color: #4e9a06; } /* String */
+            code span.va { color: #000000; } /* Variable */
+            code span.vs { color: #4e9a06; } /* VerbatimString */
+            code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+        </style>
+                                                </head>
 
-    <link href="https://cdn.rawgit.com/diversen/pandoc-bootstrap-adaptive-template/959c3622/menu/css/skins/blue.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.rawgit.com/diversen/pandoc-bootstrap-adaptive-template/959c3622/menu/css/skins/graphite.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.rawgit.com/diversen/pandoc-bootstrap-adaptive-template/959c3622/menu/css/skins/grey.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.rawgit.com/ryangrose/easy-pandoc-templates/948e28e5/css/elegant_bootstrap.css" rel="stylesheet" type="text/css" />
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
-    <script src="https://cdn.rawgit.com/diversen/pandoc-bootstrap-adaptive-template/959c3622/script.js"></script>
-  
-    <script src="https://cdn.rawgit.com/diversen/pandoc-bootstrap-adaptive-template/959c3622/jquery.sticky-kit.js"></script>
-    <meta name="generator" content="pandoc" />
-  <title>TODO new_installation</title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  { background-color: #f8f8f8; }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
-</head>
-<body>
+    <body>
 
-    
-    <div class="container">
-    <div class="row">
-            <div class="span12">
-            <p>Maintained using indentation folding and searched using the headings. Settings have to be applied to this file only using vim -S TODOsettings.vim</p>
+
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+            
+            <div class="uk-grid" data-uk-grid-margin >          
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-overflow-container" data-uk-sticky="{top:25,media: 768}">
+                        <div class="uk-panel uk-panel-box menu-begin" >
+
+                                                        <ul>
+                            <li><a href="#folding-help">Folding Help:</a></li>
+                            <li><a href="#install-broadcom-wifi-driver-and-restart-to-get-internet-access.">Install Broadcom WiFi Driver and restart to get internet access.</a></li>
+                            <li><a href="#goto-terminal-and-install">Goto terminal and install:</a></li>
+                            <li><a href="#create-a-startup-script-to-mount-hard-disk-drives">Create a startup script to mount Hard disk drives:</a></li>
+                            <li><a href="#enable-visual-effects">Enable Visual Effects:</a></li>
+                            <li><a href="#installing-sound-driver">Installing sound driver:</a></li>
+                            <li><a href="#recording-sound-from-output-stream">Recording sound from output stream:</a></li>
+                            <li><a href="#converting-media">Converting media:</a><ul>
+                            <li><a href="#mp4-encoding-for-mac-and-incorrect-color-in-subsequent-gif">mp4 encoding for mac and incorrect color in subsequent gif</a></li>
+                            </ul></li>
+                            <li><a href="#printing">Printing:</a></li>
+                            <li><a href="#ip-and-hostname-resolution">IP and hostname resolution</a></li>
+                            <li><a href="#live-ports">Live ports:</a></li>
+                            <li><a href="#boot-from-livecd-iso-using-grub">Boot from LiveCD iso using GRUB:</a></li>
+                            <li><a href="#handy-commands">Handy Commands:</a></li>
+                            <li><a href="#manually-download-flash-videos">Manually download Flash Videos:</a></li>
+                            <li><a href="#peforming-xserver-activities-through-tty-or-remote-ssh-shells">Peforming xserver activities through tty or remote ssh shells:</a></li>
+                            <li><a href="#simple-gtk-pop-ups">Simple GTK pop-ups:</a></li>
+                            <li><a href="#send-messages-to-other-users-in-terminal">Send messages to other users in terminal:</a></li>
+                            <li><a href="#lock-screen-from-terminal">Lock screen from terminal:</a></li>
+                            <li><a href="#convert-m4a-to-mp3">Convert m4a to mp3</a></li>
+                            <li><a href="#taking-pictures-through-webcam">Taking pictures through webcam</a></li>
+                            <li><a href="#streaming-audio-using-cvlc-not-tested-yet.-gui-vlc-streaming-is-straightforward-and-works">Streaming audio using cvlc: (not tested yet. GUI vlc streaming is straightforward and works :))</a></li>
+                            <li><a href="#adding-environment-variables-like-proxy-etc-permanently">Adding environment variables like proxy etc permanently</a></li>
+                            <li><a href="#adjusting-brightness-the-ultimate-method">Adjusting brightness (The ultimate method)</a></li>
+                            <li><a href="#touchpad-and-vertical-scrolling">Touchpad and vertical scrolling</a></li>
+                            <li><a href="#systemctl-command">systemctl command</a></li>
+                            <li><a href="#vim-helps">Vim helps:</a><ul>
+                            <li><a href="#newer-vim-moves">Newer vim moves</a></li>
+                            <li><a href="#vim-window-splitting">vim window splitting</a></li>
+                            <li><a href="#vim-ex-commands">vim Ex commands</a></li>
+                            <li><a href="#basic-vim">Basic vim</a></li>
+                            </ul></li>
+                            <li><a href="#copying-some-stuff-to-all-users-that-are-created">Copying some stuff to all users that are created</a></li>
+                            <li><a href="#search-for-all-http-links-in-a-file-by-grep">Search for all http links in a file by grep</a></li>
+                            <li><a href="#lock-screen-for-terminal">Lock screen for terminal</a></li>
+                            <li><a href="#vimperator-matters">Vimperator matters:</a></li>
+                            <li><a href="#wireless-mouse-and-usb-speaker">Wireless mouse and USB speaker</a></li>
+                            <li><a href="#password-protecting-text-files-in-vim">Password protecting text files in VIM:</a></li>
+                            <li><a href="#detect-filetype-even-without-the-extension">Detect filetype even without the extension:</a></li>
+                            <li><a href="#incremental-terminal-history-search">Incremental terminal history search:</a></li>
+                            <li><a href="#few-terminal-keyboard-shortcuts">Few Terminal keyboard shortcuts</a></li>
+                            <li><a href="#copy-the-content-of-a-file-to-the-x-clipboard-so-that-right-click---paste-works">Copy the content of a file to the X clipboard (so that right click - paste works)</a></li>
+                            <li><a href="#git-tutorial">Git tutorial</a><ul>
+                            <li><a href="#removing-a-large-file-from-the-commit-history">Removing a large file from the commit history</a></li>
+                            <li><a href="#create-a-respository">Create a respository</a><ul>
+                            <li><a href="#ssh-access-to-github">SSH access to github</a></li>
+                            <li><a href="#to-pushpull-git-repository-without-password">To push/pull git repository without password</a></li>
+                            <li><a href="#back-to-creating-a-repository">Back to creating a repository</a></li>
+                            </ul></li>
+                            <li><a href="#maintaining-the-local-repo">Maintaining the local repo:</a></li>
+                            <li><a href="#adding-and-committing-only-the-files-that-are-in-the-git-ls-files-list">Adding and committing only the files that are in the git ls-files list:</a></li>
+                            <li><a href="#merging-branches">Merging branches</a><ul>
+                            <li><a href="#replacing-all-files-without-resolving-conflicts">Replacing <em>all</em> files without resolving conflicts</a></li>
+                            </ul></li>
+                            <li><a href="#using-vimdiff-as-a-mergetool">Using <code>vimdiff</code> as a mergetool:</a></li>
+                            <li><a href="#scenarios">Scenarios</a></li>
+                            <li><a href="#rebasing-basing-the-current-commit-on-seems-irrelevant-and-confusing-to-mess-with-history">Rebasing (basing the current commit on) seems irrelevant and confusing to mess with history</a></li>
+                            <li><a href="#removing-sensitive-information-from-github-repo">Removing sensitive information from github repo</a></li>
+                            </ul></li>
+                            <li><a href="#all-about-wifi">All about wifi</a></li>
+                            <li><a href="#enabling-cron-job-for-arch-linux">Enabling cron job for arch linux</a></li>
+                            <li><a href="#microphone-recording">Microphone recording</a></li>
+                            <li><a href="#sharing-keyboard-and-mouse-between-multiple-computers">Sharing keyboard and mouse between multiple computers:</a></li>
+                            <li><a href="#a-fun-script-to-rotate-the-mouse-pointer-10-times-in-a-circle-of-radius-250-in-clockwise-direction.-needs-xdotool-package.">A fun script to rotate the mouse pointer (10 times) in a circle of radius 250 in clockwise direction. Needs xdotool package.</a></li>
+                            <li><a href="#detaching-a-process-from-terminal">Detaching a process from terminal:</a></li>
+                            <li><a href="#auto-login-to-arch">Auto login to arch</a></li>
+                            <li><a href="#making-the-default-font-of-arch-linux-pretty">Making the default font of Arch linux pretty</a></li>
+                            <li><a href="#uninstall-infinality-font-sets">Uninstall infinality font sets:</a></li>
+                            <li><a href="#calibre-setup-with-kobo-glo">Calibre setup with Kobo glo</a></li>
+                            <li><a href="#rules-to-ensure-that-files-stay-in-certain-directory-with-the-same-book-shelf-name">Rules to ensure that files stay in certain directory with the same Book Shelf name:</a></li>
+                            <li><a href="#batch-resize-images-before-i-forget-how-to">Batch resize images before I forget how to:</a></li>
+                            <li><a href="#delete-all-even-or-odd-numbered-file-in-the-directory">Delete all even or odd numbered file in the directory</a></li>
+                            <li><a href="#disk-repairerror-check">Disk repair/error check</a></li>
+                            <li><a href="#very-light-http-server-lightpd">Very light http server: lightpd</a></li>
+                            <li><a href="#creating-an-access-point-in-your-system">Creating an access point in your system</a></li>
+                            <li><a href="#mounting-unclean-ntfs-partition-caused-by-windows">Mounting unclean ntfs partition caused by windows</a></li>
+                            <li><a href="#reconnect-wifi-and-reload-firefoxs-latest-tab">Reconnect wifi and reload firefox’s latest tab</a></li>
+                            <li><a href="#turn-off-screen-blackeningscrensaver">Turn off screen blackening/scrensaver:</a></li>
+                            <li><a href="#calculate-the-size-of-a-directory-including-its-subdirectories">Calculate the size of a directory including its subdirectories</a></li>
+                            <li><a href="#print-screen-in-linux-using-imagemagick">Print Screen in linux using imagemagick</a></li>
+                            <li><a href="#set-up-the-correct-time-zone-to-avoid-wrong-datetime-in-gmailgtalk">Set up the correct time zone to avoid wrong date/time in Gmail/gtalk</a></li>
+                            <li><a href="#show-percentage-bar-while-copying-using-cp">Show percentage bar while copying using cp</a></li>
+                            <li><a href="#setting-up-static-ip">Setting up static ip</a></li>
+                            <li><a href="#to-see-the-default-programme-for-a-certain-filetype-we-need-xdg-mime.">To see the default programme for a certain filetype, we need xdg-mime.</a></li>
+                            <li><a href="#make-the-volume-control-for-mplayer-the-keys-0-and-9-work-or-make-them-independent-of-the-system-volume-control">Make the volume control for mplayer ( the keys 0 and 9) work, or make them independent of the system volume control:</a></li>
+                            <li><a href="#reducing-your-screen-brightness-and-add-red-colour-at-night-so-that-you-can-fall-asleep-better-or-not-get-blinded-by-electronic-devices-like-twilight-in-android">Reducing your screen brightness and add red colour at night so that you can fall asleep better, or not get blinded by electronic devices (like twilight in Android)</a></li>
+                            <li><a href="#managing-tasks-task-warrior">Managing tasks task warrior</a></li>
+                            <li><a href="#syncing-task-warrior">Syncing task warrior</a></li>
+                            <li><a href="#very-nice-image-viewer-with-nice-features-better-than-feh-except-for-the-zooming-part">Very nice image viewer with nice features (better than feh, except for the zooming part)</a></li>
+                            <li><a href="#making-whole-linux-dark">Making whole linux dark</a></li>
+                            <li><a href="#remove-mouse-module-and-insert-again-to-disableenable-mouse">Remove mouse module and insert again to disable/enable mouse:</a></li>
+                            <li><a href="#play-video-as-background-through-mplayer">Play video as background through mplayer</a></li>
+                            <li><a href="#copying-between-terminals">Copying between terminals:</a></li>
+                            <li><a href="#the-solarized-color-palate-has-some-nice-symmetry.-you-just-invert-it-and-start-from-the-top-removing-the-base-color-and-stop-wherever-needed.-the-only-benefit-is-that-you-can-interchange-between-the-dark-light-schemes-very-fast.">The solarized color palate has some nice symmetry. You just invert it and start from the top, removing the base color and stop wherever needed. The only benefit is that you can interchange between the dark-light schemes very fast.</a></li>
+                            <li><a href="#gtk-bookmarks">GTK+ bookmarks:</a></li>
+                            <li><a href="#loading-the-new-.xresources">Loading the new .Xresources</a></li>
+                            <li><a href="#using-wicd">Using wicd</a></li>
+                            <li><a href="#youtube-viewer-and-downloader-for-terminal">Youtube viewer and downloader for terminal</a></li>
+                            <li><a href="#simple-client-server-using-netcat">Simple client-server using netcat</a></li>
+                            <li><a href="#pacman-stuff">Pacman stuff:</a></li>
+                            <li><a href="#dns-server-using-ngrok-and-tcp-tunelling-for-sshing-into-the-local-machine">DNS server using ngrok and tcp tunelling (for sshing into the local machine):</a></li>
+                            <li><a href="#cleaning-up-your-arch-system">Cleaning up your Arch system</a></li>
+                            <li><a href="#mts-mblaze-activation-using-usb_modeswitch">MTS Mblaze activation using usb_modeswitch</a></li>
+                            <li><a href="#applying-particular-config-file-to-a-particular-file-in-vim">Applying particular config file to a particular file in vim</a></li>
+                            <li><a href="#calculating-with-bc">Calculating with bc</a></li>
+                            <li><a href="#vim-plugin-pathogen">Vim plugin Pathogen</a></li>
+                            <li><a href="#replacing-entries-in-file-with-another-one">Replacing entries in file with another one</a></li>
+                            <li><a href="#connect-to-a-vpn-to-have-their-external-ip-to-use-mathscinet-and-stuff">Connect to a VPN to have their external ip to use MathSciNet and stuff</a></li>
+                            <li><a href="#dumping-or-redirecting-your-microphone-feed-through-ssh">Dumping or redirecting your microphone feed through ssh</a></li>
+                            <li><a href="#display-the-webcam-feed-with-mplayer-play-the-webcam">Display the webcam feed with mplayer (play the webcam):</a></li>
+                            <li><a href="#how-to-connect-to-hdmi">How to connect to hdmi</a></li>
+                            <li><a href="#speeding-up-the-internet-using-the-fastest-dns-server">Speeding up the internet using the fastest DNS server</a></li>
+                            <li><a href="#google-drive-client-for-linux">Google drive client for linux:</a><ul>
+                            <li><a href="#fixing-clashes">Fixing clashes</a></li>
+                            </ul></li>
+                            <li><a href="#moving-root-to-another-partition">Moving /root to another partition</a></li>
+                            <li><a href="#writing-a-manpage">Writing a manpage</a></li>
+                            <li><a href="#unity-3d">Unity 3D</a></li>
+                            <li><a href="#progress-bar-for-cp-firefox-download-dd-tar-cat">Progress bar for cp, firefox download, dd, tar, cat</a></li>
+                            <li><a href="#wpa_supplicant">wpa_supplicant</a></li>
+                            <li><a href="#find-out-name-of-the-linux-distribution">Find out name of the linux distribution</a></li>
+                            <li><a href="#fix-pacman--syu-error-with-wrong-pgp-keys">Fix pacman -Syu error with wrong pgp keys</a></li>
+                            <li><a href="#killing-processes">Killing processes</a></li>
+                            <li><a href="#compress-and-uncompress-zipunzip-files-using-aunpack">Compress and uncompress (zip/unzip) files using aunpack</a></li>
+                            <li><a href="#calendar.vim">calendar.vim</a></li>
+                            <li><a href="#installing-packages-in-r">Installing packages in R</a></li>
+                            <li><a href="#r-tutorial">R tutorial</a></li>
+                            <li><a href="#installing-xournal-from-source-and-adding-useful-patches">Installing xournal from source and adding useful patches:</a><ul>
+                            <li><a href="#xournal-patches">Xournal patches</a></li>
+                            </ul></li>
+                            <li><a href="#drawing-with-touchscreen-in-xournal">Drawing with touchscreen in xournal</a></li>
+                            <li><a href="#setting-up-raspberry-pi-zero-w">Setting up raspberry pi zero w</a></li>
+                            <li><a href="#install-cocalc-notebook-locally">Install Cocalc notebook locally</a></li>
+                            <li><a href="#experiments-on-lock-screen-on-suspend-and-lid-close">Experiments on lock screen on suspend and lid close</a><ul>
+                            <li><a href="#to-use-logind-for-suspend-on-lid-close">To use logind for suspend-on-lid-close</a><ul>
+                            <li><a href="#suspend-and-lock-screen-with-logind-and-systemctl">suspend and lock screen with logind and systemctl</a></li>
+                            </ul></li>
+                            <li><a href="#etcsystemdsystemslock.service">‘/etc/systemd/system/slock@.service’</a></li>
+                            <li><a href="#etcacpilid.sh">/etc/acpi/lid.sh</a></li>
+                            </ul></li>
+                            <li><a href="#fixing-the-bug-of-disappearing-clients-on-suspend">Fixing the bug of disappearing clients on suspend</a></li>
+                            <li><a href="#how-to-locate-the-path-of-a-executable-file-use-which">How to locate the path of a executable file: use <code>which</code></a></li>
+                            <li><a href="#setting-up-neovim">Setting up neovim</a></li>
+                            <li><a href="#coc.nvim">coc.nvim</a><ul>
+                            <li><a href="#installation">Installation:</a></li>
+                            <li><a href="#features">features</a></li>
+                            <li><a href="#how-to">How to</a></li>
+                            <li><a href="#coc-pyright-for-python">coc-pyright for python</a></li>
+                            <li><a href="#code-completion-and-definition-for-cc-files">Code completion and definition for C/C++ files</a></li>
+                            </ul></li>
+                            <li><a href="#cc-compilation-troubleshooting">C/C++ compilation troubleshooting</a></li>
+                            <li><a href="#running-script-for-motion">Running script for motion</a></li>
+                            <li><a href="#motioneye-on-usual-ubuntu">MotionEye on usual Ubuntu</a></li>
+                            <li><a href="#motioneye-on-raspberry-pi">MotionEye on raspberry pi</a></li>
+                            <li><a href="#update-gemfile.lock-of-github-website-repository-to-the-latest-version">Update Gemfile.lock of github website repository to the latest version</a></li>
+                            <li><a href="#vim-matlab-modifications">vim-matlab modifications</a></li>
+                            <li><a href="#vim-search-for-string-in-a-case-sensitive-manner-temporarily">Vim search for string in a case-sensitive manner temporarily</a></li>
+                            <li><a href="#setting-up-linux-password-management-system-with-pass-and-gnupg">Setting up linux password management system with pass and gnupg</a></li>
+                            <li><a href="#mutt-with-oauth2">Mutt with OAUTH2</a><ul>
+                            <li><a href="#installation-1">Installation</a></li>
+                            <li><a href="#oauth2-credentials">OAUTH2 credentials</a></li>
+                            <li><a href="#modifications">Modifications</a></li>
+                            <li><a href="#questions">Questions</a></li>
+                            </ul></li>
+                            <li><a href="#zotero">Zotero</a><ul>
+                            <li><a href="#restore-old-setup">Restore old setup</a></li>
+                            <li><a href="#installation-2">Installation</a></li>
+                            <li><a href="#zotfile-settings">Zotfile Settings</a></li>
+                            <li><a href="#setup-syncing-edit-preferences-sync">Setup syncing (Edit &gt; Preferences &gt; Sync)</a></li>
+                            <li><a href="#in-better-bibtex-settings-editpreferencesbetter">In Better Bibtex settings (Edit&gt;Preferences&gt;Better):</a></li>
+                            <li><a href="#caution"><strong>Caution:</strong></a></li>
+                            <li><a href="#navigation">Navigation</a></li>
+                            <li><a href="#cleanup">Cleanup</a><ul>
+                            <li><a href="#removing-missing-attachments-with-zotero-storage-scanner-plugin">Removing missing attachments with <code>zotero-storage-scanner</code> plugin</a></li>
+                            <li><a href="#detecting-and-removing-orphan-attachments">Detecting and removing orphan attachments</a></li>
+                            </ul></li>
+                            <li><a href="#other-practices">Other practices</a></li>
+                            <li><a href="#scenario">Scenario:</a></li>
+                            </ul></li>
+                            <li><a href="#cpu-frequency-scaling">CPU frequency scaling</a></li>
+                            <li><a href="#papis">Papis</a><ul>
+                            <li><a href="#install">Install</a></li>
+                            <li><a href="#usage">Usage</a></li>
+                            <li><a href="#moving-from-zotero">Moving from Zotero</a></li>
+                            <li><a href="#to-make-papis-as-functional-as-zotero-it-needs-to-be-able-to">To make papis as functional as Zotero, it needs to be able to</a></li>
+                            <li><a href="#current-bugs">Current Bugs</a></li>
+                            </ul></li>
+                            <li><a href="#marp-for-presentation-slides-using-markdown">MARP for presentation slides using markdown</a><ul>
+                            <li><a href="#installation-3">Installation</a></li>
+                            <li><a href="#workflow">Workflow</a></li>
+                            <li><a href="#usage-1">Usage</a></li>
+                            <li><a href="#tex-support">Tex support</a></li>
+                            <li><a href="#changing-settings-for-the-current-slide-only">Changing settings for the current slide only</a></li>
+                            <li><a href="#changing-font-size">Changing font size</a></li>
+                            <li><a href="#embedding-videos">Embedding videos</a></li>
+                            <li><a href="#adding-vertical-space">Adding vertical space</a></li>
+                            <li><a href="#adding-horizontal-space">Adding horizontal space</a></li>
+                            <li><a href="#multiple-images-next-to-each-other">Multiple images next to each other</a></li>
+                            <li><a href="#align-contents-using-tables">Align contents using tables</a></li>
+                            <li><a href="#marp-columns">marp columns</a></li>
+                            <li><a href="#repeated-css-styles">Repeated css styles</a></li>
+                            <li><a href="#new-theme-files">New theme files</a></li>
+                            </ul></li>
+                            <li><a href="#tridactyl-for-firefox">Tridactyl for firefox</a><ul>
+                            <li><a href="#installation-4">Installation</a></li>
+                            <li><a href="#settings">Settings</a></li>
+                            <li><a href="#reasons-i-disliked">Reasons I disliked</a></li>
+                            <li><a href="#features-i-enjoyed">Features I enjoyed</a></li>
+                            </ul></li>
+                            <li><a href="#vimium-features">Vimium features</a><ul>
+                            <li><a href="#settings-1">Settings</a></li>
+                            <li><a href="#copy-and-google-text-found-within-a-page">Copy and google text found within a page</a></li>
+                            <li><a href="#useful-keystrokes">Useful keystrokes</a></li>
+                            </ul></li>
+                            <li><a href="#imagemagic-not-authorized-to-convert-pdf">Imagemagic <code>not authorized</code> to convert pdf</a></li>
+                            <li><a href="#extract-png-from-pdf-files">Extract png from pdf files</a></li>
+                            <li><a href="#c-tutorial-comparison-with-c">C++ tutorial comparison with C</a><ul>
+                            <li><a href="#strings">Strings</a></li>
+                            <li><a href="#changing-value-by-reference">Changing value by reference</a></li>
+                            <li><a href="#passing-by-reference">Passing by reference</a></li>
+                            <li><a href="#default-values">Default values</a></li>
+                            <li><a href="#see-the-datatype-of-a-variable">See the datatype of a variable</a></li>
+                            <li><a href="#c-class">C++ class</a></li>
+                            <li><a href="#overloading">Overloading</a></li>
+                            <li><a href="#c-project-structure">C++ project structure</a></li>
+                            <li><a href="#arrays">Arrays</a><ul>
+                            <li><a href="#vector-related-help">Vector-related help</a></li>
+                            </ul></li>
+                            </ul></li>
+                            <li><a href="#matlab-parfor-tutorial">Matlab parfor tutorial</a></li>
+                            <li><a href="#makefile-help">Makefile help</a><ul>
+                            <li><a href="#rule-to-write-a-makefile">Rule to write a makefile</a><ul>
+                            <li><a href="#string-replacement">String replacement</a></li>
+                            <li><a href="#timestamp-in-c">Timestamp in C++</a></li>
+                            </ul></li>
+                            </ul></li>
+                            <li><a href="#abd-android-development-bridge-help">ABD (Android development bridge) help</a></li>
+                            <li><a href="#matplotlib-help">matplotlib help</a></li>
+                            <li><a href="#openmp-help">Openmp help</a><ul>
+                            <li><a href="#requirements">Requirements</a></li>
+                            <li><a href="#information">Information</a><ul>
+                            <li><a href="#repetition-of-a-block-of-code">Repetition of a block of code</a></li>
+                            <li><a href="#for-loop">For loop:</a></li>
+                            <li><a href="#nested-for-loop">Nested for loop</a></li>
+                            <li><a href="#static-vs-dynamic-schedule-for-for-loop">Static vs dynamic schedule for <code>for</code> loop</a></li>
+                            </ul></li>
+                            </ul></li>
+                            <li><a href="#python-numpy-array">Python Numpy array</a></li>
+                            <li><a href="#python-inline-if-then-else">Python inline if then else</a></li>
+                            <li><a href="#python-class">Python class</a></li>
+                            <li><a href="#python-plotting">Python plotting</a><ul>
+                            <li><a href="#d-scatter-plot">3d scatter plot</a></li>
+                            <li><a href="#plotting-a-bunch-of-lines">Plotting a bunch of lines</a></li>
+                            </ul></li>
+                            <li><a href="#python-import-module">Python import module</a></li>
+                            <li><a href="#python-parallel-processing-with-multiprocessing">Python parallel processing with multiprocessing:</a></li>
+                            <li><a href="#hdf5-dataset">HDF5 dataset</a><ul>
+                            <li><a href="#hdf5-dataset-in-c">HDF5 dataset in C++</a></li>
+                            <li><a href="#hdf5-dataset-in-matlab">HDF5 dataset in Matlab</a></li>
+                            <li><a href="#hdf5-dataset-in-python">HDF5 dataset in python</a></li>
+                            </ul></li>
+                            <li><a href="#rsync">Rsync</a></li>
+                            <li><a href="#cuda-nvidia-with-c">CUDA NVIDIA with C++</a><ul>
+                            <li><a href="#installation-5">Installation</a></li>
+                            <li><a href="#jargon">Jargon</a></li>
+                            <li><a href="#running-c-codes">Running C++ codes</a></li>
+                            </ul></li>
+                            <li><a href="#cuda-nvidia-with-python">CUDA NVIDIA with python</a><ul>
+                            <li><a href="#installation-on-xubuntu-22.04">Installation on Xubuntu-22.04</a><ul>
+                            <li><a href="#install-liveusb-with">Install liveUSB with</a></li>
+                            <li><a href="#if-additional-drivers-is-disabled">If <code>Additional Drivers</code> is disabled</a></li>
+                            <li><a href="#in-additional-drivers">In <code>Additional Drivers</code>:</a></li>
+                            <li><a href="#install-cuda-from-website">Install cuda from website</a></li>
+                            <li><a href="#nvcc"><code>nvcc</code></a></li>
+                            <li><a href="#installing-pytorch">Installing pytorch</a></li>
+                            </ul></li>
+                            <li><a href="#showing-stats">Showing stats</a></li>
+                            <li><a href="#cupy-as-an-alternative-to-numpy">cupy as an alternative to numpy</a></li>
+                            <li><a href="#numba">numba</a></li>
+                            <li><a href="#openmp-in-c">OPENMP in C++</a></li>
+                            </ul></li>
+                            <li><a href="#python-vispy">Python vispy</a></li>
+                            <li><a href="#midi-keyboard-for-linux">MIDI keyboard for linux</a><ul>
+                            <li><a href="#on-raspberry-pi-to-reduce-the-latency-add-following-to-the-file-etcsecuritylimits.conf">On raspberry pi, to reduce the latency, add following to the file <code>/etc/security/limits.conf</code></a></li>
+                            <li><a href="#previous-command-shortcut-in-terminal">Previous command shortcut in terminal</a></li>
+                            </ul></li>
+                            <li><a href="#py3status-bar-with-i3-async_script">py3status bar with i3 async_script</a></li>
+                            <li><a href="#i3-window-manager-with-xfce4-panel">i3 Window manager with xfce4-panel</a></li>
+                            <li><a href="#i3-window-manager-movements">i3 window manager movements</a></li>
+                            <li><a href="#disable-the-use-of-swap-space">Disable the use of swap space</a></li>
+                            <li><a href="#another-c-tutorial">Another C++ tutorial</a><ul>
+                            <li><a href="#compilation-process">Compilation process</a></li>
+                            <li><a href="#c-directory-structure">C++ directory structure</a></li>
+                            <li><a href="#compilers">Compilers</a></li>
+                            <li><a href="#cmake-tutorial">CMake tutorial</a></li>
+                            </ul></li>
+                            <li><a href="#video-recording-from-command-line">Video recording from command line</a><ul>
+                            <li><a href="#network-streaming">Network streaming</a></li>
+                            </ul></li>
+                            <li><a href="#investigation-on-xorgs-memory-leak">investigation on Xorg’s memory leak</a><ul>
+                            <li><a href="#attempts">Attempts:</a></li>
+                            </ul></li>
+                            <li><a href="#graph-connectivity-in-python-using-networkx">Graph connectivity in python using <code>networkx</code></a></li>
+                            <li><a href="#gmsh-with-python">gmsh with python</a></li>
+                            <li><a href="#tmux-help">tmux help</a><ul>
+                            <li><a href="#tmux-copy-paste">tmux copy-paste</a><ul>
+                            <li><a href="#using-mouse-selection-for-copy-paste-from-tmux-over-ssh">Using mouse selection for copy-paste from tmux over SSH</a></li>
+                            <li><a href="#using-a-clipboard-file-over-ssh">Using a clipboard file over SSH</a></li>
+                            <li><a href="#between-tmux-windows">Between tmux windows:</a></li>
+                            </ul></li>
+                            </ul></li>
+                            <li><a href="#fingerprint-login">fingerprint login</a><ul>
+                            <li><a href="#full-script">full script</a></li>
+                            <li><a href="#step-by-step">step by step</a></li>
+                            <li><a href="#configs">configs</a></li>
+                            </ul></li>
+                            <li><a href="#alienware-x15-r1">Alienware x15-r1</a><ul>
+                            <li><a href="#todo">Todo</a></li>
+                            <li><a href="#fresh-windows-10-install">Fresh windows 10 install</a></li>
+                            <li><a href="#dual-boot-with-windows">Dual-boot with windows:</a></li>
+                            <li><a href="#hardware-drivers">Hardware drivers</a><ul>
+                            <li><a href="#nvidia-driver-needs-to-be-re-installed-in-the-following-way">nvidia driver needs to be re-installed in the following way</a></li>
+                            </ul></li>
+                            <li><a href="#ethernet-adapter">Ethernet adapter</a></li>
+                            <li><a href="#lid-switch-handling">Lid switch handling</a><ul>
+                            <li><a href="#manually-run-xrandr---auto-on-lid-open-event-sleep-1-is-important">Manually run <code>xrandr --auto</code> on lid open event: <code>sleep 1</code> is important</a></li>
+                            <li><a href="#other-settings-that-go-with-this-setup">Other settings that go with this setup:</a></li>
+                            </ul></li>
+                            <li><a href="#crackling-and-popping-sound-on-headphone-when-idle">Crackling and popping sound on headphone when idle</a></li>
+                            </ul></li>
+                            <li><a href="#pavilion-aero">Pavilion Aero</a><ul>
+                            <li><a href="#works-so-far-installing-kernel-version-5.17.5-immediately-after-installation">[Works so far] Installing kernel version 5.17.5 immediately after installation</a></li>
+                            </ul></li>
+                            <li><a href="#openmpi">OpenMPI</a></li>
+                            <li><a href="#setting-up-vim-and-other-goodies-in-a-local-environment">Setting up vim and other goodies in a local environment</a><ul>
+                            <li><a href="#vim">vim</a></li>
+                            <li><a href="#nvim">nvim</a><ul>
+                            <li><a href="#fixing-ultisnip-python3-path">fixing ultisnip python3 path</a></li>
+                            <li><a href="#nodejs">nodejs</a></li>
+                            <li><a href="#coc.nvim-1">coc.nvim</a></li>
+                            </ul></li>
+                            <li><a href="#ranger">ranger</a></li>
+                            <li><a href="#issues">Issues</a></li>
+                            </ul></li>
+                            <li><a href="#bash-script-to-create-a-table-in-markdown">Bash script to create a table in markdown</a></li>
+                            <li><a href="#mpi4py-python-with-mpi">mpi4py python with mpi</a></li>
+                            <li><a href="#using-an-older-version-of-gcc">Using an older version of gcc</a></li>
+                            <li><a href="#nvcc-with-ubuntu-22.04">nvcc with Ubuntu 22.04</a></li>
+                            <li><a href="#vimtex-use-xelatex-and-the-compiler">vimtex use xelatex and the compiler</a></li>
+                            <li><a href="#downloading-zoom-links">Downloading zoom links</a><ul>
+                            <li><a href="#supplying-a-input-file-of-zoom-urls">Supplying a input file of Zoom urls</a></li>
+                            </ul></li>
+                            <li><a href="#interactive-terminal-command-from-vim">Interactive terminal command from vim</a></li>
+                            <li><a href="#markdown-as-writing-tool">Markdown as writing tool</a><ul>
+                            <li><a href="#good-things">Good things</a></li>
+                            <li><a href="#issues-1">Issues</a></li>
+                            <li><a href="#compare-workflow-and-ease-with">Compare workflow and ease with</a></li>
+                            </ul></li>
+                            <li><a href="#sql-on-linux">SQL on linux</a><ul>
+                            <li><a href="#setup">Setup</a></li>
+                            <li><a href="#usage-2">Usage</a></li>
+                            <li><a href="#importexport-databases">Import/export databases</a></li>
+                            <li><a href="#readwrite">Read/write</a></li>
+                            </ul></li>
+                            <li><a href="#protonvpn-for-ubuntu">Protonvpn for ubuntu</a><ul>
+                            <li><a href="#no-internet-due-to-ip-leak-protection">No internet due to ip leak protection</a></li>
+                            </ul></li>
+                            <li><a href="#changing-caps-lock-to-escape">Changing caps lock to escape</a></li>
+                            <li><a href="#table-borders-in-pandoc-converted-html-from-markdown">Table borders in pandoc-converted html from markdown</a></li>
+                            <li><a href="#compiling-tex-files-with-svg">Compiling tex files with svg</a></li>
+                            <li><a href="#local-image-server-immich.app">Local image server immich.app</a><ul>
+                            <li><a href="#installation-6">Installation</a></li>
+                            <li><a href="#file-structure">File structure</a></li>
+                            <li><a href="#testing">Testing</a></li>
+                            <li><a href="#extra-work">Extra work</a><ul>
+                            <li><a href="#security">Security</a></li>
+                            <li><a href="#dynamic-dns">Dynamic DNS</a></li>
+                            <li><a href="#backup">Backup</a></li>
+                            <li><a href="#bulk-upload">Bulk upload</a></li>
+                            </ul></li>
+                            </ul></li>
+                            <li><a href="#dual-filetype">Dual filetype</a></li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-width-medium-3-4">
+<p>Maintained using indentation folding and searched using the headings. Settings have to be applied to this file only using vim -S TODOsettings.vim</p>
 <h1 id="folding-help">Folding Help:</h1>
 <p>zi switch folding on or off * za toggle current fold open/closed zc close current fold * zR open all folds * zM close all folds zv expand folds to reveal cursor</p>
 <ul>
@@ -5258,10 +5633,115 @@ select * from person where firstname=&#39;richard&#39;;
 <a class="sourceLine" id="cb524-4" title="4">tr<span class="in">:nth-of-type(odd)</span> { <span class="kw">background-color</span>:<span class="cn">#eee</span><span class="op">;</span> }</a>
 <a class="sourceLine" id="cb524-5" title="5">th { <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span> <span class="kw">background</span>: <span class="cn">#444</span><span class="op">;</span> }</a>
 <a class="sourceLine" id="cb524-6" title="6"><span class="kw">&lt;/style&gt;</span></a></code></pre></div>
+<h1 id="compiling-tex-files-with-svg">Compiling tex files with svg</h1>
+<ul>
+<li>Include the svg package</li>
+</ul>
+<pre><code>\usepackage{svg}</code></pre>
+<ul>
+<li>Add svg files with</li>
+</ul>
+<pre><code>\includesvg{path/file.svg}</code></pre>
+<ul>
+<li>Use shell escape to compile</li>
+</ul>
+<pre><code>pdflatex --shell-escape file.tex</code></pre>
+<h1 id="local-image-server-immich.app">Local image server immich.app</h1>
+<h2 id="installation-6">Installation</h2>
+<p>Follow the beautifully written tutorial</p>
+<ul>
+<li>The default docker.io installation (<code>sudo apt install docker.io</code>) will not work. Need to follow described method to download it from docker website. Then we need to run docker using</li>
+</ul>
+<pre><code>systemctl start docker</code></pre>
+<ul>
+<li><p>The <code>.env</code> file should not have any prefix (first name). It is just <code>.env</code>.</p></li>
+<li><p>Need to use sudo for compose up</p></li>
+</ul>
+<pre><code>sudo docker compose up -d</code></pre>
+<ul>
+<li>Better to set up with filename template engine on for easy organization. The original files will be stored in <code>./library/library/&lt;user&gt;/</code></li>
+</ul>
+<h2 id="file-structure">File structure</h2>
+<ul>
+<li>Add backed up files are stored in</li>
+</ul>
+<h2 id="testing">Testing</h2>
+<ul>
+<li>Can delete all backed up photos and delete the database with <code>docker copmose down -v</code> (see the <a href="https://immich.app/docs/administration/backup-and-restore/">Administration</a> for details)</li>
+</ul>
+<pre><code>docker compose down -v  # CAUTION! Deletes all Immich data to start from scratch.</code></pre>
+<h2 id="extra-work">Extra work</h2>
+<h3 id="security">Security</h3>
+<ul>
+<li><p>Default password for the server is written in plaintext within the config file. Must change it from default before running the docker image.</p></li>
+<li><p>https for app: need to use a reverse proxy like nginx or caddy (described in the guide)</p></li>
+</ul>
+<h4 id="tailscale-guide">tailscale guide</h4>
+<p>Tailscale allows you to create a network of your personal devices who can ‘see’ each other even though they are in completely different networks. It also provides a static DNS name, so we don’t need to use additional dynamic dns service providers. This also gives you free https over the internet for your http server.</p>
+<ul>
+<li><p>After creating and account, run tailscale on your personal devices. In particular on the device where the server is running.</p></li>
+<li><p>Make the server available to other personal devices within your tailscale network using</p></li>
+</ul>
+<pre><code>sudo tailscale serve --bg 2283</code></pre>
+<ul>
+<li>One can <code>serve</code> multiple servers running on different ports using names like this</li>
+</ul>
+<pre><code>sudo tailscale serve --set-path /immich --bg 2283
+sudo tailscale serve --set-path /jupyter --bg 8888</code></pre>
+<p>This sets the tailscale ip (or the landing hostname) of the device into the server itself. e.g. from a tailscale-connected device, visit the immich server directly using <code>https://hostname.network-name.ts.net</code>.</p>
+<ul>
+<li>Check status of your server using</li>
+</ul>
+<pre><code>tailscale serve status</code></pre>
+<p>or</p>
+<pre><code>tailscale funnel status</code></pre>
+<ul>
+<li>Turn the server off using</li>
+</ul>
+<pre><code>sudo tailscale serve reset</code></pre>
+<p>or</p>
+<pre><code>sudo tailscale funnel reset</code></pre>
+<ul>
+<li>To make the servers created this way publicly available (not necessary since it defeats the purpose of a private image server) using <code>funnel</code> as opposed to <code>serve</code>.</li>
+</ul>
+<h3 id="dynamic-dns">Dynamic DNS</h3>
+<ul>
+<li>They recommend duckdns</li>
+</ul>
+<h3 id="backup">Backup</h3>
+<p>Borg script is provided for local and remote (via ssh) backup.</p>
+<ul>
+<li>Install borg with</li>
+</ul>
+<pre><code>sudo apt install borgbackup</code></pre>
+<ul>
+<li>Like a git repository, initiate a borg repository with</li>
+</ul>
+<pre><code>borg init --encryption=none &lt;backup_dir&gt;</code></pre>
+<ul>
+<li>Create the backup using</li>
+</ul>
+<pre><code>
+borg create --stats --progress &lt;backup_dir&gt;::{now} immich-app/library/ --exclude=immich-app/library/thumbs/ --exclude immich-app/library/encoded-video/</code></pre>
+<p>The stats will show the statistics after compression is done. The progress bar is good for large backups.</p>
+<ul>
+<li>Need to prune the trees and compact to reduce size of multiple backups</li>
+</ul>
+<pre><code>borg prune --keep-weekly=4 --keep-monthly=3 &lt;backup_dir&gt;
+borg compact &lt;backup_dir&gt;</code></pre>
+<h3 id="bulk-upload">Bulk upload</h3>
+<p>immich-go does not work very well as it makes many of the uploaded file corrupted (but downloading and uploading them fixes them). Therefore, we will use: https://github.com/TheLastGimbus/GooglePhotosTakeoutHelper/tree/master?tab=readme-ov-file Download the script from the github, and run it on extracted takeout zips. This creates a flattened list of images which we can upload using bulk-upload script.</p>
+<h1 id="dual-filetype">Dual filetype</h1>
+<p>While working on a pandoc (markdown) file which contains some latex code, one needs to use the plugin features targeted toward each of the filetypes.</p>
+<pre><code>:set ft=pandoc.tex</code></pre>
+<p>This will likely have collisions between various snippets and keymaps, but seems to work for now.</p>
+<p>Alternatively, you can temporarily change the filetype to tex using</p>
+<pre><code>:set ft=tex</code></pre>
+<p>do your tex editing, and come back to pandoc using</p>
+<pre><code>:set ft=pandoc</code></pre>                    
+                </div>
             </div>
-    </div>
-  </div>
-  <script src="https://vjs.zencdn.net/5.4.4/video.js"></script>
-
-</body>
+            <script src="https://vjs.zencdn.net/5.4.4/video.js"></script>
+        </div>
+    </body>
 </html>
