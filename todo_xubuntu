@@ -161,7 +161,7 @@ get_cocalc(){
 setup_zotero(){
 
     echo 'installing zotero'
-    wget -qO- https://github.com/retorquere/zotero-deb/releases/download/apt-get/install.sh | sudo bash
+    wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
     sudo apt update
     sudo apt install zotero
 
