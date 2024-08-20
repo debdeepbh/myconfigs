@@ -4,3 +4,5 @@
 
 /install_nodejs
 dotfiles/.vim/plugged/*
+dotfiles/.config/rclone/*
+

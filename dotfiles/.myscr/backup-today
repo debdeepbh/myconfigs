@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ "$1" = "real" ]; then
+    dry=''
+else
+    dry='--dry-run'
+fi
+
+backup_dir="paper-org"
+echo "rclone drive $dry"
+rclone copy ~/gdrive/${backup_dir} gdrive:${backup_dir} -P
