@@ -4819,6 +4819,16 @@ papis bibtex read ./path/to/my/bibfile.bib import -o test
 
 - [x] (compiles with latest git after `pip3 uninstall papis` and `make uninstall` from `papis` repos) Cannot compile from github even after installing `libxml2` and more. There some talk of version 0.12 (which possibly fixed some of the issues) but where is it?
 
+# Papis-again on Ubuntu 24.04
+
+- Installation
+
+```
+git clone https://github.com/papis/papis.git
+cd papis
+pipx install . 
+```
+
 # MARP for presentation slides using markdown
 
 Various tips:
