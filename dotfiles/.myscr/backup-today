@@ -8,4 +8,12 @@ fi
 
 backup_dir="paper-org"
 echo "rclone drive $dry"
-rclone copy ~/gdrive/${backup_dir} gdrive:${backup_dir} -P
+rclone copy ~/gdrive/${backup_dir} gdrive:${backup_dir} ${dry} -P
+
+#######################################################################
+cd ~/myconfigs
+git c
+
+#######################################################################
+
+
