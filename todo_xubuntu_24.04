@@ -205,6 +205,12 @@ setup_os(){
     sudo grub-install /dev/nvme0n1
 }
 
+setup_camera_driver(){
+    sudo apt install intel-ipu6-dkms intel-vsc-dkms
+    sudo add-apt-repository ppa:oem-solutions-group/intel-ipu6 -y -u
+    sudo apt install gstreamer1.0-icamera v4l2-relayd
+}
+
 #### Firefox ##############
 ### Bigger Firefox font
 # about:config > devPixelsPerPx to 1.2
@@ -232,6 +238,8 @@ install(){
 	    # setup_drive
 	    setup_rclone	# download gdrive stuff first
 	    setup_zotero
+	    setup_camera_driver
+
 	fi
 }
 
