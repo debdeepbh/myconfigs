@@ -211,6 +211,25 @@ setup_camera_driver(){
     sudo apt install gstreamer1.0-icamera v4l2-relayd
 }
 
+wifi_powersave_off(){
+    # # Change wifi.powersave = 3 to wifi.powersave = 3 in the file
+    # /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+    #
+    # Possible values for the wifi.powersave field are:
+    #
+    # NM_SETTING_WIRELESS_POWERSAVE_DEFAULT (0): use the default value
+    # NM_SETTING_WIRELESS_POWERSAVE_IGNORE  (1): don't touch existing setting
+    # NM_SETTING_WIRELESS_POWERSAVE_DISABLE (2): disable powersave
+    # NM_SETTING_WIRELESS_POWERSAVE_ENABLE  (3): enable powersave
+
+    sudo sed -i "s/wifi.powersave = 3/wifi.powersave = 2/g" /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+
+    # # Restart to take effect
+    # sudo systemctl restart network-manager.service
+    sudo systemctl restart NetworkManager
+    systemctl daemon-reload
+}
+
 #### Firefox ##############
 ### Bigger Firefox font
 # about:config > devPixelsPerPx to 1.2
@@ -239,6 +258,7 @@ install(){
 	    setup_rclone	# download gdrive stuff first
 	    setup_zotero
 	    setup_camera_driver
+	    # wifi_powersave_off
 
 	fi
 }
