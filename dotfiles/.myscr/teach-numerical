@@ -1,0 +1,10 @@
+#!/bin/bash
+# i3-msg rename workspace to 'linalg'
+
+path="$HOME/teaching/2024-Fall/313-Fall-2024"
+book="$HOME/Downloads/Richard L. Burden, J. Douglas Faires - Numerical Analysis, 9th Edition -Brooks Cole (2010).pdf"
+
+zathura "$book" &
+cd "$path"
+xfce4-terminal -e "ranger"
+
