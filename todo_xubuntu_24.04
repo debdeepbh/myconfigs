@@ -2,7 +2,7 @@
 
 get_packages(){
 
-    min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop powertop unclutter redshift mplayer sxiv xbacklight exuberant-ctags suckless-tools i3 rofi i3blocks py3status tmux xfce4-goodies blueman compton curl fzf xclip ffmpeg"
+    min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop powertop unclutter redshift mplayer sxiv xbacklight exuberant-ctags suckless-tools i3 rofi i3blocks py3status tmux xfce4-goodies blueman compton curl fzf xclip ffmpeg ripgrep poppler-utils"
     code="python3-pip pandoc docker.io nodejs npm"
     soft="gimp xournal cheese"
     tex="texlive-latex-recommended texlive-pictures texlive-xetex latexmk texlive-science"
@@ -16,6 +16,24 @@ get_packages(){
     # remove dunst (used by i3) to get pretty notification popup
     sudo apt purge dunst
 
+}
+
+get_local_bins(){
+    # marp
+    version=v3.4.0
+    tar_basename=marp-cli-${version}-linux
+    wget -c https://github.com/marp-team/marp-cli/releases/download/${version}/${tar_basename}.tar.gz
+    tar -xvf ${tar_basename}.tar.gz -C  $HOME/.local/bin/
+    rm -r ${tar_basename}.tar.gz
+
+
+    # rga
+    version=v0.10.6
+    tar_basename=ripgrep_all-${version}-x86_64-unknown-linux-musl
+    wget -c https://github.com/phiresky/ripgrep-all/releases/download/${version}/${tar_basename}.tar.gz
+    tar -xvf ${tar_basename}.tar.gz
+    cp ${tar_basename}/{rga,rga-fzf,rga-preproc} $HOME/.local/bin/
+    rm -r ${tar_basename} ${tar_basename}.tar.gz
 }
 
 #######################################################################
@@ -247,6 +265,7 @@ install(){
     	if [ "$1" = "new" ]; then
 	    echo 'installing a fully functional setup for an empty home directory'
 	    get_packages
+	    get_local_bins
 	    get_debs
 	    get_dotfiles
 	    # get_cocalc
@@ -264,5 +283,5 @@ install(){
 }
 
 #######################################################################
-install $1
-get_drive
+# install $1
+# get_local_bins
