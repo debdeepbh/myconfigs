@@ -219,7 +219,7 @@ class fzf_mark(Command):
                 self.fm.mark_files(all=False,toggle=True)
 
 # class fzf_rga_documents_search(Command):
-class fzf_rga(Command):
+class fzrg(Command):
     """
     :fzf_rga_search_documents
     Search in PDFs, E-Books and Office documents in current directory.
