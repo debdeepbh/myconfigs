@@ -639,6 +639,40 @@ function corename()   # Get name of app that created a corefile. (core dump)
 }
 
 
+function fz()
+{
+    # Store the STDOUT of fzf in a variable
+    # selection=$(fzf --multi --height=80% --border=sharp \
+    selection=$(find -type d | fzf --multi --height=80% --border=sharp \
+    --preview='tree -C {}' --preview-window='45%,border-sharp' \
+    --prompt='Dirs > ' \
+    --bind='ctrl-d:change-prompt(Dirs > )' \
+    --bind='ctrl-d:+reload(find -type d)' \
+    --bind='ctrl-d:+change-preview(tree -C {})' \
+    --bind='ctrl-d:+refresh-preview' \
+    --bind='ctrl-f:change-prompt(Files > )' \
+    --bind='ctrl-f:+reload(find -type f)' \
+    --bind='ctrl-f:+change-preview(cat {})' \
+    --bind='ctrl-f:+refresh-preview' \
+    --header '
+    CTRL-D to display directories | CTRL-F to display files
+    '
+    )
+
+    # if selection is nonempty
+    if [ -n "$selection" ]; then
+	# Determine what to do depending on the selection
+	# echo "$selection"
+	if [ -d "$selection" ]; then
+	    # call this script with `. script.sh` for cd to take effect
+	    # the dot means do not run as a child process
+	    cd "$selection" || exit
+	else
+	    xdg-open "$selection" & >/dev/null 2>&1
+	fi
+    fi
+}
+
 
 #######################################################################
 #                     Adding path for my scripts                      #
@@ -712,8 +746,8 @@ VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 ### Add the user, key and token to a file called .3llo and source it
 #source .3llo
 # Install Ruby Gems to ~/gems
-export GEM_HOME="$HOME/gems"
-export PATH="$PATH:$HOME/gems/bin"
+# export GEM_HOME="$HOME/gems"
+# export PATH="$PATH:$HOME/gems/bin"
 
 ## for compiled drive (with go)
 export PATH="$PATH:$HOME/.local/bin"
