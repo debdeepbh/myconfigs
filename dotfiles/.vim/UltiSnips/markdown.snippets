@@ -5,13 +5,3 @@ tags: $2
 ---
 $0
 endsnippet
-
-global !p
-def math():
-	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
-endglobal
-
-context "math()"
-snippet ,ff "Fraction" iA
-\frac{${1:numer}}{${2:denom}}${0}
-endsnippet

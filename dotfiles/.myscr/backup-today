@@ -1,19 +1,75 @@
 #!/bin/bash
 
-if [ "$1" = "real" ]; then
-    dry=''
-else
-    dry='--dry-run'
-fi
+papers() {
+    #######################################################################
+    # paper-org on gdrive
 
-backup_dir="paper-org"
-echo "rclone drive $dry"
-rclone copy ~/gdrive/${backup_dir} gdrive:${backup_dir} ${dry} -P
+    backup_dir="paper-org"
+    echo "rclone drive $dry"
+    rclone copy $HOME/gdrive/${backup_dir} gdrive:${backup_dir} --dry-run -P
+
+    read -p "Remove dry run and perform real action? [y/n]: " doit 
+    case $doit in  
+	y|Y) 
+	    rclone copy $HOME/gdrive/${backup_dir} gdrive:${backup_dir} --dry-run -P 
+	    ;; 
+	n|N) 
+	    echo "Skipping rclone action" 
+	    ;; 
+	*) echo Dont know ;; 
+    esac
+}
 
 #######################################################################
-cd ~/myconfigs
+#
+myconfigs() {
+    # vim stuff
+
+    dest=$HOME/myconfigs/dotfiles
+
+    cp {$HOME,$dest}/.vim/spell/en.utf-8.add
+    cp -r $HOME/.vim/UltiSnips $dest/.vim/
+    cp -r $HOME/.myscr $dest/
+
+    cd ~/myconfigs
+    git c
+}
+
+mds() {
+#######################################################################
+## mds
+
+cd $HOME/mds
 git c
 
+}
+
+teaching()
+{
+    #######################################################################
+    ## teaching
+
+    cd $HOME/teaching
+    git c
+}
+
+
 #######################################################################
 
+ask(){
+    read -p "$1 [y/n/x]: " doit 
+    case $doit in  
+	y|Y) $1 ;; 
+	n|N) echo "No" ;; 
+	e|E) 
+	    echo "Exiting" 
+	    exit
+	    ;; 
+	*) echo Dont know ;; 
+    esac
+}
 
+for funs in papers myconfigs mds teaching
+do
+    ask $funs
+done

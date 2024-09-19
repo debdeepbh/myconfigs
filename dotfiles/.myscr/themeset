@@ -17,9 +17,10 @@ GUI="oomox-gruvbox-$1"
 #######################################################################
 ## Terminal colorscheme
 termconf_loc=$HOME/.config/xfce4/terminal
-if ! [[ -f $termconf_loc/colorschemes/$Term.theme ]]
+filename=$termconf_loc/colorschemes/$Term.theme
+if ! [[ -f $filename ]]
 then
-    echo "No such colorscheme: $Term"
+    echo "No such colorscheme: $filename"
     #exit 1
 else
     # copy the non-color settings part
@@ -37,9 +38,10 @@ fi
 #Term="gruvbox-$1"
 
 i3_loc=$HOME/.config/i3
-if ! [[ -f $i3_loc/$Term.config ]]
+filename=$i3_loc/$Term.config
+if ! [[ -f  $filename ]]
 then
-    echo "No such colorscheme: $Term"
+    echo "No such colorscheme: $filename"
     #exit 1
 else
     # copy the non-color settings part
