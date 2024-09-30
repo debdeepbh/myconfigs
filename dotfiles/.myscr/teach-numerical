@@ -7,6 +7,8 @@ book2="Downloads/IR00000195_00001.pdf"
 
 zathura "$book" &
 zathura "$book2" &
+firefox https://yaningliucudenver.github.io/Numerical-Analysis-I/bookchapter5-0.html &
 cd "$path"
-xfce4-terminal -e "ranger"
+xfce4-terminal -e "ranger" 
+
 
