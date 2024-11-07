@@ -1,6 +1,11 @@
 {
 //    "coc.preferences.jumpCommand": "drop"
 // "coc.preferences.jumpCommand": "drop",
+
+// coc-pyright hint display off
+"pyright.inlayHints.functionReturnTypes": false,
+"pyright.inlayHints.variableTypes": false,
+"pyright.inlayHints.parameterTypes": false,
     "languageserver": {
         "ccls": {
             "command": "ccls",

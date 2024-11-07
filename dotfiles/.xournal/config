@@ -51,7 +51,7 @@ autosave_enabled=false
 # delay for periodic autosaves (in seconds)
 autosave_delay=5
 # default path for open/save (leave blank for current directory)
-default_path=/home/debdeep/gdrive/paper-org/Material/Peridynamics
+default_path=/home/debdeep/mds/xournals
 # use pressure sensitivity to control pen stroke width (true/false)
 pressure_sensitivity=true
 # minimum width multiplier
