@@ -15,6 +15,7 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id xfsettingsd
 exec --no-startup-id compton
 exec --no-startup-id xfce4-panel
+exec --no-startup-id xfce4-screensaver
 # to use with notify-send
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
