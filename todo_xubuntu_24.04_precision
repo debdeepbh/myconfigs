@@ -352,6 +352,13 @@ wifi_powersave_off(){
     systemctl daemon-reload
 }
 
+setup_tailscale(){
+    # tailscale
+    curl -fsSL https://tailscale.com/install.sh | sh
+    sudo tailscale up	# requires login and setup
+}
+
+
 #### Firefox ##############
 ### Bigger Firefox font
 # about:config > devPixelsPerPx to 1.2
@@ -380,6 +387,7 @@ install(){
 	    setup_rclone # download gdrive stuff first
 	    #setup_camera_driver
 	    # wifi_powersave_off
+	    setup_tailscale
 
 	fi
 }
@@ -389,5 +397,6 @@ install(){
 # setup_rclone
 # setup_zotero
 # get_local_bins
+# setup_tailscale
 #######################################################################
 # install $1
