@@ -128,6 +128,16 @@ setup_ssh(){
 	y|Y) 
 	    echo "Checking connection"
 	    ssh -T git@github.com
+	    echo "Now is the time to refresh_myconfigs. Make sure any modified files within ~/myconfigs are moved first."
+	    read -p "Continue with deleting current myconfigs and get a new one? [y/n]: " doit 
+	    case $doit in  
+		y|Y) 
+		    echo "Now is the time to refresh_myconfigs. So so manually."
+		    ;; 
+		n|N) 
+		    ;; 
+		*) echo Dont know ;; 
+	    esac
 	    ;; 
 	n|N) 
 	    ;; 
