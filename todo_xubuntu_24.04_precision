@@ -1,0 +1,382 @@
+#!/bin/bash
+
+get_packages(){
+
+    min="vim vim-gtk3 zathura ranger xdotool git openssh-server htop powertop unclutter redshift mplayer sxiv xbacklight exuberant-ctags suckless-tools i3 rofi i3blocks py3status tmux xfce4-goodies blueman compton curl fzf xclip ffmpeg ripgrep poppler-utils"
+    code="python3-pip pandoc docker.io nodejs npm"
+    soft="gimp xournal cheese"
+    tex="texlive-latex-recommended texlive-pictures texlive-xetex latexmk texlive-science"
+
+    pkglist="$min $code $soft $tex"
+
+    echo "installing packages: $1"
+    sudo apt-get update
+    sudo apt-get --assume-yes install $pkglist
+
+    # remove dunst (used by i3) to get pretty notification popup
+    sudo apt purge dunst -y
+}
+
+get_local_bins(){
+    echo "#######################################################################"
+    echo "Downloading binaries"
+
+    # marp
+    echo "#####################"
+    echo "Downloading binaries: marp"
+    version=v3.4.0
+    tar_basename=marp-cli-${version}-linux
+    wget -c https://github.com/marp-team/marp-cli/releases/download/${version}/${tar_basename}.tar.gz
+    mkdir $HOME/.local/bin
+    tar -xvf ${tar_basename}.tar.gz -C  $HOME/.local/bin/
+    rm -r ${tar_basename}.tar.gz
+
+    # rga
+    echo "#####################"
+    echo "Downloading binaries: rga"
+    version=v0.10.6
+    tar_basename=ripgrep_all-${version}-x86_64-unknown-linux-musl
+    wget -c https://github.com/phiresky/ripgrep-all/releases/download/${version}/${tar_basename}.tar.gz
+    tar -xvf ${tar_basename}.tar.gz
+    cp ${tar_basename}/{rga,rga-fzf,rga-preproc} $HOME/.local/bin/
+    rm -r ${tar_basename} ${tar_basename}.tar.gz
+}
+
+#######################################################################
+# debian packages
+
+get_chrome(){
+    echo 'installing google-chrome'
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo dpkg -i google-chrome-stable_current_amd64.deb
+    rm google-chrome-stable_current_amd64.deb
+}
+
+get_zoom(){
+    echo 'installing zoom'
+    wget https://zoom.us/client/latest/zoom_amd64.deb
+    sudo apt-get install libgl1-mesa-glx -y # dependency, added to packages
+    sudo dpkg -i zoom_amd64.deb
+    # libgl1-mesa-glx will fail to install due to unmet dependencies, therefore install them via fix-broken
+    sudo apt --fix-broken install -y
+    rm zoom_amd64.deb
+}
+
+get_skype(){
+    echo 'installing skype'
+    wget https://go.skype.com/skypeforlinux-64.deb
+    sudo dpkg -i skypeforlinux-64.deb 
+    rm skypeforlinux-64.deb
+    # remove from autostart
+    rm $HOME/.config/autostart/skypeforlinux.desktop
+}
+
+get_debs(){
+
+    echo "#######################################################################"
+    echo "Downloading deb pkgs"
+
+    echo "#####################"
+    echo "chrome"
+	get_chrome
+    echo "#####################"
+    echo "zoom"
+	get_zoom
+
+    # echo "#####################"
+    # echo "skype"
+	# get_skype
+    echo "Done: deb pkgs"
+    echo "#######################################################################"
+}
+
+#get_theme(){
+    #echo 'installing gruvbox-gtk theme from git to use `themeset dark`'
+    #git clone https://github.com/3ximus/gruvbox-gtk
+    #sudo cp -r gruvbox-gtk /usr/share/themes/
+#}
+
+#######################################################################
+# vim and config setup
+setup_vim(){
+    echo "#######################################################################"
+    echo "Setting up: vim"
+    echo "####################"
+    echo 'installing nodejs for coc'
+    curl -sL install-node.now.sh/lts >> install_nodejs
+    chmod +x install_nodejs
+    # install locally
+    ./install_nodejs --prefix=$HOME/.local --yes
+
+    echo 'installing vim plugins'
+    vim +PlugInstall +qall
+}
+
+setup_ssh(){
+    echo "#######################################################################"
+    echo "SSH set up"
+    echo 'generating SSH key: silent with nopassphrase'
+    ssh-keygen -t rsa -N '' -f $HOME/.ssh/id_rsa
+    eval `ssh-agent -s`
+    ssh-add
+    ## to copy publickey, print it out
+    cat $HOME/.ssh/id_rsa.pub
+
+    firefox https://github.com/login &
+    read -p "Copy key to github. Done copying? [y/n]: " doit 
+    case $doit in  
+	y|Y) 
+	    echo "Checking connection"
+	    ssh -T git@github.com
+	    ;; 
+	n|N) 
+	    ;; 
+	*) echo Dont know ;; 
+    esac
+}
+
+get_dotfiles_initial(){
+    echo "#######################################################################"
+    echo "Getting dotfiles: via https"
+
+    ### get configs
+    git clone https://github.com/debdeepbh/myconfigs.git $HOME/myconfigs
+    # copy dotfiles
+    cp -r $HOME/myconfigs/dotfiles/. $HOME/
+}
+
+## Avoiding very bulky snap, alternatives are preferable
+## Install git-like drive for google
+#sudo snap install drive pdftk zoom-client
+
+#######################################################################
+# gdrive
+#
+
+get_drive(){
+    ## Install go and then drive
+    echo 'installing go'
+    go_version="1.17.1"
+    wget https://golang.org/dl/go${go_version}.linux-amd64.tar.gz
+    rm -rf $HOME/go && tar -C $HOME -xzf go${go_version}.linux-amd64.tar.gz
+    rm go${go_version}.linux-amd64.tar.gz
+    export PATH=$PATH:$HOME/go:$HOME/go/bin
+    ## install drive (download and compile)
+    echo 'installing drive'
+    go get -u github.com/odeke-em/drive/cmd/drive
+    ## move the compiled binary
+    mkdir $HOME/.local/bin
+    cp $HOME/go/bin/drive $HOME/.local/bin/ #make sure .bashrc has this path included
+    ## delete go
+    sudo rm -rf $HOME/go
+}
+
+setup_rclone(){
+    echo "#######################################################################"
+    echo "rclone installation"
+    # install
+    sudo -v ; curl https://rclone.org/install.sh | sudo bash
+    # https://rclone.org/drive/
+    
+    mkdir ~/.config/rclone 
+    firefox https://accounts.google.com/ &
+    read -p "Copy rclone.config from debdeepbh.paper into ~/.config/rclone/. Done copying? [y/n]: " doit 
+    case $doit in  
+	y|Y) 
+	    echo 'Checking the config works by listing out the remote files within paper-org'
+	    rclone -v --drive-impersonate foo@example.com lsf gdrive:paper-org
+	    ;; 
+	n|N) 
+	    ;; 
+	*) echo Dont know ;; 
+    esac
+
+    read -p "Set up Zotero? [y/n] :" doit 
+    case $doit in  
+	y|Y) 
+	    setup_zotero
+	    ;; 
+	n|N) 
+	    ;; 
+	*) echo Dont know ;; 
+    esac
+}
+
+setup_drive(){
+    # if doesn't exist already
+    export PATH=$PATH:$HOME/.local/bin/
+    drive init ~/gdrive
+    cd gdrive
+    drive pull -no-prompt paper-org book work
+}
+
+## Bulky, probably avoid: Install i3 workspace plugin for xfce4-panel
+#./install-xfce4-i3-workspace-plugin
+
+## Python and octave stuff
+# sudo apt-cache depends octave | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs sudo apt-get --reinstall install -y
+#### Jupyter Lab and octave kernel
+## the following code installs the python packages locally
+## i.e. in $HOME/.local/share/ 
+# pip3 install jupyterlab octave_kernel
+## To install it globally and save space in the home directory 
+## use `sudo -H`. That way, it installs in /usr/share/ 
+#yes | sudo -H pip3 install jupyterlab octave_kernel pandas numpy scipy matplotlib  scikit-learn
+# vim keybiniding (a long installation process)
+# dependency
+
+# the vim extension
+#sudo jupyter labextension install jupyterlab_vim
+### Tip: to plot nice plots in octave_kernel, use
+# %plot -f svg
+# in the beginning of the notebook
+
+## Update the system
+#sudo apt-get update -y
+#sudo apt-get -y upgrade
+
+### fix-broken
+#sudo apt-get -f install
+
+## Install cocalc
+get_cocalc(){
+    echo 'installing cocalc'
+    sudo docker run --name=cocalc -d -v ~/cocalc:/projects -p 443:443 sagemathinc/cocalc
+}
+
+setup_zotero(){
+    echo "#######################################################################"
+    echo 'Installing zotero'
+    # wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
+    # # Zotero 7
+    curl -sL https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
+    sudo apt update
+    sudo apt install zotero
+
+    ## Download stuff from drive
+    # from debdeepbh.papers; Has the plugin ZotMoov
+    read -p "Use rclone to copy zotero configs from gdrive? [y/n]: " doit 
+    case $doit in  
+	y|Y) 
+	    echo 'Getting config from debdeepbh.papers1'
+	    zconf=zotero-7-config.tar.gz
+	    rclone copy gdrive:${zconf} $HOME/ -P 
+	    tar -C $HOME/.zotero -xvf $HOME/${zconf} 
+	    ;; 
+	n|N) 
+	    ;; 
+	*) echo Dont know ;; 
+    esac
+
+    read -p "Use rclone to copy paper-org from gdrive? [y/n]: " doit 
+    case $doit in  
+	y|Y) 
+	    echo 'Getting from debdeepbh.papers'
+	    backup_dir="paper-org"
+	    rclone copy gdrive:${backup_dir} gdrive/${backup_dir} --dry-run -P
+
+	    read -p "Remove dry run and perform real action? [y/n]: " doit 
+	    case $doit in  
+		y|Y) 
+		    rclone copy gdrive:${backup_dir} gdrive/${backup_dir} -P
+		    ;; 
+		n|N) 
+		    echo "Skipping rclone action" 
+		    ;; 
+		*) echo Dont know ;; 
+	    esac
+	    ;; 
+	n|N) 
+	    ;; 
+	*) echo Dont know ;; 
+    esac
+
+
+    echo "Before running sync, check: 1. scihub is off 2. gdrive/paper-org  exists and set in Zotfiles preference..."
+    echo "Set firefox default pdf viewer to zathura to set the same for zotero"
+
+    # launch
+    read -p "Launch Zotero? [y/n]: " doit 
+    case $doit in  
+	y|Y) 
+	    zotero &
+	    ;; 
+	n|N) 
+	    ;; 
+	*) echo Dont know ;; 
+    esac
+}
+
+setup_os(){
+    echo "#######################################################################"
+    echo 'Adding and running os-prober (disabled in Ubuntu 22.04 etc) to make current os the top of the list and to find other os'
+    sudo echo 'GRUB_DISABLE_OS_PROBER=false' | sudo tee -a /etc/default/grub
+    sudo update-grub2
+    sudo grub-install /dev/nvme0n1
+}
+
+setup_camera_driver(){
+    echo "#######################################################################"
+    echo 'Installing webcam driver for laptop'
+    sudo apt install intel-ipu6-dkms intel-vsc-dkms
+    sudo add-apt-repository ppa:oem-solutions-group/intel-ipu6 -y -u
+    sudo apt install gstreamer1.0-icamera v4l2-relayd
+}
+
+wifi_powersave_off(){
+    # # Change wifi.powersave = 3 to wifi.powersave = 3 in the file
+    # /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+    #
+    # Possible values for the wifi.powersave field are:
+    #
+    # NM_SETTING_WIRELESS_POWERSAVE_DEFAULT (0): use the default value
+    # NM_SETTING_WIRELESS_POWERSAVE_IGNORE  (1): don't touch existing setting
+    # NM_SETTING_WIRELESS_POWERSAVE_DISABLE (2): disable powersave
+    # NM_SETTING_WIRELESS_POWERSAVE_ENABLE  (3): enable powersave
+
+    sudo sed -i "s/wifi.powersave = 3/wifi.powersave = 2/g" /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+
+    # # Restart to take effect
+    # sudo systemctl restart network-manager.service
+    sudo systemctl restart NetworkManager
+    systemctl daemon-reload
+}
+
+#### Firefox ##############
+### Bigger Firefox font
+# about:config > devPixelsPerPx to 1.2
+
+#######################################################################
+
+install(){
+
+    	if [ "$1" = "existing" ]; then
+	    echo 'installing for existing functional home directory'
+	    get_packages
+	    get_debs
+	    #setup_os
+    	fi
+    	if [ "$1" = "new" ]; then
+	    echo 'installing a fully functional setup for an empty home directory'
+	    get_packages
+	    get_local_bins
+	    get_debs
+	    get_dotfiles_initial
+	    setup_os
+
+	    # requires user input
+	    setup_ssh	# requires github setup
+	    setup_vim
+	    setup_rclone # download gdrive stuff first
+	    #setup_camera_driver
+	    # wifi_powersave_off
+
+	fi
+}
+
+#######################################################################
+# install $1
+# setup_vim
+# setup_rclone
+setup_zotero
+# get_local_bins
