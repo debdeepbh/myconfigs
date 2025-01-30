@@ -285,3 +285,4 @@ install(){
 #######################################################################
 # install $1
 # get_local_bins
+setup_camera_driver
