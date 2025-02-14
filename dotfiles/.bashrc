@@ -415,7 +415,8 @@ alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
 alias ls_size='du -sch .[!.]* * | sort -h'
 
 alias cpwd='pwd | xclip -sel clip; echo $(xclip -o -sel clip)'
-alias ppwd='clipstr=$(xclip -o -sel clip); echo "clipstr=$clipstr"'
+alias pclip='clipstr=$(xclip -o -sel clip); echo "clipstr=$clipstr"'
+
 
 ## countdown and stopwatch for terminal
 
