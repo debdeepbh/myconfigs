@@ -1,0 +1,32 @@
+# get the largest index from a sequence of numbers
+# $1: (required),
+# $2: file prefix, optional, use '' to keep default
+# $3: file extension, optional
+
+if [ "$2" ]
+then
+	pref="$2"
+else
+	pref="tc_"
+fi
+
+if [ "$3" ]
+then
+	ext="$2"
+else
+	ext=".h5"
+fi
+
+if [ "$1" ]
+then
+    last=$(ls $1/${pref}*${ext} | tail -1) # Get the largest indices
+    last=${last##*/} # strip the path
+    last="${last%.*}" # strip the extension
+    lc=$(echo $last | awk -F '_' '{ print $2 }')
+    echo $lc
+    # copy to clipboard
+    echo $lc | xclip -sel clip
+else
+	echo 'Provide path.'
+fi
+
