@@ -50,7 +50,7 @@ import argparse
 import sys
 # Instantiate the parser
 parser = argparse.ArgumentParser(description='Optional app description')
-parser.add_argument('--path', type=str, help='path to store output files', default='{$1:./out}')
+parser.add_argument('--path', type=str, help='path to store output files', default='${1:out/}')
 parser.add_argument('--noplot', action='store_true', help='do not plot')
 args = parser.parse_args()
 # save args
