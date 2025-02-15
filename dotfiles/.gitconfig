@@ -4,7 +4,24 @@
 [diff]
 	tool = vimdiff
 [alias]
-	p = pull --rebase
+    p = pull --rebase
 	;c = "!f() { git add . && git commit -m \"$@\" && git push -u origin HEAD; }; f"
-	c = "!git add . && git commit && git push -u origin HEAD"
+    c = "!git add . && git commit && git push -u origin HEAD"
+
+	; show graph of git log
+    lg0 = log --graph --abbrev-commit --decorate --date=relative --all 
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+    lg3 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset)'
+    lg = lg3
+
+    ; changed files between the latest commit and the one before that
+    ch = log --name-status --oneline HEAD^1..HEAD
+
+    ; follow changes in a file: show all changes, show amount of changes
+    ff = log -p 
+    ffs = log --stat --pretty=o
+
+    ; show conflicted files;  U=unmerged; possibly run before mergetool
+    mg = diff --name-only --diff-filter=U
 

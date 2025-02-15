@@ -1,0 +1,21 @@
+#!/bin/bash
+# rsync the current directory to a remote host (nicknames from .ssh/config)
+# E.g.: rpush pavilion
+path=$(pwd)
+base_dir=$(basename "$this_path")
+
+if [ "$2" ]
+then
+    path="$2"
+else
+    path=$(pwd)
+fi
+
+if [ "$1" ]; 
+then
+    host="$1"
+else
+    host="pavilion"
+fi
+
+rsync  -rv --exclude="*.h5" "$path" $host:from_$(hostname)/$base_dir/
