@@ -4,6 +4,13 @@
 path=$(pwd)
 base_dir=$(basename "$this_path")
 
+if [ "$1" ]; 
+then
+    dest="$1"
+else
+    dest="pavilion13t"
+fi
+
 if [ "$2" ]
 then
     path="$2"
@@ -11,11 +18,16 @@ else
     path=$(pwd)
 fi
 
-if [ "$1" ]; 
-then
-    host="$1"
-else
-    host="pavilion"
-fi
+to=$dest:from_$(hostname)/$base_dir
 
-rsync  -rv --exclude="*.h5" "$path" $host:from_$(hostname)/$base_dir/
+logsh=$path/rpush.sh
+
+# copy a file to ask for incremental change
+echo "" > "$logsh"
+echo "# Run this at the destination to get updates." >> "$logsh"
+echo "src=$(hostname):$path" >> "$logsh"
+echo 'rsync  -rv --exclude="*.h5" "$src" ../' >> "$logsh"
+chmod +x "$logsh"
+
+rsync  -rv --exclude="*.h5" "$path" "$to/"
+
