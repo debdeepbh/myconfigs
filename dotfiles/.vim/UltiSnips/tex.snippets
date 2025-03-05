@@ -849,3 +849,135 @@ clearsnippets \
 snippet color "textcolor"
 \textcolor{${1:blue}}{$2}$0
 endsnippet
+
+snippet _exam "Exam format"
+\documentclass[12pt]{article}
+\usepackage[top=2cm, bottom=2cm, right=2cm, left=1.5cm]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm, amsfonts,color}
+
+\usepackage{ifthen}
+\newif\ifformat
+
+%\formattrue
+\formatfalse
+
+
+% User defined functions
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\br}[1]{\color{red} (#1) \color{black}}
+\newcommand{\bb}[1]{\color{blue} (#1) \color{black}}
+\newcommand{\what}{\bb{??}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\jap}[1]{\left\langle #1 \right\rangle}
+\newcommand{\inn}[1]{\left\langle #1 \right\rangle}
+
+% User defined environments
+\newtheorem{thm}{Theorem} 
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{defn}{Definition}
+\newtheorem{rem}{Remark}
+\newtheorem{result}{Result}
+\newtheorem*{notation}{Notation}
+\newtheorem{prob}{Problem}
+\newtheorem{propn}{Proposition}
+% newtheorem{proof}{Proof} is not needed, already available with \begin{proof} .. \end{proof} with nice italic fonts
+
+
+\begin{document}
+\title{Exam ${1:1} - MAT ${2:215}}
+% empty date
+\ifformat
+\date{Total points: 70 \hfill Time: 50 mins}
+\else
+\date{}
+\fi
+% \date{}
+\author{}
+\maketitle 
+
+\ifformat
+\textbf{Full Name:} \underline{\hspace{15cm}}
+% \hfill
+% \textbf{uNID:} \underline{\hspace{3.5cm}}
+
+\begin{center}
+\textbf{Instructions}
+\end{center}
+\begin{itemize}
+  \setlength\itemsep{0.1em}
+    \item Show your work to get full credit.
+    % \item Each question carries 10 points.
+    \item You are allowed to bring notes on one US letter-sized sheet (both sides).
+    \item You can bring a four-function calculator. No phones, laptops, collaborations, or any other help allowed.
+\end{itemize}
+\vspace{1cm}
+\fi
+
+\begin{enumerate}
+
+    \item (10 points) State whether the following statements are True or False (no need for explanation).
+\begin{enumerate}
+    \item 
+\end{enumerate}
+
+	\ifformat
+	\vspace{2cm}
+	\begin{table*}[htpb]
+	    \centering
+	    \label{tab:tf}
+	    \begin{tabular}{|p{1cm} |p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} |}
+		\hline
+		 & (a) & (b) & (c) & (d) & (e)
+		\\\\
+		\hline
+		\vspace{0.25cm}T/F & \vspace{1cm} & & & & 
+		\\\\
+		\hline
+	    \end{tabular}
+	\end{table*}
+	\newpage
+	\fi
+
+    \item $3
+
+\ifformat
+\newpage
+\fi
+    \item 
+\ifformat
+\newpage
+\begin{center}
+    Scratch Paper
+\end{center}
+\fi
+\end{enumerate}
+
+\end{document}
+endsnippet
+
+snippet ifr "formatting"
+\ifformat
+${1:\\newpage}
+\fi	
+$0
+endsnippet
+
+
+snippet boxr "insert answer box"
+\ifformat
+\boxright{${2:\linewidth}}{${3:1}cm}{${1:Ans:}}
+\fi
+$0
+endsnippet
+
+

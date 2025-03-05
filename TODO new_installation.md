@@ -8085,6 +8085,33 @@ pandoc $file -s -o $html --css $HOME/pandoc.css
 ```
 The css template `pandoc.css` is taken from [here](https://gist.github.com/killercup/5917178). The css file also controls the width of the page. Without it, the page size is undefined. Other templates can be used to convert to html with different style.
 
+# Tex and markdown conversion to html with pandoc
+
+Converting a tex file into html `pandoc file.tex -o file.html` uses unicode by default to render math symbols. We need to use `mathjax` for a nicer rendering. Other options are
+
+```
+--mathml, --webtex, --mathjax, --katex
+```
+
+and demos can be found in pandoc [demos](https://pandoc.org/demos.html).
+
+According to [pandoc documentation](https://pandoc.org/chunkedhtml-demo/3.6-math-rendering-in-html.html) One need to specify the url of the `.js` file that would be used to convert math into mathjax. By default pandoc uses some link form some content delivery network (CDN), which does not work on firefox at the first attempt. So we can specify the url like this:
+
+```
+andoc math.text -s --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js -o   mathMathJax.html
+```
+
+There are other CDN locations on [mathjax documentation](https://docs.mathjax.org/en/latest/web/start.html#cdn-list) from sites like
+
+- jsdelivr.com [latest or specific version] (recommended)
+- unpkg.com [latest or specific version]
+- cdnjs.com
+- raw.githack.com
+- gitcdn.xyz
+- cdn.statically.io
+
+
+
 # mpi4py  python with mpi
 
 - Start with 
