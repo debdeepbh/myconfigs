@@ -19,6 +19,25 @@ papers() {
     esac
 }
 
+talk() {
+    # paper-org on gdrive
+
+    backup_dir="talk"
+    echo "rclone drive $dry"
+    rclone copy $HOME/gdrive/${backup_dir} gdrive:${backup_dir} --dry-run -P
+
+    read -p "Remove dry run and perform real action? [y/n]: " doit 
+    case $doit in  
+	y|Y) 
+	    rclone copy $HOME/gdrive/${backup_dir} gdrive:${backup_dir} -P 
+	    ;; 
+	n|N) 
+	    echo "Skipping rclone action" 
+	    ;; 
+	*) echo Dont know ;; 
+    esac
+}
+
 myconfigs() {
     # vim stuff
 
@@ -58,7 +77,7 @@ ask(){
     esac
 }
 
-for funs in papers myconfigs mds teaching
+for funs in papers talk myconfigs mds teaching
 do
     ask $funs
 done
