@@ -19,13 +19,13 @@ snippet plta "plt formalities" w
 #plt.title('title')
 #plt.xlabel('xlabel')
 #plt.ylabel(ylabel')
-#plt.xlim(float(xx[0]), float(xx[1]))
-#plt.ylim(float(xx[0]), float(xx[1]))
+#plt.xlim([])
+#plt.ylim([])
 #plt.axis('scaled')
 #plt.grid()
-#filename = args.path + '/filename.png'
-#plt.savefig(filename, dpi=300, bbox_inches='tight')
-plt.show()
+filename = args.path + "/${1:imgfile}.eps"
+plt.savefig(out_png, dpi=300, bbox_inches='tight', pad_inches=0.0, format='eps', transparent=False)
+#plt.show()
 plt.close()
 $0
 endsnippet
@@ -50,7 +50,7 @@ import argparse
 import sys
 # Instantiate the parser
 parser = argparse.ArgumentParser(description='Optional app description')
-parser.add_argument('--path', type=str, help='path to store output files', default='{$1:./out}')
+parser.add_argument('--path', type=str, help='path to store output files', default='${1:out/}')
 parser.add_argument('--noplot', action='store_true', help='do not plot')
 args = parser.parse_args()
 # save args
