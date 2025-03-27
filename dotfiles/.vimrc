@@ -335,23 +335,11 @@ Plug 'lervag/vimtex'
 Plug 'debdeepbh/vim-matlab',  { 'for': 'matlab' }
 " vim-indentwise usage: ]= to jump to the next line with the same indent, moreover, ]%, ]_, ]+, etc
 Plug 'jeetsukumaran/vim-indentwise'
-Plug 'michaeljsmith/vim-indent-object'
 Plug 'preservim/tagbar'
 "Plug 'sjl/gundo.vim'
 "Plug 'mbbill/undotree'
 Plug 'simnalamburt/vim-mundo'
 
-" Prose writing
-" Plug 'dpelle/vim-LanguageTool' " Need to download languageTools
-Plug 'rhysd/vim-grammarous' " already installed language-tool
-Plug 'ron89/thesaurus_query.vim' " use: \cs on word or multiword selection
-" Plug 'reedes/vim-pencil' 
-Plug 'reedes/vim-wordy'
-Plug 'dbmrq/vim-ditto'
-" Scroll with c-j and c-k
-Plug 'preservim/vim-wheel'
-
-" pandoc
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " Don't like syntax folding, don't use conversion of markdown to other formats
 Plug 'vim-pandoc/vim-pandoc'
@@ -715,14 +703,6 @@ let g:vimtex_view_automatic=0
 " disable opening quickfix window on warnings only 
 "let g:vimtex_quickfix_open_on_warning = 0
 "
-" TO use inkscape svg with \includesvg
-" let g:vimtex_compiler_latexmk = {
-"     \ 'options' : [
-"     \    '-shell-escape',
-"     \ ],
-"     \}
-"
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                    fzf                                     "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1036,17 +1016,13 @@ let g:pandoc#syntax#conceal#urls = 1
 "enable this functionality, set |g:pandoc#command#autoexec_on_writes| to 1 and
 "provide a command to execute like so:
 "
-" let g:pandoc#command#autoexec_on_writes = 1
 let g:pandoc#command#autoexec_on_writes = 0
-
 "Which command to autoexecute on writes if
 " |g:pandoc#command#autoexec_on_writes| is enabled.
 " More examples: https://pandoc.org/demos.html
 " More options: --toc: generate a table of contents
 " let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html --number-sections"
-" with latex
-"  let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html --number-sections"
- let b:pandoc_command_autoexec_command = "Pandoc! -s --highlight-style tango --template=easy_template.html"
+ let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html --number-sections"
 "let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s -c ~/test/bootstrap.css --number-sections"
 
 " mapping local leader to \ (same as leader)
@@ -1110,20 +1086,6 @@ map <Leader>cT <Plug>ColorContrast
 map <Leader>cF <Plug>ColorFgBg     
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               languageTools                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Location of downloaded jar
-let g:languagetool_jar='$HOME/Downloads/LanguageTool-5.8/languagetool-commandline.jar'
-
-" Rules to disable
-let g:languagetool_disable_rules='ENGLISH_WORD_REPEAT_BEGINNING_RULE,WHITESPACE_RULE,EN_QUOTES,FRENCH_WHITESPACE,UPPERCASE_SENTENCE_START,APOS'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  coc-ltex                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:coc_filetype_map = {'tex': 'latex'}
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                            Fixing broken things                            "
@@ -1132,3 +1094,8 @@ let g:coc_filetype_map = {'tex': 'latex'}
 :nnoremap <C-i> <C-i>
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" marp slides auto conversion: within gdrive/talk
+" While saving any file called slides.md, convert to html using css
+" autocmd BufWritePost slides.md !marp % --html --theme=../marp-stuff/newtheme.css & ~/.myscr/slide_refresh
+autocmd BufWritePost slides.md !marp % --html --theme=../marp-stuff/newtheme.css; ~/.myscr/slide_refresh
