@@ -1,0 +1,36 @@
+#!/bin/bash
+# Draw a figure using inkscape
+# Given filename base (and path), copies a svg template and edits it on inkscape
+# Then prints the full filename of the edited file
+
+# filename without the extension
+svg_file=$1
+# path (optional)
+svg_path=$2
+
+# borrowing this from inkscape-figures
+template_file="$HOME/.config/inkscape-figures/template.svg"
+
+# if path provided by the second argument
+if [ "$2" ]
+then
+    target=${svg_path}/${svg_file}.svg
+    # create target directory if does not exist
+    mkdir -p ${svg_path}
+else
+    target=${svg_file}.svg
+fi
+
+# if target svg exists
+if ! [[ -f ${svg_file} ]]
+then
+    # copy existing svg template file to edit, so that pressing ctrl+s does not open the dialog box
+    cp ${template_file}  ${target}
+# else
+    # echo "File exists. Editing"
+fi
+
+inkscape ${target} > /dev/null 2>&1 &
+
+# std output to catch in vim
+echo ${target}

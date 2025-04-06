@@ -5,14 +5,15 @@
 # wrokaround is to check for every desktop and activate the first one found, creepy
 
 
-# Awesome: Taglist 4  = desktop 3  
-# i3: Taglist 1  = desktop 0
-if [ $(xdotool search --class "google-chrome" | head -1) ]
-then
-sleep 0.1
- xdotool search --desktop $1 --class "google-chrome" windowactivate
- xdotool key 'F5'
-else
- google-chrome slides.md &
-fi
+# # Awesome: Taglist 4  = desktop 3  
+# # i3: Taglist 1  = desktop 0
+# if [ $(xdotool search --class "google-chrome" | head -1) ]
+# then
+# sleep 0.1
+#  xdotool search --desktop $1 --class "google-chrome" windowactivate
+#  xdotool key 'F5'
+# else
+#  google-chrome slides.md &
+# fi
 
+echo "text = $1" >> $HOME/tt.t

@@ -8087,7 +8087,23 @@ The css template `pandoc.css` is taken from [here](https://gist.github.com/kille
 
 # Tex and markdown conversion to html with pandoc
 
-Converting a tex file into html `pandoc file.tex -o file.html` uses unicode by default to render math symbols. We need to use `mathjax` for a nicer rendering. Other options are
+
+- Put all latex preamble in the header part of the `.md` file [source](https://pandoc.org/MANUAL.html#extension-yaml_metadata_block) like this
+
+```yaml
+---
+title: Readme
+author: Author
+header-includes: |
+    \usepackage{amsmath, amssymb, amsthm, amsfonts, color, bm}
+
+    \newcommand{\R}{\mathcal{R}}
+    \newcommand{\ww}{\boldsymbol{\omega}}
+    \newcommand{\xx}{\mathbf{x}}
+---
+```
+
+- Converting a tex file into html `pandoc file.tex -o file.html` uses unicode by default to render math symbols. We need to use `mathjax` for a nicer rendering. Other options are
 
 ```
 --mathml, --webtex, --mathjax, --katex
@@ -8098,7 +8114,7 @@ and demos can be found in pandoc [demos](https://pandoc.org/demos.html).
 According to [pandoc documentation](https://pandoc.org/chunkedhtml-demo/3.6-math-rendering-in-html.html) One need to specify the url of the `.js` file that would be used to convert math into mathjax. By default pandoc uses some link form some content delivery network (CDN), which does not work on firefox at the first attempt. So we can specify the url like this:
 
 ```
-andoc math.text -s --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js -o   mathMathJax.html
+pandoc math.text -s --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js -o   mathMathJax.html
 ```
 
 There are other CDN locations on [mathjax documentation](https://docs.mathjax.org/en/latest/web/start.html#cdn-list) from sites like
@@ -8111,6 +8127,11 @@ There are other CDN locations on [mathjax documentation](https://docs.mathjax.or
 - cdn.statically.io
 
 
+- To use latex goodies such as snippet completion etc in vim, set 
+
+```vim
+:setfiletype pandoc.tex
+```
 
 # mpi4py  python with mpi
 
@@ -8661,3 +8682,33 @@ rclone sync gdrive:paper-org ./paper-org --dry-run -P
 - rclone copy - Copy files from source to dest, skipping already copied.
 - rclone sync - Make source and dest identical, modifying destination only.
 - rclone bisync	- Bidirectional synchronization between two paths.
+
+# Inkscape workflow
+
+To integrate Inkscape plots into the latex/markdown writing workflow, we need to streamline frequently used actions.
+
+- Saving the plot: Ctrl+S opens the `save as` dialog box, which could be avoided if we open existing files, in which case it will save to the same filename and extension without asking. The idea would be to keep a `template.svg` file and copy it to the current file name, open and edit it, and save it. A simple bash script could do it (see `$HOME/.myscr/drawfig`).
+
+If needed, conversion to other formats such as `latex+pdf` or `png` can be done later (after saving) using command line arguments with `inkscape`.
+
+- Selecting Bezier curve with `B`
+- Selection `S` and Node mode `N`
+- To trim the margins of the figure and reduce it to a bounding box of existing curves, do
+	- Ctrl+A to select all
+	- Ctrl+Shift+R to resize page to selection
+This can also be done using  (see `man inkscape`) after saving using a script:
+
+```
+inkscape --export-filename=filename.png --export-area-drawing filename.svg
+```
+
+
+- Select a curve and press `Ctrl+Shift+F` to go the Stroke and Fill tab.
+
+- Insert latex symbols by pressing a shortcut key `t` instead of clicking `Extensions > Render > Formula (pdflatex)`. The shortcuts can be set in `Edit > Preferences > Interface > Keyboard > Shortcuts` and setting the shortcut. Once set, the shortcut config can be saved for later from
+
+```
+$HOME/.config/inkscape/keys/default.xml
+```
+
+
