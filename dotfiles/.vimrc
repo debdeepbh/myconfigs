@@ -1029,13 +1029,21 @@ let g:pandoc#command#autoexec_on_writes = 1
 "let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s -c ~/test/bootstrap.css --number-sections"
 
 "" Nice mathjax support
-let b:pandoc_command_autoexec_command = "Pandoc! -s --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js -t html --toc" 
+" let b:pandoc_command_autoexec_command = "Pandoc! -s --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js -t html --toc" 
 
 " without any mathjax reference, this script works fine
-let b:pandoc_command_autoexec_command = "Pandoc! -s -t html --toc" 
+" let b:pandoc_command_autoexec_command = "Pandoc! -s -t html --toc" 
 
 " Full tex support (alternative to chtml is svg fonts)
 " let b:pandoc_command_autoexec_command = "Pandoc! -s --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js -t html --toc" 
+
+" With custom MathJax config as header; no need to supply a full template for
+" now; may need to do a full template for further edits
+let b:pandoc_command_autoexec_command = "Pandoc! --include-in-header=~/Templates/mathjax-config-header.html --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+
+" let b:pandoc_command_autoexec_command = "Pandoc! --include-in-header=~/Templates/mathjax-config-header.html -s --css=~/Templates/table.css --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+
+" let b:pandoc_command_autoexec_command = "Pandoc! -t html5 --include-in-header=~/Templates/mathjax-config-header.html -s --css=~/Templates/table.css --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
 
 
 " script to run when using :Pandoc!
