@@ -1016,14 +1016,69 @@ let g:pandoc#syntax#conceal#urls = 1
 "enable this functionality, set |g:pandoc#command#autoexec_on_writes| to 1 and
 "provide a command to execute like so:
 "
-let g:pandoc#command#autoexec_on_writes = 0
+let g:pandoc#command#autoexec_on_writes = 1
 "Which command to autoexecute on writes if
 " |g:pandoc#command#autoexec_on_writes| is enabled.
 " More examples: https://pandoc.org/demos.html
 " More options: --toc: generate a table of contents
 " let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html --number-sections"
- let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html --number-sections"
+
+"  let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s --highlight-style tango --template=easy_template.html --number-sections"
+
+"" Section numbering
 "let b:pandoc_command_autoexec_command = "Pandoc! --mathml -s -c ~/test/bootstrap.css --number-sections"
+
+"" Nice mathjax support
+let b:pandoc_command_autoexec_command = "Pandoc! -s --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js -t html --toc" 
+
+" without any mathjax reference, this script works fine
+let b:pandoc_command_autoexec_command = "Pandoc! -s -t html --toc" 
+
+" Full tex support (alternative to chtml is svg fonts)
+" let b:pandoc_command_autoexec_command = "Pandoc! -s --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js -t html --toc" 
+
+
+" script to run when using :Pandoc!
+let g:pandoc#command#custom_open = "MyPandocOpen"
+function! MyPandocOpen(file)
+	let file = shellescape(fnamemodify(a:file, ':p'))
+	let file_extension = fnamemodify(a:file, ':e')
+	let file_base = fnamemodify(a:file, ':t:r')
+	if file_extension is? 'pdf'
+		if !empty($PDFVIEWER)
+			return expand('$PDFVIEWER') . ' ' . file
+		elseif executable('zathura')
+			return 'zathura ' . file
+		elseif executable('mupdf')
+			return 'mupdf ' . file
+		endif
+	elseif file_extension is? 'html'
+		" if !empty($BROWSER)
+		" 	return expand('$BROWSER') . ' ' . file
+		" elseif executable('firefox')
+		" 	return 'firefox ' . file
+		" elseif executable('chromium')
+		" 	return 'chromium ' . file
+		" endif
+		" return 'firefox ' . file
+		
+		return '/home/debdeep/.myscr/html_refresh ' . file 
+
+		" if file_base is? 'slides'
+		"     " return 'marp ' . file . '--html --theme=../marp-stuff/newtheme.css; /home/debdeep/.myscr/html_refresh ' . file 
+		"     return 'Do nothing'
+		" else 
+		"     return '/home/debdeep/.myscr/html_refresh ' . file 
+		" endif
+	elseif file_extension is? 'odt' && executable('okular')
+		return 'okular ' . file
+	elseif file_extension is? 'epub' && executable('okular')
+		return 'okular ' . file
+	else
+		return 'xdg-open ' . file
+	endif
+endfunction
+
 
 " mapping local leader to \ (same as leader)
 " Now, we can do \cb to insert/toggle checkbox for list items.
@@ -1098,4 +1153,23 @@ map <Leader>cF <Plug>ColorFgBg
 " marp slides auto conversion: within gdrive/talk
 " While saving any file called slides.md, convert to html using css
 " autocmd BufWritePost slides.md !marp % --html --theme=../marp-stuff/newtheme.css & ~/.myscr/slide_refresh
-autocmd BufWritePost slides.md !marp % --html --theme=../marp-stuff/newtheme.css; ~/.myscr/slide_refresh
+" autocmd BufWritePost slides.md !marp % --html --theme=../marp-stuff/newtheme.css
+"
+
+" set let g:pandoc#command#autoexec_on_writes = 0 while working with slides.md
+autocmd BufWritePost slides.md !marp % --html --theme=../marp-stuff/newtheme.css; ~/.myscr/html_refresh "%:t:r".html
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" inkscape-figures: https://github.com/gillescastel/inkscape-figures/tree/master
+" Install using 
+" pipx install inkscape-figures
+
+" inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
+" draw-this
+" nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
+
+" directory to store figures, relative to current location
+let $figdir = 'figures'
+inoremap <C-f> <Esc>: silent exec '.!~/.myscr/drawfig "'.getline('.').'" '$figdir''<CR><CR>:w<CR>
+
+" nnoremap <C-f> : silent exec '!~/.myscr/drawfig "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
