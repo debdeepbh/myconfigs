@@ -1039,11 +1039,13 @@ let g:pandoc#command#autoexec_on_writes = 1
 
 " With custom MathJax config as header; no need to supply a full template for
 " now; may need to do a full template for further edits
-let b:pandoc_command_autoexec_command = "Pandoc! --include-in-header=~/Templates/mathjax-config-header.html --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+" let b:pandoc_command_autoexec_command = "Pandoc! --include-in-header=~/Templates/mathjax-config-header.html --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
 
 " let b:pandoc_command_autoexec_command = "Pandoc! --include-in-header=~/Templates/mathjax-config-header.html -s --css=~/Templates/table.css --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
 
 " let b:pandoc_command_autoexec_command = "Pandoc! -t html5 --include-in-header=~/Templates/mathjax-config-header.html -s --css=~/Templates/table.css --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+
+let b:pandoc_command_autoexec_command = "Pandoc! -t html5 --include-in-header=~/Templates/mathjax-config-header.html -s --css=~/Templates/pandoc-default-mod.css --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js --toc"
 
 
 " script to run when using :Pandoc!
