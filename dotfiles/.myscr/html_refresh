@@ -5,11 +5,11 @@
 # Otherwise, cannot windowactivate
 # wrokaround is to check for every desktop and activate the first one found, creepy
 
+# html file needs to have a title for this to work properly
 filename="$1"
 
 # get the title of the html file to match with xprop info
 title=$(awk -vRS="</title>" '/<title>/{gsub(/.*<title>|\n+/,"");print;exit}' "$1")
-# echo $title
 
 browser='firefox'
 # browser='google-chrome'
@@ -23,21 +23,30 @@ else
     window_title="${title} - Google Chrome"
 fi
 
+
 # echo "title: ${window_title}" >> $HOME/found_windows
 # echo $(xdotool search --name "${window_title}") >> $HOME/found_windows
 
 window_id=$(xdotool search --name "${window_title}" | head -1)
+
+## Debug print
+# echo "filename = $filename"
+# echo "title = $title"
+# echo "window-title = $window_title"
+# echo "window_id = $window_id"
+
 if [ $window_id ]
 then
      # echo "already open"
-     sleep 0.1
+     
+     # sleep 0.1
      # xdotool search --desktop $1 --name "${window_title}" windowactivate 
      # xdotool key 'F5' > /dev/null 2>&1
 
      # send keypress without focusing
      xdotool key --window ${window_id} 'F5'
 else
-    $browser --new-window ${1} & 
     # echo "launching"
+    $browser --new-window ${1} & 
 fi
 

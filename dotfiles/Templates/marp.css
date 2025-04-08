@@ -1,0 +1,37 @@
+/* @theme gaia-mod */
+
+@import 'gaia';
+
+:root {
+  /* width: 1280px; */
+  /* height: 960px; */
+  /* font-size: 20px; */
+  font-size: 22px;
+  padding: 3rem;
+  /* font-family: 'Times New Roman', serif !important; */
+  /* font-family: 'Computer Modern', serif !important; */
+  /* font-family: 'Computer Modern', sans-serif !important; */
+}
+
+h1 {
+    /* font-size: 60px; */
+    /* color: #09c; */
+}
+
+.subtext {
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.compsans {
+      font-family: 'Computer Modern', sans-serif !important;
+}
+.compserif {
+      font-family: 'Computer Modern', serif !important;
+}
+
+.cols {
+    display: grid;
+    grid-template-columns: 60% 30%;
+    gap: 1rem;
+}

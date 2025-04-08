@@ -1166,8 +1166,25 @@ map <Leader>cF <Plug>ColorFgBg
 " autocmd BufWritePost slides.md !marp % --html --theme=../marp-stuff/newtheme.css
 "
 
-" set let g:pandoc#command#autoexec_on_writes = 0 while working with slides.md
-autocmd BufWritePost slides.md !marp % --html --theme=../marp-stuff/newtheme.css; ~/.myscr/html_refresh "%:t:r".html
+" " set let g:pandoc#command#autoexec_on_writes = 0 while working with slides.md
+" autocmd BufWritePost slides.md !marp % --html --theme=../marp-stuff/newtheme.css; ~/.myscr/html_refresh "%:t:r".html
+"
+"
+let $slide = 'slides.md'
+autocmd BufWritePost $slide call SlidesMd()
+function SlidesMd()
+    let g:pandoc#command#autoexec_on_writes = 0
+    " the html file needs to have title for this to work properly
+    " Set in the yaml header using `title: Document title`
+    " Cannot get the stupid press any key to go away with <CR>; So using silent!; Remove to debug
+    !marp % --html --theme=$HOME/Templates/marp.css; $HOME/.myscr/html_refresh %:t:r.html
+    redraw!
+    " " :normal <CR><CR>
+    " <CR><CR>
+    " execute "normal! <CR>"
+    " execute "normal \<CR>\<CR>"
+    " echo 'hi'
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " inkscape-figures: https://github.com/gillescastel/inkscape-figures/tree/master
