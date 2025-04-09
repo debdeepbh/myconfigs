@@ -5,6 +5,8 @@
 # Otherwise, cannot windowactivate
 # wrokaround is to check for every desktop and activate the first one found, creepy
 
+sleep 0.5
+
 # html file needs to have a title for this to work properly
 filename="$1"
 
@@ -26,6 +28,7 @@ fi
 
 # echo "title: ${window_title}" >> $HOME/found_windows
 # echo $(xdotool search --name "${window_title}") >> $HOME/found_windows
+#
 
 window_id=$(xdotool search --name "${window_title}" | head -1)
 
@@ -39,7 +42,6 @@ if [ $window_id ]
 then
      # echo "already open"
      
-     # sleep 0.1
      # xdotool search --desktop $1 --name "${window_title}" windowactivate 
      # xdotool key 'F5' > /dev/null 2>&1
 
