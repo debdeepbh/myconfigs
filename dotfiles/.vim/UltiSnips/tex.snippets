@@ -775,7 +775,7 @@ snippet _pde "Template PDEs" b
 %\font\bbc=msbm10 scaled 1200
 
 % amsmath:\text{} inside math mode; amssymb:\lesssim, amsthm:\newtheorem; amsfonts:\mathbb{}
-\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{amsmath, amssymb, amsthm, amsfonts, graphicx}
 %to use color
 \usepackage{color}
 
@@ -1007,4 +1007,8 @@ snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
     .replace('{', '(') \
     .replace('}', ')') + ')')
 `
+endsnippet
+
+snippet red "red text"
+\textcolor{red}{$1}$0
 endsnippet
