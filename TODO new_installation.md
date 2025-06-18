@@ -8712,3 +8712,7 @@ $HOME/.config/inkscape/keys/default.xml
 ```
 
 
+# Lineageos
+
+
+
