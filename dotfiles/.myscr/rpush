@@ -31,7 +31,6 @@ $runscr
 
 logsh="$path/rget"
 echo "Destination: $to"
-echo "dir: base_dir"
 
 # copy a file to ask for incremental change
 echo "Run this at the destination to get updates: $logsh"
