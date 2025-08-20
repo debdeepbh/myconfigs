@@ -683,7 +683,7 @@ function fz()
 #######################################################################
 # Moving this to .xsessionrc so that awesome can access this path (as
 # opposed to .bash_profile, which does not work)
-#export PATH=$PATH:~/.myscr/
+export PATH=$PATH:~/.myscr/
 
 
 #Creating a config file for linux calculator bc, which does not support a config file by default
