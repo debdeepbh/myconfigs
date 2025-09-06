@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# decrypt file encrypted without the -d flag
+# outputs decrypted string to stdout
+
+if [ -z "$2" ]
+then
+    # default local directory
+    openssl enc -base64 -aes-256-cbc -pbkdf2 -d -in $1
+else
+    openssl enc -base64 -aes-256-cbc -pbkdf2 -d -in $1 -out "$2"
+fi

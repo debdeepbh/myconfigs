@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# encrypt file 
+# outputs decrypted string to stdout
+openssl enc -base64 -aes-256-cbc -pbkdf2 -in $1 -out $1.enc

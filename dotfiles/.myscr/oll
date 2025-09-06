@@ -1,0 +1,16 @@
+#!/bin/bash
+
+pkill ollama; ollama serve 2>&1 >/dev/null & echo "Done"
+
+loc="$HOME/.ollama/modelfiles"
+
+# go ahead with the password
+$HOME/.myscr/decr $loc/$1{.enc,}
+
+ollama create $1 -f $loc/$1
+
+rm $loc/$1
+
+ollama run $1
+
+ollama rm $1
