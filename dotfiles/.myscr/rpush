@@ -2,10 +2,7 @@
 # rsync the current directory to a remote host (nicknames from .ssh/config)
 # E.g.: rpush pavilion
 path=$(pwd)
-base_dir=$(basename "$path")
-parent_dir=`dirname $PWD`
-# path relative to /home/$USER
-rel_parent_dir="${parent_dir#"$HOME"/}"
+base_dir=$(basename "$this_path")
 
 if [ "$1" ]; 
 then
@@ -16,27 +13,21 @@ fi
 
 if [ "$2" ]
 then
-    ext="$2"
+    path="$2"
 else
-    ext="*.png"
+    path=$(pwd)
 fi
 
-# to=$dest:from_$(hostname)/$base_dir
-to=$dest:mirror/$(hostname)/$rel_parent_dir
+to=$dest:from_$(hostname)/$base_dir
 
-# runscr="rsync -rv --mkpath --exclude=\'*.pkl\' $args $path $to"
-runscr="rsync -rv --mkpath  $args $path/"$ext" $to/$base_dir/"
-echo "runscr: $runscr"
-$runscr
-
-logsh="$path/rget"
-echo "Destination: $to"
+logsh=$path/rpush.sh
 
 # copy a file to ask for incremental change
-echo "Run this at the destination to get updates: $logsh"
-echo "#!/bin/bash" > "$logsh"
-echo "src=$(hostname):$path/$ext" >> "$logsh"
-echo 'rsync  -rv --exclude="*.h5" "$src" ./' >> "$logsh"
+echo "" > "$logsh"
+echo "# Run this at the destination to get updates." >> "$logsh"
+echo "src=$(hostname):$path" >> "$logsh"
+echo 'rsync  -rv --exclude="*.h5" "$src" ../' >> "$logsh"
 chmod +x "$logsh"
-rsync  "$logsh" "$to/$base_dir/"
+
+rsync  -rv --exclude="*.h5" "$path" "$to/"
 
