@@ -455,6 +455,7 @@ alias dwz='. dwz'
 # directory changing from the last opened path
 # ldp to load the path from the file .last_dir which was created by the modified "cd" alias. See the function cd_ for details.
 alias ldp='cd $(cat ~/.last_dir)'
+alias ldr='ranger $(cat ~/.last_dir)'
 
 # LESS man page colors (makes Man pages more readable).
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -683,7 +684,7 @@ function fz()
 #######################################################################
 # Moving this to .xsessionrc so that awesome can access this path (as
 # opposed to .bash_profile, which does not work)
-export PATH=$PATH:~/.myscr/
+#export PATH=$PATH:~/.myscr/
 
 
 #Creating a config file for linux calculator bc, which does not support a config file by default
@@ -768,4 +769,12 @@ export BROWSER=/usr/bin/firefox
 
 # change caps lock to escape
 setxkbmap -option caps:escape
+alias 131='cd /home/debdeep/teaching/2025-2/131-Fall-2025; ranger'
+alias 313='cd /home/debdeep/teaching/2025-2/313-Fall-2025; ranger'
+alias sch='firefox /home/debdeep/teaching/2025-2/session-fall-2025.html'
+alias hmm='h-m-m'
 
+function xc()       # copy content of a file to clipboard
+{
+    cat "$1" | xclip -sel clip
+}
