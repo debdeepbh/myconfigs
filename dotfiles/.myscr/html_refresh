@@ -1,10 +1,6 @@
 #!/bin/bash
-# Launch firefox if not already running, focus otherwise
-# see .myscr/wifire  and t for other interesting examples
-# Problem is, only works when firefox in in the 4th tag (--desktop 3)
-# Otherwise, cannot windowactivate
-# wrokaround is to check for every desktop and activate the first one found, creepy
 
+# allow time for pandoc to compile
 sleep 0.5
 
 # html file needs to have a title for this to work properly
@@ -12,6 +8,7 @@ filename="$1"
 
 # get the title of the html file to match with xprop info
 title=$(awk -vRS="</title>" '/<title>/{gsub(/.*<title>|\n+/,"");print;exit}' "$1")
+# echo "title: $title"
 
 browser='firefox'
 # browser='google-chrome'
@@ -20,7 +17,9 @@ browser='firefox'
 if [ $browser == "firefox" ]
 then
     # note that the string is not a minus, it is something unicode
-    window_title="${title} — Mozilla Firefox"
+    # window_title="${title} — Mozilla Firefox"
+    # # Firefox changed title in newer versions
+    window_title="${title} — Original profile — Mozilla Firefox"
 else
     window_title="${title} - Google Chrome"
 fi
