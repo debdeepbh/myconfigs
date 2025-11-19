@@ -122,11 +122,12 @@ endsnippet
 #snippet it "item in itemize" w
 #\item
 #endsnippet
-global !p
 
+global !p
 # fix the alignment of \item while using vimtex
+# escaped the slash in  '\<c-f>' with additional slash
 def fix_indent(snip):
-    vim.eval('feedkeys("\<c-f>")')
+    vim.eval('feedkeys("\\<c-f>")')
 endglobal
 
 post_expand "fix_indent(snip)"
