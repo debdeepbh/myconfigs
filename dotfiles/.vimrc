@@ -1016,8 +1016,9 @@ let g:pandoc#syntax#conceal#urls = 1
 "enable this functionality, set |g:pandoc#command#autoexec_on_writes| to 1 and
 "provide a command to execute like so:
 "
-let g:pandoc#command#autoexec_on_writes = 1
-" let g:pandoc#command#autoexec_on_writes = 0
+" let g:pandoc#command#autoexec_on_writes = 1
+" " Default on; turn on using \l by calling PandocToggle()
+let g:pandoc#command#autoexec_on_writes = 0
 "Which command to autoexecute on writes if
 " |g:pandoc#command#autoexec_on_writes| is enabled.
 " More examples: https://pandoc.org/demos.html
