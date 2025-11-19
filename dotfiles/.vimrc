@@ -1017,6 +1017,7 @@ let g:pandoc#syntax#conceal#urls = 1
 "provide a command to execute like so:
 "
 let g:pandoc#command#autoexec_on_writes = 1
+" let g:pandoc#command#autoexec_on_writes = 0
 "Which command to autoexecute on writes if
 " |g:pandoc#command#autoexec_on_writes| is enabled.
 " More examples: https://pandoc.org/demos.html
@@ -1044,6 +1045,8 @@ let g:pandoc#command#autoexec_on_writes = 1
 " let b:pandoc_command_autoexec_command = "Pandoc! --include-in-header=~/Templates/mathjax-config-header.html -s --css=~/Templates/table.css --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
 
 " let b:pandoc_command_autoexec_command = "Pandoc! -t html5 --include-in-header=~/Templates/mathjax-config-header.html -s --css=~/Templates/table.css --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+
+" let b:pandoc_command_autoexec_command = "Pandoc! -t html5 --include-in-header=~/Templates/mathjax-config-header.html -s --css=~/Templates/pandoc-default-mod.css --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js --toc"
 
 let b:pandoc_command_autoexec_command = "Pandoc! -t html5 --include-in-header=~/Templates/mathjax-config-header.html -s --css=~/Templates/pandoc-default-mod.css --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js --toc"
 
@@ -1176,9 +1179,9 @@ function SlidesMd()
     let g:pandoc#command#autoexec_on_writes = 0
     " the html file needs to have title for this to work properly
     " Set in the yaml header using `title: Document title`
-    " Cannot get the stupid press any key to go away with <CR>; So using silent!; Remove to debug
     !marp % --html --theme=$HOME/Templates/marp.css; $HOME/.myscr/html_refresh %:t:r.html
     redraw!
+    " Cannot get the stupid press any key to go away with <CR>; So using silent!; Remove to debug
     " " :normal <CR><CR>
     " <CR><CR>
     " execute "normal! <CR>"
@@ -1195,8 +1198,23 @@ endfunction
 " draw-this
 " nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 
-" directory to store figures, relative to current location
-let $figdir = 'figures'
-inoremap <C-f> <Esc>: silent exec '.!~/.myscr/drawfig "'.getline('.').'" '$figdir''<CR><CR>:w<CR>
+" " directory to store figures, relative to current location
+" let $figdir = 'figures'
+" inoremap <C-f> <Esc>: silent exec '.!~/.myscr/drawfig "'.getline('.').'" '$figdir''<CR><CR>:w<CR>
 
 " nnoremap <C-f> : silent exec '!~/.myscr/drawfig "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
+"
+
+"" \l to toggle pandoc
+autocmd FileType pandoc nnoremap <buffer> <leader>l :call PandocToggle()<CR>
+function! PandocToggle()
+    if g:pandoc#command#autoexec_on_writes
+	let g:pandoc#command#autoexec_on_writes = 0
+	echo 'Pandoc autoexec on write:' g:pandoc#command#autoexec_on_writes
+    else
+	let g:pandoc#command#autoexec_on_writes = 1
+	set filetype=pandoc.tex
+	echo 'Pandoc autoexec on write:' g:pandoc#command#autoexec_on_writes '; filetype=pandoc.tex.' 
+
+    endif
+endfunction

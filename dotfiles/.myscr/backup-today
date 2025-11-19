@@ -46,7 +46,7 @@ myconfigs() {
     cp {$HOME,$dest}/.vim/spell/en.utf-8.add
     cp -r $HOME/.vim/UltiSnips $dest/.vim/
     cp -r $HOME/.myscr $dest/
-    cp -r $HOME/.vimrc $dest/dotfiles/.vimrc
+    cp -r $HOME/.vimrc $dest/.vimrc
 
     cd ~/myconfigs
     git c
