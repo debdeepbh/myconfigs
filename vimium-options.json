@@ -1,0 +1,76 @@
+{
+  "filterLinkHints": true,
+  "waitForEnterForFilteredHints": false,
+  "keyMappings": "# Insert your preferred key mappings here.\nmap <c-d> scrollPageDown\nmap <c-u> scrollPageUp\n\nunmap x\nunmap X\nunmap u\nunmap d\n\nmap qq removeTab\nmap u restoreTab\n\n# open new pages?\n\nmap gl createTab https://grinnell.instructure.com/courses/2157/assignments/syllabus\nmap gn createTab https://grinnell.instructure.com/courses/1888/assignments/syllabus\nmap gx createTab https://colss-prod.ec.grinnell.edu/Student/Courses/\nmap gb createTab https://read.wiley.com/books/9781119777670/page/26/section/top-of-page\nmap gc createTab https://colss-prod.ec.grinnell.edu/Student/?hideProxyDialog=false\nmap gz createTab https://grinnellcollege.zoom.us/meeting#/pmi/3616098053",
+  "settingsVersion": "2.3.1",
+  "exclusionRules": [
+    {
+      "passKeys": "*",
+      "pattern": "https?://localhost:8888/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://localhost:8888/*"
+    },
+    {
+      "passKeys": "*",
+      "pattern": "https?://localhost/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://localhost/*"
+    },
+    {
+      "passKeys": "*",
+      "pattern": "https?://www.overleaf.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://www.overleaf.com/*"
+    },
+    {
+      "passKeys": "*",
+      "pattern": "https?://trello.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://trello.com/*"
+    },
+    {
+      "passKeys": "*",
+      "pattern": "https?://latex.ornl.gov/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://latex.ornl.gov/*"
+    },
+    {
+      "passKeys": "*",
+      "pattern": "https?://www.hackerrank.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://www.hackerrank.com/*"
+    },
+    {
+      "passKeys": "*",
+      "pattern": "https?://leetcode.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://leetcode.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://outlook.office.com/*"
+    },
+    {
+      "passKeys": "z12345",
+      "pattern": "https?://www.gradescope.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://localhost:8889/*"
+    }
+  ]
+}
