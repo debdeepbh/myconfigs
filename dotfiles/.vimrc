@@ -357,6 +357,9 @@ Plug 'tpope/vim-obsession'
 
 Plug 'preservim/vimux'
 
+" sc or sc-im spreadsheet with markdown tables
+Plug 'mipmip/vim-scimark'
+
 "" Make sure you use single quotes
 "
 "" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
