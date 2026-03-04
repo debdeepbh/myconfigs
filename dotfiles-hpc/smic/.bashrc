@@ -180,7 +180,7 @@ function extract()      # Handy Extract Program
 #######################################################################
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
 # alias vim=nvim
-# alias vim=$HOME/.local/bin/vim
+alias vim=$HOME/.local/bin/vim
 
 #Creating a config file for linux calculator bc, which does not support a config file by default
 # we will add scale=5 in this file to make it support decimal divisions
@@ -195,9 +195,11 @@ export BC_ENV_ARGS=~/.bcrc
 #                     Adding path for my scripts                      #
 #######################################################################
 
+export PATH=$PATH:~/.myscr/
+
+
 # obligatory
-export PATH="$HOME/.myscr/:$PATH"
-export PATH="$HOME/.local/bin:$PATH:"
+export PATH="$PATH:$HOME/.local/bin"
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
