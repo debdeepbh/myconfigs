@@ -178,7 +178,7 @@ function extract()      # Handy Extract Program
 #######################################################################
 #           setting the editor for ranger to use clipboard            #
 #######################################################################
-VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR
+VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
 # alias vim=nvim
 # alias vim=$HOME/.local/bin/vim
 
@@ -205,13 +205,12 @@ export PATH="$HOME/.local/bin:$PATH:"
 # force read inputrc
 export INPUTRC=$HOME/.inputrc
 
-### qsub shortcuts
-# watch jobs
-alias qw="watch qstat -u $USER"
-# show jobs
-alias qs="qstat -u $USER"
-# delete all jobs
-alias qda="qselect -u $USER | xargs qdel"
-# cd to work directory
-alias cdw="cd /work/$USER/peri-wheel-output/wheel"
-alias lsw="ls /work/$USER/peri-wheel-output/wheel"
+### slurm
+## https://docs.rc.fas.harvard.edu/kb/convenient-slurm-commands/
+alias si='sinfo -e --Format=partition,available,nodes,nodelist,cpusstate'
+alias sg='sinfo -o "%50N  %10c  %20m  %30G "'
+alias sib='sinfo -O nodehost,cpusstate,socketcorethread,allocmem,memory,statecompact -p bhattacharyalab'
+alias sq='watch -n 1 squeue'
+# show history of jobs
+alias sa='sacct -u $USER --format=JobID,JobName,MaxRSS,Elapsed,alloccpus,state,maxdiskwrite' 
+# alias st='sstat --format=AveCPU,AvePages,AveRSS,AveVMSize,JobID --allsteps -j ' #<jobid> 
