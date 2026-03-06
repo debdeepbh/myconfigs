@@ -214,3 +214,10 @@ alias sq='watch -n 1 squeue'
 # show history of jobs
 alias sa='sacct -u $USER --format=JobID,JobName,MaxRSS,Elapsed,alloccpus,state,maxdiskwrite' 
 # alias st='sstat --format=AveCPU,AvePages,AveRSS,AveVMSize,JobID --allsteps -j ' #<jobid> 
+#
+
+## Modules
+source ~/venv/bin/activate
+module load openmpi/4.1.8-gcc-11.5.0-gzggvbs 
+export LD_LIBRARY_PATH="/usr/local/spack/opt/spack/linux-sapphirerapids/openmpi-4.1.8-gzggvbshuefavrnxfhemuqlgrhv5srdw/lib"
+

@@ -23,3 +23,21 @@ vim +PlugInstall +qall
 
 # ranger
 pip3 install ranger-fm
+
+#######################################################################
+### python environment
+# Probably won't work externally
+python3 -m venv venv
+source ~/venv/bin/activate
+pip install numpy matplotlib scipy mpi4py
+
+# find the openmpi library file (exclude permission denied stuff) to add it to LD_LIBRARY_PATH for mpi4py to find
+module load openmpi
+find -iname libmpi.so 2>/dev/null
+
+
+
+
+
+
+
