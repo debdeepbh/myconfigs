@@ -219,5 +219,7 @@ alias sa='sacct -u $USER --format=JobID,JobName,MaxRSS,Elapsed,alloccpus,state,m
 ## Modules
 source ~/venv/bin/activate
 module load openmpi/4.1.8-gcc-11.5.0-gzggvbs 
+
+# find using  `find -iname libmpi.so 2>/dev/null`
 export LD_LIBRARY_PATH="/usr/local/spack/opt/spack/linux-sapphirerapids/openmpi-4.1.8-gzggvbshuefavrnxfhemuqlgrhv5srdw/lib"
 
