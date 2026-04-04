@@ -219,7 +219,8 @@ alias sa='sacct -u $USER --format=JobID,JobName,MaxRSS,Elapsed,alloccpus,state,m
 ## Modules
 source ~/venv/bin/activate
 module load openmpi/4.1.8-gcc-11.5.0-gzggvbs 
+module load gmsh hdf5 cmake ffmpeg
 
 # find using  `find -iname libmpi.so 2>/dev/null`
-export LD_LIBRARY_PATH="/usr/local/spack/opt/spack/linux-sapphirerapids/openmpi-4.1.8-gzggvbshuefavrnxfhemuqlgrhv5srdw/lib"
+export LD_LIBRARY_PATH="/usr/local/spack/opt/spack/linux-sapphirerapids/openmpi-4.1.8-gzggvbshuefavrnxfhemuqlgrhv5srdw/lib:/usr/local/spack/opt/spack/linux-sapphirerapids/mesa-glu-9.0.2-5gkotxzar3qfhfkt7ccfvsljnsxhvwft/lib"
 
