@@ -47,6 +47,7 @@ myconfigs() {
     cp -r $HOME/.vim/UltiSnips $dest/.vim/
     cp -r $HOME/.myscr $dest/
     cp -r $HOME/.vimrc $dest/.vimrc
+    cp -r $HOME/Templates/* $dest/Templates/
 
     cd ~/myconfigs
     git c

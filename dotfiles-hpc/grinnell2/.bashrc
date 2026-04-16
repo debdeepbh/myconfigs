@@ -210,15 +210,17 @@ export INPUTRC=$HOME/.inputrc
 alias si='sinfo -e --Format=partition,available,nodes,nodelist,cpusstate'
 alias sg='sinfo -o "%50N  %10c  %20m  %30G "'
 alias sib='sinfo -O nodehost,cpusstate,socketcorethread,allocmem,memory,statecompact -p bhattacharyalab'
-alias sq='watch -n 1 squeue'
+alias sq='watch -n 1 squeue  --format=\"%.18i %.9P %.8j %.8u %.2t %.10M %.10L %C %.6D %R\"'
 # show history of jobs
 alias sa='sacct -u $USER --format=JobID,JobName,MaxRSS,Elapsed,alloccpus,state,maxdiskwrite' 
+alias so='sacct  --format=JobID,JobName,MaxRSS,Elapsed,alloccpus,state,maxdiskwrite' 
 # alias st='sstat --format=AveCPU,AvePages,AveRSS,AveVMSize,JobID --allsteps -j ' #<jobid> 
 #
 
 ## Modules
 source ~/venv/bin/activate
 module load openmpi/4.1.8-gcc-11.5.0-gzggvbs 
+
 module load gmsh hdf5 cmake ffmpeg
 
 # find using  `find -iname libmpi.so 2>/dev/null`

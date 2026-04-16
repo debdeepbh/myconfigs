@@ -2,6 +2,7 @@
 CC = mpic++
 
 CCFLAGS = -std=c++14
+# CCFLAGS = -std=c++17
 #CCFLAGS = -std=c++0x
 
 INCLUDE_DIR = src
@@ -32,7 +33,11 @@ CPPFLAGS += -I$(EIGEN_DIR)
 # CPPFLAGS += -I/usr/include/hdf5/serial/ -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lhdf5_serial -lhdf5_cpp
 # CPPFLAGS += -I/usr/include/hdf5/serial/ -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lhdf5_serial -lhdf5_cpp
 # CPPFLAGS += -I/usr/local/packages/hdf5/1.10.6/vklossna/include -L/usr/local/packages/hdf5/1.10.6/vklossna/lib -lhdf5 -lhdf5_cpp
-CPPFLAGS += -I/usr/local/spack/opt/spack/linux-sapphirerapids/hdf5-1.12.3-vehpug6vc35ib2zbz2g7uu4sefwzg43j/include -L/usr/local/spack/opt/spack/linux-sapphirerapids/hdf5-1.12.3-vehpug6vc35ib2zbz2g7uu4sefwzg43j/lib -lhdf5 -lhdf5_cpp
+# CPPFLAGS += -I/usr/local/spack/opt/spack/linux-sapphirerapids/hdf5-1.12.3-vehpug6vc35ib2zbz2g7uu4sefwzg43j/include -L/usr/local/spack/opt/spack/linux-sapphirerapids/hdf5-1.12.3-vehpug6vc35ib2zbz2g7uu4sefwzg43j/lib -lhdf5 -lhdf5_cpp
+# CPPFLAGS += -I/usr/local/spack/opt/spack/linux-sapphirerapids/hdf5-1.12.3-vehpug6vc35ib2zbz2g7uu4sefwzg43j/include  -lhdf5 -lhdf5_cpp
+
+# using default hdf5.h and libhdf5.so from /lib64 and /usr/include
+CPPFLAGS += -I/usr/include  -lhdf5 -lhdf5_cpp
 
 ## smic
 #CPPFLAGS += -I/usr/local/packages/hdf5/1.10.6/vklossna/include -L/usr/local/packages/hdf5/1.10.6/vklossna/lib -lhdf5 -lhdf5_cpp

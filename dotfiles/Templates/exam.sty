@@ -1,0 +1,145 @@
+\usepackage{amsmath, amssymb, amsthm, amsfonts, color}
+\usepackage[top=1.5cm, bottom=2cm, right=2cm, left=1.5cm]{geometry}
+\pagestyle{plain}
+% \usepackage{pgfplots}
+% \usepackage[inkscapeformat=png]{svg}
+
+\usepackage{multicol}
+
+\usepackage{enumitem}
+\setitemize{noitemsep, topsep=0pt}
+
+\usepackage{ifthen}
+\newif\ifformat
+
+
+\newcommand{\titleshort}[1]{
+    \begin{center}
+        \Large \textbf{#1}
+    \end{center}
+}
+
+\newcommand{\pointtime}{
+\ifformat
+\noindent
+Total points: \numpoints \hfill Time: 15 mins
+\fi
+}
+
+\newcommand{\namebox}{
+\ifformat
+\noindent
+\textbf{Full Name:}\boxw{14.5cm}{1.5cm}{}
+\fi
+}
+
+
+\newcommand{\boxright}[3]{
+    \ifformat
+\begin{flushright}\fbox{
+\begin{minipage}{#1}
+    #3 
+    \vspace{#2}
+    \hspace{#1}
+\end{minipage}}
+\end{flushright}
+    \fi
+}
+
+\newcommand{\boxw}[3]{
+    \ifformat
+    \noindent
+\fbox{
+\begin{minipage}{#1}
+    #3 
+    \vspace{#2}
+    \hspace{#1}
+\end{minipage}
+	}
+\fi
+}
+
+
+\newcommand{\grid}[4]{
+    \begin{center}
+\resizebox{\linewidth}{!}{
+	\begin{tikzpicture}
+\draw[thick,<->] (#1,0) -- (#2,0);
+\draw[thick,<->] (0,#3) -- (0,#4);
+\draw[step=1cm,gray,very thin] (#1,#3) grid (#2,#4);
+\foreach \x in {#1,...,#2}
+   \draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+\foreach \y in {#3,...,#4}
+    \draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+    \end{tikzpicture}
+}
+    \end{center}
+} 
+
+\newcommand{\tinygrid}[5]{
+    \ifformat
+\resizebox{#5\linewidth}{!}{
+	\begin{tikzpicture}
+% \draw[thick,-] (#1,0) -- (#2,0);
+% \draw[thick,-] (0,#3) -- (0,#4);
+\draw[step=1cm,gray,very thin] (#1,#3) grid (#2,#4);
+% \foreach \x in {#1,...,#2}
+%    \draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+% \foreach \y in {#3,...,#4}
+%     \draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+    \end{tikzpicture}
+}
+\fi
+} 
+
+
+\newcommand{\scratch}{
+% Scratch paper page
+\ifformat
+\newpage
+\begin{center}
+\textbf{Scratch Paper}
+\end{center}
+\fi
+}
+
+\newcommand{\instructionscc}{
+\begin{itemize}
+  \setlength\itemsep{0.2em}
+    \item Show your work to get full credit.
+    % \item Each question carries 10 points.
+    \item You can use a four-function calculator. No phones, laptops, collaborations, or any other help is allowed.
+\end{itemize}
+}
+
+\newcommand{\instructionsstd}{
+\begin{itemize}
+  \setlength\itemsep{0.1em}
+    \item You can use a four-function calculator. No phones, laptops, smartwatches, collaborations, notes,  or any other help is allowed.
+
+    % \item Any standards completed on previous exams do not need to be attempted again.
+    \item Do not remove or detach any pages from the test.
+    \item Each question is associated with a standard in the numerical order. For example, the question \textbf{S4} is on Standard 4.
+    \item Write your answers in the space provided for each question. If you require extra space, use the first page. Be sure to indicate if you have work for a standard on a different page.
+    \item You do not need to simplify answers unless it is indicated in the question.
+    \item You should show work and explain the reasoning behind your process whenever possible. Your understanding will be assessed, so the more understanding you are able to express, the easier it will be to assess.
+\end{itemize}
+}
+
+% Formatting for concept check
+\newcommand{\formatcc}[1]{
+\titleshort{Concept Check #1 - MAT 131}
+\pointtime
+\\
+\namebox
+\instructionscc
+}
+
+% Formatting for exam with standards
+\newcommand{\formatcc}[1]{
+\titleshort{Exam #1 - MAT 131}
+\pointtime
+\\
+\namebox
+\instructionsstd
+}

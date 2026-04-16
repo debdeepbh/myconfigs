@@ -386,6 +386,8 @@ Plug 'mipmip/vim-scimark'
 "
 "" Plugin outside ~/.vim/plugged with post-update hook
 "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"
+Plug 'quarto-dev/quarto-nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
