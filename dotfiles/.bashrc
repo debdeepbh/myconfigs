@@ -769,8 +769,9 @@ export BROWSER=/usr/bin/firefox
 
 # change caps lock to escape
 setxkbmap -option caps:escape
-alias 131='cd /home/debdeep/teaching/2025-2/131-Fall-2025; ranger'
+alias 131='cd /home/debdeep/teaching/2026-1/131-Spring-2026; ranger'
 alias 313='cd /home/debdeep/teaching/2025-2/313-Fall-2025; ranger'
+alias 314='cd /home/debdeep/teaching/2026-1/314-Spring-2026; ranger'
 alias sch='firefox /home/debdeep/teaching/2025-2/session-fall-2025.html'
 alias hmm='h-m-m'
 
@@ -778,3 +779,5 @@ function xc()       # copy content of a file to clipboard
 {
     cat "$1" | xclip -sel clip
 }
+
+alias rand131='cd /home/debdeep/teaching/2026-1/131-Spring-2026/randomize; python3 shuffle.py'
