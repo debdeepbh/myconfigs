@@ -51,7 +51,8 @@ set incremental-search false
 set highlight-color \#ebdbb2
 set highlight-active-color \#3c3836
 set recolor true
-set recolor-darkcolor \#3c3836
+# set recolor-darkcolor \#3c3836
+set recolor-darkcolor \#000000
 set recolor-lightcolor \#fbf1c7
 set recolor-reverse-video false
 set render-loading-bg \#fbf1c7

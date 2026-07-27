@@ -8,6 +8,14 @@ chmod +x install_nodejs
 mkdir ~/.local
 ./install_nodejs --prefix=$HOME/.local --yes
 
+### install ctags (for gutantags)
+git clone https://github.com/universal-ctags/ctags.git
+cd ctags
+./autogen.sh
+# install locally, disabling multi-character encoding support, linker not available on hpc
+./configure --prefix=$HOME/.local --disable-iconv
+make
+make install
 
 ### vim 9 from source with python feature, installed at ~/.local/bin
 git clone https://github.com/vim/vim.git
