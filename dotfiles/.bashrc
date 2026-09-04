@@ -1,3 +1,5 @@
+export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH="$HOME/.myscr:/usr/bin:$PATH"
 # =============================================================== #
 #
 # PERSONAL $HOME/.bashrc FILE for bash-3.0 (or later)
@@ -643,24 +645,46 @@ function corename()   # Get name of app that created a corefile. (core dump)
     done
 }
 
+function ff()
+{
+#!/usr/bin/env bash
+# 1. Search for text in files using Ripgrep
+# 2. Interactively restart Ripgrep with reload action
+# 3. Open the file in Vim
+# RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+INITIAL_QUERY="${*:-}"
+fzf --ansi --disabled --query "$INITIAL_QUERY" \
+    --bind "start:reload:$RG_PREFIX {q} || true" \
+    --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+    --delimiter : \
+    --preview 'bat --color=always {1} --highlight-line {2}' \
+    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+    --bind 'enter:become(vim {1} +{2})'
+}
 
 function fz()
 {
+
     # Store the STDOUT of fzf in a variable
     # selection=$(fzf --multi --height=80% --border=sharp \
     selection=$(find -type d | fzf --multi --height=80% --border=sharp \
     --preview='tree -C {}' --preview-window='45%,border-sharp' \
     --prompt='Dirs > ' \
-    --bind='ctrl-d:change-prompt(Dirs > )' \
+    --bind='ctrl-d:change-prompt(Dirs> )' \
     --bind='ctrl-d:+reload(find -type d)' \
     --bind='ctrl-d:+change-preview(tree -C {})' \
     --bind='ctrl-d:+refresh-preview' \
-    --bind='ctrl-f:change-prompt(Files > )' \
+    --bind='ctrl-f:change-prompt(Files> )' \
     --bind='ctrl-f:+reload(find -type f)' \
     --bind='ctrl-f:+change-preview(cat {})' \
     --bind='ctrl-f:+refresh-preview' \
+    --bind='ctrl-r:change-prompt(Rg> )' \
+    --bind='ctrl-r:+reload(ls)' \
+    --bind='ctrl-r:+change-preview(rg --column --line-number --no-heading --color=always --smart-case {q} || true)' \
+    --bind='ctrl-r:+refresh-preview' \
     --header '
-    CTRL-D to display directories | CTRL-F to display files
+    CTRL-D: directories | CTRL-F: files
     '
     )
 
@@ -781,3 +805,9 @@ function xc()       # copy content of a file to clipboard
 }
 
 alias rand131='cd /home/debdeep/teaching/2026-1/131-Spring-2026/randomize; python3 shuffle.py'
+
+# opencode
+export PATH=/home/debdeep/.opencode/bin:$PATH
+
+
+export XDG_DATA_DIRS=/var/lib/flatpak/exports/share:/home/debdeep/.local/share/flatpak/exports/share:$XDG_DATA_DIRS
