@@ -1,4 +1,51 @@
-# Terminal based:
+# Notes of automatizing recurring tasks
+
+## Templates
+
+- [X] Latex templates to use as preamble
+
+- The user commands and packages are separated so that they can be included as needed
+- Exam formats are unified, without title to save vertical space
+
+- [X] Markdown templates
+
+- Typical header with latex commands, mathjax css, and table decoration
+
+
+
+- [X] Inkscape
+
+Goal:  
+Drawing with Tikz is tedious, and non-intuitive. Freehand drawing with inkscape is quick.
+LatexDraw was the best of both worlds, but had to stop using it for various bugs.
+Would be nice to have shortcuts for inkscape to 
+- create axes grids (render > Grid)
+- draw function with formula (formula plotter has too many clicks, and is parametric by default)
+- latex math symbol
+- export to svg and compile
+
+Todo: check if latexdraw is stable enough to integrate into workflow.
+
+
+- [ ] Zathura
+
+- half page down/up, which is the most frequently move, should be done without using ctrl, pinky stress
+Need to edit the rc file
+So far, spacebar is page down
+
+- opening link is clunky?
+
+- [X] Dark theme
+
+- terminal config stopped working, or I manually fixed it
+- vimrc does it beautifully
+- zathurarc should do it naturally
+- 
+
+
+# Productivity shortcuts 
+
+## Terminal based:
 
 [source](https://lifehacker.com/5743814/become-a-command-line-ninja-with-these-time-saving-shortcuts)
 
@@ -18,7 +65,7 @@ or, instead of `mv /etc/file.txt /etc/file.pdf` fo ` mv /etc/file.{txt,pdf}`
 So, empty field inside {.,.} means itself.
 
 
-# Vim 
+## Vim 
 
 * `S` (substitute) deletes the current sentence and goes into the edit (compared to DD where the current line vanishes)
 * `:set textwidth=69` and `:set colorcolumn=+1` breaks the line after 69 characters. (`linebreak` makes sure that that words do not break in the middle). However, after editing for a while in this mode, lines will have different width. It can be fixed with `gq` command: `gqap` (here, `ap` is `a paragraph`)
@@ -78,7 +125,7 @@ Following the keybinding of my `.vimrc`, here are the most useful motions.
 - `:earlier` `:later`
 - undo branching
 
-# Awesomewm related shortcuts:
+## Awesomewm related shortcuts:
 
 - modkey + j/k/h/l = browse by direction
 - altkey + j/k = browse by order
