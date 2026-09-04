@@ -19,7 +19,7 @@ get_packages(){
 
 get_local_bins(){
     echo "#######################################################################"
-    echo "Downloading binaries"
+    mkdir $HOME/.local/bin
 
     # marp
     echo "#####################"
@@ -27,9 +27,17 @@ get_local_bins(){
     version=v3.4.0
     tar_basename=marp-cli-${version}-linux
     wget -c https://github.com/marp-team/marp-cli/releases/download/${version}/${tar_basename}.tar.gz
-    mkdir $HOME/.local/bin
     tar -xvf ${tar_basename}.tar.gz -C  $HOME/.local/bin/
     rm -r ${tar_basename}.tar.gz
+
+    # pandoc
+    echo "#####################"
+    echo "Downloading binaries: rga"
+    version=3.11
+    tar_basename=pandoc-${version}-linux-amd64.tar.gz 
+    wget -c https://github.com/jgm/pandoc/releases/download/${version}/pandoc-${version}-linux-amd64.tar.gz
+    tar -xvf ${tar_basename}.tar.gz -C  $HOME/.local/bin/
+    rm -r ${tar_basename} ${tar_basename}.tar.gz
 
     # rga
     echo "#####################"

@@ -1,0 +1,25 @@
+#!/bin/bash
+# Convert pptx to md with pandoc
+# Needs pandoc 3.11 or higher
+# Needs imagemagick
+
+
+# extract pptx
+echo "Extracting pptx"
+unzip "$1"
+
+# convert all tiff to png
+for i in ppt/media/*.tiff
+do
+	echo "converting $i"
+	convert "$i" "$i".png
+done	
+
+outmd="$1".md
+echo $outmd
+echo "converting pptx to md with pandoc 3.11 or higher"
+pandoc -f pptx "$1" -o "$outmd"
+
+echo "renaming files within md"
+sed -i -e 's/tiff/tiff.png/g' "$outmd"
+
